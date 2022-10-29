@@ -5,6 +5,8 @@
 <style scoped>
 img {
   position: absolute;
+  width: 34px;
+  height: 34px;
   left: 23.5%;
   top: 35.75%;
 }

@@ -5,9 +5,9 @@ import Scrolls from "./Scrolls.vue";
 
 <template>
   <main>
+    <img src="./assets/base.png" alt="base-picture" />
     <weapon />
     <Scrolls />
-    <img src="./assets/base.png" alt="base-picture" />
   </main>
 </template>
 

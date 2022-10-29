@@ -5,6 +5,7 @@ const activeState = ref(false);
 
 function toggleActive() {
   activeState.value = !activeState.value;
+  console.log("已點選，對武器施法的卷軸");
 }
 </script>
 
@@ -19,9 +20,6 @@ function toggleActive() {
 
 <style scoped>
 .scroll_weapon {
-  position: absolute;
-  top: 80.8%;
-  right: 16.2%;
 }
 .active {
   outline: 1px solid #ffe0cb;
