@@ -1,3 +1,14 @@
+<template>
+  <div ref="dom" class="container" @click="defaultActive">
+    <img
+      v-for="slot in slotList"
+      :key="slot.id"
+      :src="slot.src"
+      @click="mouseToggleActive"
+    />
+  </div>
+</template>
+
 <script setup>
 import { onMounted, ref } from "vue";
 // 抓取<div class="container">節點，加工成nodeList，就會涵蓋slot 1 ~ 8的節點陣列，之後資料都是用這個來操作
@@ -6,14 +17,16 @@ onMounted(() => {
   const nodeList = Array.from(dom.value.children);
   nodeList[0].classList.add("empty-default");
   nodeList[4].classList.add("empty-default");
-  window.addEventListener("keypress", keyboardToggleActive);
+  document.addEventListener("keypress", keyboardToggleActive);
 });
+
 function keyboardToggleActive(e) {
   const nodeList = Array.from(dom.value.children);
 
   nodeList.forEach((node) => {
     node.classList.remove("active");
   });
+
   switch (e.key) {
     // 按鍵1，白武 +1
     case "1":
@@ -147,17 +160,6 @@ const slotList = ref([
   },
 ]);
 </script>
-
-<template>
-  <div ref="dom" class="container" @click="defaultActive">
-    <img
-      v-for="slot in slotList"
-      :key="slot.id"
-      :src="slot.src"
-      @click="mouseToggleActive"
-    />
-  </div>
-</template>
 
 <style scoped>
 .container {

@@ -1,12 +1,12 @@
 <script setup>
-import weapon from "./components/weapon.vue";
-import SlotList from "./SlotList.vue";
+import EquipmentList from "./components/EquipmentList.vue";
+import SlotList from "./components/SlotList.vue";
 </script>
 
 <template>
   <main>
     <img src="./assets/base.png" alt="base-picture" />
-    <weapon />
+    <EquipmentList />
     <SlotList />
   </main>
 </template>
