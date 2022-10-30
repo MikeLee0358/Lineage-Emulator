@@ -10,7 +10,7 @@ onMounted(() => {
 });
 
 //圖檔位置，對應數字 1 ~ 8
-const slots = ref([
+const slotList = ref([
   {
     id: 0,
     title: "對武器施法的卷軸",
@@ -158,7 +158,7 @@ function mouseToggleActive(e) {
 <template>
   <div ref="dom" class="container" @click="defaultActive">
     <img
-      v-for="slot in slots"
+      v-for="slot in slotList"
       :key="slot.id"
       :src="slot.url"
       @click="mouseToggleActive"
