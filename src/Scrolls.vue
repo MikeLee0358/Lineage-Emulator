@@ -1,8 +1,65 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
-// 在vue中要使用原生ＪＳ的event target功能，故參數要寫入event
-function toggleActive(event) {
+// 鍵盤觸發event事件，window為全畫面媒介，切換1 ~ 8。
+onMounted(() => {
+  window.addEventListener("keypress", (e) => {
+    // 把dom節點轉成Array好處理個別資料
+    const nodes = Array.from(e.target.children[0].children[0].children[2].children);
+    console.log(nodes);
+    nodes.forEach((node) => {
+      node.classList.remove("active");
+    });
+    switch (e.key) {
+      // 按鍵1，白武 +1
+      case "1":
+        console.log("白武，參數+1");
+        nodes[0].classList.add("active");
+        break;
+      // 按鍵2，祝武 +1 ~ +3
+      case "2":
+        console.log("祝武，參數+1 - 3");
+        nodes[1].classList.add("active");
+        break;
+      // 按鍵3，紅武 -1
+      case "3":
+        console.log("紅武，參數-1");
+        nodes[2].classList.add("active");
+        break;
+      // 按鍵4，空格
+      case "4":
+        console.log("空格");
+        nodes[3].classList.add("active");
+        break;
+      // 按鍵5，白防 ＋1
+      case "5":
+        console.log("白防，參數+1");
+        nodes[4].classList.add("active");
+        break;
+      // 按鍵6，祝防 +1 ~ +3
+      case "6":
+        console.log("祝防，參數+1 - 3");
+        nodes[5].classList.add("active");
+        break;
+      // 按鍵7，紅防 -1
+      case "7":
+        console.log("紅防，參數-1");
+        nodes[6].classList.add("active");
+        break;
+      // 按鍵8，空格
+      case "8":
+        console.log("空格");
+        nodes[7].classList.add("active");
+        break;
+      // 其他，不回應
+      default:
+        console.log("其他按鍵");
+        break;
+    }
+  });
+});
+// 滑鼠觸發event事件，img tag為媒介，切換1 ~ 8。
+function mouseToggleActive(event) {
   const target = event.target;
   const slots = target.parentElement.querySelectorAll("img");
 
@@ -87,10 +144,10 @@ const scrolls = ref([
       v-for="scroll in scrolls"
       :key="scroll.id"
       :src="scroll.url"
-      @click="toggleActive"
+      @click="mouseToggleActive"
     />
-    <img src="./assets/scroll_empty-slot.jpg" @click="toggleActive" class="f8" />
-    <img src="./assets/scroll_empty-slot.jpg" @click="toggleActive" class="f12" />
+    <img src="./assets/scroll_empty-slot.jpg" @click="mouseToggleActive" class="f8" />
+    <img src="./assets/scroll_empty-slot.jpg" @click="mouseToggleActive" class="f12" />
   </div>
 </template>
 
