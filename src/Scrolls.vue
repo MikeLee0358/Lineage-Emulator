@@ -5,20 +5,53 @@ import { ref } from "vue";
 function toggleActive(event) {
   const target = event.target;
   const slots = target.parentElement.querySelectorAll("img");
-  // 為了切換樣式功能，先把全部node的active移除，在使目標active。
+
   slots.forEach((slot) => {
+    // 為了切換樣式功能，先把全部node的active移除
     slot.classList.remove("active");
     if (slot.classList === target.classList) {
       target.classList.add("active");
-      console.log(`點選了卷軸 or 空格`);
+
+      // 透過slice切割網址，針對不同情況給不同係數
+      switch (target.src.slice(40)) {
+        // 白武 +1
+        case "white-weapon.png":
+          console.log("白武，參數+1");
+          break;
+        // 祝武 +1 ~ +3
+        case "blessed-weapon.png":
+          console.log("祝武，參數+1 - 3");
+          break;
+        // 紅武 -1
+        case "cursed-weapon.png":
+          console.log("紅武，參數-1");
+          break;
+        // 白防 ＋1
+        case "white-armor.png":
+          console.log("白防，參數+1");
+          break;
+        // 祝防 +1 ~ +3
+        case "blessed-armor.png":
+          console.log("祝防，參數+1 - 3");
+          break;
+        // 紅防 -1
+        case "cursed-armor.png":
+          console.log("紅防，參數-1");
+          break;
+        // 空格 沒有任何事
+        default:
+          console.log("空格，沒有事情");
+          break;
+      }
     }
   });
 }
+
 const scrolls = ref([
   {
     id: 0,
     title: "對武器施法的卷軸",
-    url: "/src/assets/scroll_weapon.png",
+    url: "/src/assets/scroll_white-weapon.png",
   },
   {
     id: 1,
@@ -33,7 +66,7 @@ const scrolls = ref([
   {
     id: 3,
     title: "對盔甲施法的卷軸",
-    url: "/src/assets/scroll_armor.png",
+    url: "/src/assets/scroll_white-armor.png",
   },
   {
     id: 4,
@@ -56,8 +89,8 @@ const scrolls = ref([
       :src="scroll.url"
       @click="toggleActive"
     />
-    <img src="" @click="toggleActive" class="f8" />
-    <img src="" @click="toggleActive" class="f12" />
+    <img src="./assets/scroll_empty-slot.jpg" @click="toggleActive" class="f8" />
+    <img src="./assets/scroll_empty-slot.jpg" @click="toggleActive" class="f12" />
   </div>
 </template>
 
@@ -69,28 +102,26 @@ const scrolls = ref([
   grid-template-rows: repeat(2, auto);
   padding: 2px;
   gap: 4px;
-  top: 81%;
+  top: 81.1%;
   left: 79.4%;
-  /* outline: 1px solid red; */
 }
-
 img {
   width: 34px;
   height: 34px;
 }
-img[src=""],
-img:not([src]) {
-  opacity: 0;
-}
 .f8 {
   grid-column: 4/5;
   grid-row: 1/2;
+  opacity: 0;
 }
 .f12 {
   grid-column: 4/5;
   grid-row: 2/3;
+  opacity: 0;
 }
-.active {
-  outline: 1px solid #ffe0cb;
+.active[data-v-613df293] {
+  outline: 1.75px solid rgba(245, 217, 198, 0.83);
+  box-shadow: 0 0 2px 0px rgb(245, 217, 198, 0.83);
+  opacity: 1;
 }
 </style>

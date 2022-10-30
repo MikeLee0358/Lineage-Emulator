@@ -14,6 +14,7 @@ import Scrolls from "./Scrolls.vue";
 <style>
 main {
   position: relative;
+  top: 10px;
   width: 800px;
   margin: 0 auto;
 }
