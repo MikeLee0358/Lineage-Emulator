@@ -1,6 +1,13 @@
 <script setup>
 import { onMounted, ref } from "vue";
+// 抓取div的節點，主要是empty-slot加上樣式。
 const dom = ref();
+onMounted(() => {
+  // 為了一開始就跑空白預設樣式，所以在mounted時，新增class
+  dom.value.children[3].classList.add("empty-default");
+  dom.value.children[7].classList.add("empty-default");
+  window.addEventListener("keypress", keyboardToggleActive);
+});
 
 //圖檔位置，對應數字 1 ~ 8
 const slots = ref([
@@ -45,73 +52,65 @@ const slots = ref([
     url: "/src/assets/scroll_empty-slot.jpg",
   },
 ]);
-
-onMounted(() => {
-  // 為了一開始就跑空白預設樣式，所以在mounted時，新增class
-  dom.value.children[3].classList.add("empty-default");
-  dom.value.children[7].classList.add("empty-default");
-
-  // 鍵盤觸發event事件，window為全畫面媒介，切換1 ~ 8。
-  window.addEventListener("keypress", (e) => {
-    // 把dom節點轉成Array好處理個別資料
-    const slotListKeyboard = Array.from(
-      e.target.children[0].children[0].children[2].children
-    );
-    slotListKeyboard.forEach((slotKeyboard) => {
-      slotKeyboard.classList.remove("active");
-    });
-    switch (e.key) {
-      // 按鍵1，白武 +1
-      case "1":
-        console.log("白武，參數+1");
-        slotListKeyboard[0].classList.add("active");
-        break;
-      // 按鍵2，祝武 +1 ~ +3
-      case "2":
-        console.log("祝武，參數+1 - 3");
-        slotListKeyboard[1].classList.add("active");
-        break;
-      // 按鍵3，紅武 -1
-      case "3":
-        console.log("紅武，參數-1");
-        slotListKeyboard[2].classList.add("active");
-        break;
-      // 按鍵4，空格
-      case "4":
-        console.log("空格");
-        slotListKeyboard[3].classList.add("active");
-        break;
-      // 按鍵5，白防 ＋1
-      case "5":
-        console.log("白防，參數+1");
-        slotListKeyboard[4].classList.add("active");
-        break;
-      // 按鍵6，祝防 +1 ~ +3
-      case "6":
-        console.log("祝防，參數+1 - 3");
-        slotListKeyboard[5].classList.add("active");
-        break;
-      // 按鍵7，紅防 -1
-      case "7":
-        console.log("紅防，參數-1");
-        slotListKeyboard[6].classList.add("active");
-        break;
-      // 按鍵8，空格
-      case "8":
-        console.log("空格");
-        slotListKeyboard[7].classList.add("active");
-        break;
-      // 其他，不回應
-      default:
-        console.log("其他按鍵");
-        break;
-    }
+// 鍵盤觸發event事件，window為全畫面媒介，切換1 ~ 8。
+function keyboardToggleActive(e) {
+  // 把dom節點轉成Array好處理個別資料
+  const slotListKeyboard = Array.from(
+    e.target.children[0].children[0].children[2].children
+  );
+  slotListKeyboard.forEach((slotKeyboard) => {
+    slotKeyboard.classList.remove("active");
   });
-});
-
+  switch (e.key) {
+    // 按鍵1，白武 +1
+    case "1":
+      console.log("白武，參數+1");
+      slotListKeyboard[0].classList.add("active");
+      break;
+    // 按鍵2，祝武 +1 ~ +3
+    case "2":
+      console.log("祝武，參數+1 - 3");
+      slotListKeyboard[1].classList.add("active");
+      break;
+    // 按鍵3，紅武 -1
+    case "3":
+      console.log("紅武，參數-1");
+      slotListKeyboard[2].classList.add("active");
+      break;
+    // 按鍵4，空格
+    case "4":
+      console.log("空格");
+      slotListKeyboard[3].classList.add("active");
+      break;
+    // 按鍵5，白防 ＋1
+    case "5":
+      console.log("白防，參數+1");
+      slotListKeyboard[4].classList.add("active");
+      break;
+    // 按鍵6，祝防 +1 ~ +3
+    case "6":
+      console.log("祝防，參數+1 - 3");
+      slotListKeyboard[5].classList.add("active");
+      break;
+    // 按鍵7，紅防 -1
+    case "7":
+      console.log("紅防，參數-1");
+      slotListKeyboard[6].classList.add("active");
+      break;
+    // 按鍵8，空格
+    case "8":
+      console.log("空格");
+      slotListKeyboard[7].classList.add("active");
+      break;
+    // 其他，不回應
+    default:
+      console.log("其他按鍵");
+      break;
+  }
+}
 // 滑鼠觸發event事件，img tag為媒介，切換1 ~ 8。
-function mouseToggleActive(event) {
-  const target = event.target;
+function mouseToggleActive(e) {
+  const target = e.target;
   const slotListMouse = target.parentElement.querySelectorAll("img");
 
   slotListMouse.forEach((slotMouse) => {
