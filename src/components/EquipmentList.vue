@@ -7,6 +7,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 const dom = ref();
+
 onMounted(() => {
   const nodeList = Array.from(dom.value.children);
 

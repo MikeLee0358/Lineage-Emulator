@@ -26,7 +26,6 @@ function keyboardToggleActive(e) {
   nodeList.forEach((node) => {
     node.classList.remove("active");
   });
-
   switch (e.key) {
     // 按鍵1，白武 +1
     case "1":
@@ -75,12 +74,12 @@ function keyboardToggleActive(e) {
       break;
   }
 }
+
 function mouseToggleActive(e) {
   const nodeList = Array.from(dom.value.children);
   const target = e.target;
 
   nodeList.forEach((node) => {
-    node.classList.remove("active");
     if (node.classList === target.classList) {
       target.classList.add("active");
       switch (target.src.slice(40)) {
@@ -113,7 +112,7 @@ function mouseToggleActive(e) {
           console.log("空格");
           break;
       }
-    }
+    } else node.classList.remove("active");
   });
 }
 //圖檔資料，對應數字 1 ~ 8

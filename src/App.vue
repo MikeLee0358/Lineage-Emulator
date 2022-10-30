@@ -1,8 +1,3 @@
-<script setup>
-import EquipmentList from "./components/EquipmentList.vue";
-import SlotList from "./components/SlotList.vue";
-</script>
-
 <template>
   <main>
     <img src="./assets/base.png" alt="base-picture" />
@@ -10,6 +5,11 @@ import SlotList from "./components/SlotList.vue";
     <SlotList />
   </main>
 </template>
+
+<script setup>
+import EquipmentList from "./components/EquipmentList.vue";
+import SlotList from "./components/SlotList.vue";
+</script>
 
 <style>
 main {
