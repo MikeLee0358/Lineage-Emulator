@@ -4,8 +4,8 @@ import { onMounted, ref } from "vue";
 const dom = ref();
 onMounted(() => {
   // 為了一開始就跑空白預設樣式，所以在mounted時，新增class
-  dom.value.children[3].classList.add("empty-default");
-  dom.value.children[7].classList.add("empty-default");
+  dom.value.children[0].classList.add("empty-default");
+  dom.value.children[4].classList.add("empty-default");
   window.addEventListener("keypress", keyboardToggleActive);
 });
 
@@ -13,43 +13,43 @@ onMounted(() => {
 const slotList = ref([
   {
     id: 0,
+    title: "空格",
+    url: "/src/assets/scroll_empty-slot.jpg",
+  },
+  {
+    id: 1,
     title: "對武器施法的卷軸",
     url: "/src/assets/scroll_white-weapon.png",
   },
   {
-    id: 1,
+    id: 2,
     title: "祝福的對武器施法的卷軸",
     url: "/src/assets/scroll_blessed-weapon.png",
   },
   {
-    id: 2,
+    id: 3,
     title: "受詛咒的對武器施法的卷軸",
     url: "/src/assets/scroll_cursed-weapon.png",
   },
   {
-    id: 3,
+    id: 4,
     title: "空格",
     url: "/src/assets/scroll_empty-slot.jpg",
   },
   {
-    id: 4,
+    id: 5,
     title: "對盔甲施法的卷軸",
     url: "/src/assets/scroll_white-armor.png",
   },
   {
-    id: 5,
+    id: 6,
     title: "祝福的對盔甲施法的卷軸",
     url: "/src/assets/scroll_blessed-armor.png",
   },
   {
-    id: 6,
+    id: 7,
     title: "受詛咒的對盔甲施法的卷軸",
     url: "/src/assets/scroll_cursed-armor.png",
-  },
-  {
-    id: 7,
-    title: "空格",
-    url: "/src/assets/scroll_empty-slot.jpg",
   },
 ]);
 // 鍵盤觸發event事件，window為全畫面媒介，切換1 ~ 8。
@@ -58,48 +58,50 @@ function keyboardToggleActive(e) {
   const slotListKeyboard = Array.from(
     e.target.children[0].children[0].children[2].children
   );
+  console.log("keyboard", slotListKeyboard);
   slotListKeyboard.forEach((slotKeyboard) => {
     slotKeyboard.classList.remove("active");
   });
   switch (e.key) {
     // 按鍵1，白武 +1
     case "1":
-      console.log("白武，參數+1");
+      console.log("空格");
       slotListKeyboard[0].classList.add("active");
       break;
     // 按鍵2，祝武 +1 ~ +3
     case "2":
-      console.log("祝武，參數+1 - 3");
+      console.log("白武，參數+1");
       slotListKeyboard[1].classList.add("active");
       break;
     // 按鍵3，紅武 -1
     case "3":
-      console.log("紅武，參數-1");
+      console.log("祝武，參數+1 - 3");
       slotListKeyboard[2].classList.add("active");
       break;
     // 按鍵4，空格
     case "4":
-      console.log("空格");
+      console.log("紅武，參數-1");
+
       slotListKeyboard[3].classList.add("active");
       break;
     // 按鍵5，白防 ＋1
     case "5":
-      console.log("白防，參數+1");
+      console.log("空格");
       slotListKeyboard[4].classList.add("active");
       break;
     // 按鍵6，祝防 +1 ~ +3
     case "6":
-      console.log("祝防，參數+1 - 3");
+      console.log("白防，參數+1");
       slotListKeyboard[5].classList.add("active");
       break;
     // 按鍵7，紅防 -1
     case "7":
-      console.log("紅防，參數-1");
+      console.log("祝防，參數+1 - 3");
       slotListKeyboard[6].classList.add("active");
       break;
     // 按鍵8，空格
     case "8":
-      console.log("空格");
+      console.log("紅防，參數-1");
       slotListKeyboard[7].classList.add("active");
       break;
     // 其他，不回應
@@ -112,7 +114,7 @@ function keyboardToggleActive(e) {
 function mouseToggleActive(e) {
   const target = e.target;
   const slotListMouse = target.parentElement.querySelectorAll("img");
-
+  console.log("mouse", slotListMouse);
   slotListMouse.forEach((slotMouse) => {
     // 為了切換樣式功能，把全部的active移除
     slotMouse.classList.remove("active");
