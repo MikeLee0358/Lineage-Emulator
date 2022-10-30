@@ -1,13 +1,13 @@
 <script setup>
 import weapon from "./components/weapon.vue";
-import Scrolls from "./Scrolls.vue";
+import SlotList from "./SlotList.vue";
 </script>
 
 <template>
   <main>
     <img src="./assets/base.png" alt="base-picture" />
     <weapon />
-    <Scrolls />
+    <SlotList />
   </main>
 </template>
 

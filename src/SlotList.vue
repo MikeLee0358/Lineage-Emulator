@@ -2,7 +2,6 @@
 import { onMounted, ref } from "vue";
 // 抓取<div class="container">節點，加工成nodeList，就會涵蓋slot 1 ~ 8的節點陣列，之後資料都是用這個來操作
 const dom = ref();
-
 onMounted(() => {
   const nodeList = Array.from(dom.value.children);
   nodeList[0].classList.add("empty-default");
@@ -104,47 +103,47 @@ function mouseToggleActive(e) {
     }
   });
 }
-//圖檔位置，對應數字 1 ~ 8
+//圖檔資料，對應數字 1 ~ 8
 const slotList = ref([
   {
     id: 0,
     title: "空格",
-    url: "/src/assets/scroll_empty-slot.jpg",
+    src: "/src/assets/scroll_empty-slot.jpg",
   },
   {
     id: 1,
     title: "對武器施法的卷軸",
-    url: "/src/assets/scroll_white-weapon.png",
+    src: "/src/assets/scroll_white-weapon.png",
   },
   {
     id: 2,
     title: "祝福的對武器施法的卷軸",
-    url: "/src/assets/scroll_blessed-weapon.png",
+    src: "/src/assets/scroll_blessed-weapon.png",
   },
   {
     id: 3,
     title: "受詛咒的對武器施法的卷軸",
-    url: "/src/assets/scroll_cursed-weapon.png",
+    src: "/src/assets/scroll_cursed-weapon.png",
   },
   {
     id: 4,
     title: "空格",
-    url: "/src/assets/scroll_empty-slot.jpg",
+    src: "/src/assets/scroll_empty-slot.jpg",
   },
   {
     id: 5,
     title: "對盔甲施法的卷軸",
-    url: "/src/assets/scroll_white-armor.png",
+    src: "/src/assets/scroll_white-armor.png",
   },
   {
     id: 6,
     title: "祝福的對盔甲施法的卷軸",
-    url: "/src/assets/scroll_blessed-armor.png",
+    src: "/src/assets/scroll_blessed-armor.png",
   },
   {
     id: 7,
     title: "受詛咒的對盔甲施法的卷軸",
-    url: "/src/assets/scroll_cursed-armor.png",
+    src: "/src/assets/scroll_cursed-armor.png",
   },
 ]);
 </script>
@@ -154,7 +153,7 @@ const slotList = ref([
     <img
       v-for="slot in slotList"
       :key="slot.id"
-      :src="slot.url"
+      :src="slot.src"
       @click="mouseToggleActive"
     />
   </div>
@@ -175,11 +174,10 @@ img {
   width: 34px;
   height: 34px;
 }
-
 .empty-default {
   opacity: 0;
 }
-.active[data-v-613df293] {
+.active {
   outline: 1.75px solid rgba(245, 217, 198, 0.83);
   box-shadow: 0 0 2px 0px rgb(245, 217, 198, 0.83);
   opacity: 1;
