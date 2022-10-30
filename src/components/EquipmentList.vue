@@ -1,11 +1,21 @@
 <template>
-  <!-- <img src="../assets/equipment_weapon.jpg" alt="weapon-img" /> -->
-  <img v-for="equipment in equipmentList" :key="equipment.id" :src="equipment.src" />
+  <div ref="dom" class="container">
+    <img v-for="equipment in equipmentList" :key="equipment.id" :src="equipment.src" />
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+const dom = ref();
+onMounted(() => {
+  const nodeList = Array.from(dom.value.children);
 
+  nodeList.forEach((node) => {
+    // 從網址中擷取裝備名稱
+    const className = node.src.split("_")[1].split(".")[0];
+    node.classList.add(className);
+  });
+});
 const equipmentList = ref([
   {
     id: 0,
@@ -38,7 +48,7 @@ const equipmentList = ref([
   {
     id: 4,
     title: "內衣",
-    src: "/src/assets/equipment_t-shirt.jpg",
+    src: "/src/assets/equipment_shirt.jpg",
     value: 0,
     stableValue: -4,
   },
@@ -59,7 +69,7 @@ const equipmentList = ref([
   {
     id: 7,
     title: "鞋子",
-    src: "/src/assets/equipment_armor.jpg",
+    src: "/src/assets/equipment_boots.jpg",
     value: 0,
     stableValue: -4,
   },
@@ -69,16 +79,42 @@ const equipmentList = ref([
 <style scoped>
 img {
   position: absolute;
-  width: 30.5px;
-  height: 30.5px;
-  left: 23.5%;
-  top: 35.75%;
+  width: 31px;
+  height: 31px;
 }
 img:hover {
   outline: 1px solid green;
 }
+.weapon {
+  top: 36%;
+  left: 23.5%;
+}
+.helmet {
+  top: 13%;
+  left: 36.3%;
+}
+.cloak {
+  top: 23.35%;
+  left: 36.85%;
+}
 .armor {
-  position: absolute !important;
-  left: 50% !important;
+  top: 23.35%;
+  left: 32.25%;
+}
+.shirt {
+  top: 23.35%;
+  left: 27.75%;
+}
+.shield {
+  top: 31.3%;
+  left: 39.3%;
+}
+.gloves {
+  top: 34%;
+  left: 28%;
+}
+.boots {
+  top: 52.3%;
+  left: 38.7%;
 }
 </style>
