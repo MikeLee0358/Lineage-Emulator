@@ -113,11 +113,11 @@ const equipmentList = ref([
 // 控制css字體的顏色
 const color = {
   // 已鑑定顏色
-  white: "#eee",
+  white: "#f2f2f2",
   // 未鑑定顏色
-  gray: "#afaeac",
+  gray: "#acacac",
   // 祝福的顏色
-  yellow: "#f0ec92",
+  yellow: "#ECF0A3",
   // 受詛咒的顏色
   red: "red",
 };
@@ -156,6 +156,10 @@ li {
   width: 31px;
   height: 31px;
   color: v-bind(color.white);
+  -webkit-text-stroke: 0.05px black; /* width and color */
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
 }
 li::after {
   /* 透過attr()的ＣＳＳ方法，可以抓取Dom的屬性使用（content以外都在實驗階段），也藉由template可以使用ＪＳ的特性，所以實現出動態渲染   + X 某某裝備   */
@@ -164,10 +168,7 @@ li::after {
   top: -15px;
   /* 每樣道具名稱長度不同，找到這個解決方案，讓文字長度有span效果(隨字體同寬) */
   display: ruby;
-  /* 讓文字權重高於圖片 */
   z-index: 1;
-  font-size: 10px;
-  /* 讓文字隱藏 */
   opacity: 0;
 }
 li:hover::after {
