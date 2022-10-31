@@ -4,24 +4,14 @@
       v-for="equipment in equipmentList"
       :key="equipment.id"
       :data-id="equipment.id"
-      :data-fullTitle="`+${equipment.currentValue} ${equipment.title}`"
+      :data-fullTitle="showFullTitle(equipment)"
     ></li>
   </ul>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
-// 控制css字體的顏色
-const color = {
-  // 已鑑定顏色
-  white: "#eee",
-  // 未鑑定顏色
-  gray: "#afaeac",
-  // 祝福的顏色
-  yellow: "#f0ec92",
-  // 受詛咒的顏色
-  red: "red",
-};
+
 const dom = ref();
 const equipmentList = ref([
   {
@@ -120,7 +110,17 @@ const equipmentList = ref([
     stableValue: 4,
   },
 ]);
-
+// 控制css字體的顏色
+const color = {
+  // 已鑑定顏色
+  white: "#eee",
+  // 未鑑定顏色
+  gray: "#afaeac",
+  // 祝福的顏色
+  yellow: "#f0ec92",
+  // 受詛咒的顏色
+  red: "red",
+};
 function addClassToNode() {
   const nodeList = Array.from(dom.value.children);
 
@@ -135,6 +135,15 @@ function addClassToNode() {
       }
     });
   });
+}
+function showFullTitle(equipment) {
+  // 針對飾品，不打算開放飾品衝裝，想保持未鑑定的灰色。   +X 飾品 沒有美感～
+  const blockList = ["妖魔戰士護身符", "瞬間移動控制戒指", "歐吉皮帶", "形體控制戒指"];
+
+  // 例子： 妖魔戰士的護身符
+  if (blockList.includes(equipment.title)) return `${equipment.title}`;
+  // 例子： +9 精靈金屬盔甲
+  else return `+${equipment.currentValue} ${equipment.title}`;
 }
 onMounted(() => {
   addClassToNode();
@@ -158,8 +167,11 @@ li::after {
   /* 讓文字權重高於圖片 */
   z-index: 1;
   font-size: 10px;
+  /* 讓文字隱藏 */
+  opacity: 0;
 }
 li:hover::after {
+  /* 滑鼠移到時，顯示文字 */
   opacity: 1;
 }
 .weapon {
@@ -204,6 +216,7 @@ li:hover::after {
   top: 29.5%;
   left: 34%;
   background-image: url("/src/assets/equipment_belt.png");
+  color: v-bind(color.gray);
 }
 .shield {
   top: 31.3%;
@@ -220,6 +233,7 @@ li:hover::after {
   top: 37.45%;
   left: 38.75%;
   background-image: url("/src/assets/equipment_right-ring.png");
+  color: v-bind(color.gray);
 }
 .boots {
   top: 52.3%;
