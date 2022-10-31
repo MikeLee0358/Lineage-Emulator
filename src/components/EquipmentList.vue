@@ -30,6 +30,14 @@ const equipmentList = ref([
   },
   {
     id: 2,
+    title: "妖魔戰士護身符",
+    src: "/src/assets/equipment_amulet.png",
+    armor: 0,
+    currentValue: 0,
+    stableValue: 0,
+  },
+  {
+    id: 3,
     title: "T恤",
     src: "/src/assets/equipment_shirt.jpg",
     armor: 0,
@@ -37,7 +45,7 @@ const equipmentList = ref([
     stableValue: 4,
   },
   {
-    id: 3,
+    id: 4,
     title: "精靈金屬盔甲",
     src: "/src/assets/equipment_armor.jpg",
     armor: -6,
@@ -45,7 +53,7 @@ const equipmentList = ref([
     stableValue: 6,
   },
   {
-    id: 4,
+    id: 5,
     title: "保護者斗篷",
     src: "/src/assets/equipment_cloak.jpg",
     armor: -3,
@@ -53,15 +61,23 @@ const equipmentList = ref([
     stableValue: 4,
   },
   {
-    id: 5,
-    title: "力量手套",
-    src: "/src/assets/equipment_gloves.jpg",
+    id: 6,
+    title: "瞬間移動控制戒指",
+    src: "/src/assets/equipment_left-ring.png",
     armor: 0,
     currentValue: 0,
-    stableValue: 4,
+    stableValue: 0,
   },
   {
-    id: 6,
+    id: 7,
+    title: "歐吉皮帶",
+    src: "/src/assets/equipment_belt.png",
+    armor: 0,
+    currentValue: 0,
+    stableValue: 0,
+  },
+  {
+    id: 8,
     title: "精靈盾牌",
     src: "/src/assets/equipment_shield.jpg",
     armor: -2,
@@ -69,7 +85,23 @@ const equipmentList = ref([
     stableValue: 6,
   },
   {
-    id: 7,
+    id: 9,
+    title: "力量手套",
+    src: "/src/assets/equipment_gloves.jpg",
+    armor: 0,
+    currentValue: 0,
+    stableValue: 4,
+  },
+  {
+    id: 10,
+    title: "形體控制戒指",
+    src: "/src/assets/equipment_right-ring.png",
+    armor: 0,
+    currentValue: 0,
+    stableValue: 0,
+  },
+  {
+    id: 11,
     title: "鋼鐵長靴",
     src: "/src/assets/equipment_boots.jpg",
     armor: -3,
@@ -132,20 +164,35 @@ li:hover::after {
   left: 36.3%;
   background-image: url("../assets/equipment_helmet.jpg");
 }
-.cloak {
+.amulet {
+  top: 16.5%;
+  left: 31.75%;
+  background-image: url("/src/assets/equipment_amulet.png");
+}
+.shirt {
   top: 23.35%;
-  left: 36.85%;
-  background-image: url("../assets/equipment_cloak.jpg");
+  left: 27.75%;
+  background-image: url("../assets/equipment_shirt.jpg");
 }
 .armor {
   top: 23.35%;
   left: 32.25%;
   background-image: url("../assets/equipment_armor.jpg");
 }
-.shirt {
+.cloak {
   top: 23.35%;
-  left: 27.75%;
-  background-image: url("../assets/equipment_shirt.jpg");
+  left: 36.85%;
+  background-image: url("../assets/equipment_cloak.jpg");
+}
+.left-ring {
+  top: 30%;
+  left: 22.8%;
+  background-image: url("/src/assets/equipment_right-ring.png");
+}
+.belt {
+  top: 29.5%;
+  left: 34%;
+  background-image: url("/src/assets/equipment_belt.png");
 }
 .shield {
   top: 31.3%;
@@ -159,26 +206,15 @@ li:hover::after {
   left: 28%;
   background-image: url("../assets/equipment_gloves.jpg");
 }
+.right-ring {
+  top: 37.45%;
+  left: 38.75%;
+  background-image: url("/src/assets/equipment_right-ring.png");
+}
 .boots {
   top: 52.3%;
   left: 38.7%;
   background-image: url("../assets/equipment_boots.jpg");
 }
 
-/* .test {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  background-image: url("../assets/equipment_armor.jpg");
-}
-.test::after {
-  content: "+10 精靈金屬盔甲";
-  color: white;
-  position: absolute;
-  top: -10px;
-  opacity: 0;
-}
-.test:hover::after {
-  opacity: 1;
-} */
 </style>
