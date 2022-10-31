@@ -113,12 +113,13 @@ li::after {
   top: -15px;
   left: 5px;
   z-index: 1;
-  display: block ruby;
+  display: ruby;
+  opacity: 0;
 
   font-size: 10px;
 }
 li:hover::after {
-  background: green;
+  opacity: 1;
 }
 .weapon {
   top: 36%;
