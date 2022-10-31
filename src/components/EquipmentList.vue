@@ -11,6 +11,17 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+// 控制css字體的顏色
+const color = {
+  // 已鑑定顏色
+  white: "#eee",
+  // 未鑑定顏色
+  gray: "#afaeac",
+  // 祝福的顏色
+  yellow: "#f0ec92",
+  // 受詛咒的顏色
+  red: "red",
+};
 const dom = ref();
 const equipmentList = ref([
   {
@@ -135,19 +146,17 @@ li {
   position: absolute;
   width: 31px;
   height: 31px;
-  color: white;
+  color: v-bind(color.white);
 }
 li::after {
   /* 透過attr()的ＣＳＳ方法，可以抓取Dom的屬性使用（content以外都在實驗階段），也藉由template可以使用ＪＳ的特性，所以實現出動態渲染   + X 某某裝備   */
   content: attr(data-fullTitle);
-  position: absolute;
-  /* color: #9e9e9e; */
+  position: relative;
   top: -15px;
-  left: 5px;
-  z-index: 1;
+  /* 每樣道具名稱長度不同，找到這個解決方案，讓文字長度有span效果(隨字體同寬) */
   display: ruby;
-  opacity: 0;
-
+  /* 讓文字權重高於圖片 */
+  z-index: 1;
   font-size: 10px;
 }
 li:hover::after {
@@ -168,6 +177,7 @@ li:hover::after {
   top: 16.5%;
   left: 31.75%;
   background-image: url("/src/assets/equipment_amulet.png");
+  color: v-bind(color.gray);
 }
 .shirt {
   top: 23.35%;
@@ -188,6 +198,7 @@ li:hover::after {
   top: 30%;
   left: 22.8%;
   background-image: url("/src/assets/equipment_right-ring.png");
+  color: v-bind(color.gray);
 }
 .belt {
   top: 29.5%;
@@ -198,8 +209,7 @@ li:hover::after {
   top: 31.3%;
   left: 39.3%;
   background-image: url("../assets/equipment_shield.jpg");
-  /* 祝福的顏色 */
-  color: #fff84f;
+  color: v-bind(color.yellow);
 }
 .gloves {
   top: 34%;
@@ -216,5 +226,4 @@ li:hover::after {
   left: 38.7%;
   background-image: url("../assets/equipment_boots.jpg");
 }
-
 </style>
