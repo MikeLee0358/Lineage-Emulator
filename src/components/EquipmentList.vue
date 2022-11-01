@@ -50,7 +50,7 @@ const equipmentList = ref([
     title: "精靈金屬盔甲",
     src: "/src/assets/equipment_armor.jpg",
     armor: -6,
-    currentValue: 0,
+    currentValue: 12,
     stableValue: 6,
   },
   {
@@ -90,7 +90,7 @@ const equipmentList = ref([
     title: "力量手套",
     src: "/src/assets/equipment_gloves.jpg",
     armor: 0,
-    currentValue: 0,
+    currentValue: 12,
     stableValue: 4,
   },
   {
@@ -113,9 +113,9 @@ const equipmentList = ref([
 // 控制css字體的顏色
 const color = {
   // 已鑑定顏色
-  white: "#f2f2f2",
+  white: "#fffdfd",
   // 未鑑定顏色
-  gray: "#acacac",
+  gray: "#b3b1b1",
   // 祝福的顏色
   yellow: "#ECF0A3",
   // 受詛咒的顏色
@@ -156,25 +156,31 @@ li {
   width: 31px;
   height: 31px;
   color: v-bind(color.white);
-  -webkit-text-stroke: 0.05px black; /* width and color */
+  -webkit-text-stroke: 0.05px black;
+  /* width and color */
   font-family: "Noto Sans TC", sans-serif;
-  font-weight: 500;
-  font-size: 11px;
+  font-weight: 400;
+  font-size: 12px;
 }
+
 li::after {
   /* 透過attr()的ＣＳＳ方法，可以抓取Dom的屬性使用（content以外都在實驗階段），也藉由template可以使用ＪＳ的特性，所以實現出動態渲染   + X 某某裝備   */
   content: attr(data-fullTitle);
   position: relative;
-  top: -15px;
-  /* 每樣道具名稱長度不同，找到這個解決方案，讓文字長度有span效果(隨字體同寬) */
-  display: ruby;
+  top: 30px;
+
+  display: block;
   z-index: 1;
   opacity: 0;
+  /* 顯示名稱寬度 */
+  width: 100px;
 }
+
 li:hover::after {
   /* 滑鼠移到時，顯示文字 */
   opacity: 1;
 }
+
 .weapon {
   top: 36%;
   left: 23.5%;
@@ -186,49 +192,79 @@ li:hover::after {
   left: 36.3%;
   background-image: url("../assets/equipment_helmet.jpg");
 }
+
 .amulet {
   top: 16.5%;
   left: 31.75%;
   background-image: url("/src/assets/equipment_amulet.png");
   color: v-bind(color.gray);
 }
+
+.amulet::after {
+  left: 35px;
+  top: 10px;
+}
+
 .shirt {
   top: 23.35%;
   left: 27.75%;
   background-image: url("../assets/equipment_shirt.jpg");
 }
+
 .armor {
   top: 23.35%;
   left: 32.25%;
   background-image: url("../assets/equipment_armor.jpg");
 }
+
 .cloak {
   top: 23.35%;
   left: 36.85%;
   background-image: url("../assets/equipment_cloak.jpg");
 }
+
 .left-ring {
   top: 30%;
   left: 22.8%;
   background-image: url("/src/assets/equipment_right-ring.png");
   color: v-bind(color.gray);
 }
+
+.left-ring::after {
+  top: -20px;
+  left: -60px;
+}
+
 .belt {
   top: 29.5%;
   left: 34%;
   background-image: url("/src/assets/equipment_belt.png");
   color: v-bind(color.gray);
 }
+
+.belt::after {
+  width: 50px;
+  left: -10px;
+}
+
 .shield {
   top: 31.3%;
   left: 39.3%;
   background-image: url("../assets/equipment_shield.jpg");
   color: v-bind(color.yellow);
 }
+
+.shield::after {
+  left: -15px;
+}
+
 .gloves {
   top: 34%;
   left: 28%;
   background-image: url("../assets/equipment_gloves.jpg");
+}
+.gloves::after {
+  width: 80px;
 }
 .right-ring {
   top: 37.45%;
@@ -236,6 +272,7 @@ li:hover::after {
   background-image: url("/src/assets/equipment_right-ring.png");
   color: v-bind(color.gray);
 }
+
 .boots {
   top: 52.3%;
   left: 38.7%;
