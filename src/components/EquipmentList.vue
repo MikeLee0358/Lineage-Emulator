@@ -4,19 +4,17 @@
       v-for="equip in equipList"
       :key="equip.id"
       :data-id="equip.id"
-      :data-fullTitle="displayEquipInfo(equip)"
+      :data-displayEquipInfo="getEquipInfo(equip)"
     ></li>
   </ul>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
-
-const dom = ref();
 const equipList = ref([
   {
     id: 0,
-    title: "瑟魯基之劍",
+    name: "瑟魯基之劍",
     src: "/src/assets/equip_weapon.jpg",
     category: "oneHandedSword",
     toDisplay: {
@@ -35,7 +33,7 @@ const equipList = ref([
   },
   {
     id: 1,
-    title: "騎士面甲",
+    name: "騎士面甲",
     src: "/src/assets/equip_helmet.jpg",
     category: "helmet",
     toDisplay: {
@@ -50,7 +48,7 @@ const equipList = ref([
   },
   {
     id: 2,
-    title: "妖魔戰士護身符",
+    name: "妖魔戰士護身符",
     src: "/src/assets/equip_amulet.png",
     category: "necklace",
     toDisplay: {
@@ -65,7 +63,7 @@ const equipList = ref([
   },
   {
     id: 3,
-    title: "T恤",
+    name: "T恤",
     src: "/src/assets/equip_shirt.jpg",
     category: "shirt",
     toDisplay: {
@@ -80,7 +78,7 @@ const equipList = ref([
   },
   {
     id: 4,
-    title: "精靈金屬盔甲",
+    name: "精靈金屬盔甲",
     src: "/src/assets/equip_armor.jpg",
     category: "armor",
     toDisplay: {
@@ -95,7 +93,7 @@ const equipList = ref([
   },
   {
     id: 5,
-    title: "保護者斗篷",
+    name: "保護者斗篷",
     src: "/src/assets/equip_cloak.jpg",
     category: "cloak",
     toDisplay: {
@@ -110,7 +108,7 @@ const equipList = ref([
   },
   {
     id: 6,
-    title: "瞬間移動控制戒指",
+    name: "瞬間移動控制戒指",
     src: "/src/assets/equip_left-ring.png",
     category: "left-ring",
     toDisplay: {
@@ -125,7 +123,7 @@ const equipList = ref([
   },
   {
     id: 7,
-    title: "歐吉皮帶",
+    name: "歐吉皮帶",
     src: "/src/assets/equip_belt.png",
     category: "belt",
     toDisplay: {
@@ -140,7 +138,7 @@ const equipList = ref([
   },
   {
     id: 8,
-    title: "精靈盾牌",
+    name: "精靈盾牌",
     src: "/src/assets/equip_shield.jpg",
     category: "shield",
     toDisplay: {
@@ -155,7 +153,7 @@ const equipList = ref([
   },
   {
     id: 9,
-    title: "力量手套",
+    name: "力量手套",
     src: "/src/assets/equip_gloves.jpg",
     category: "gloves",
     toDisplay: {
@@ -170,7 +168,7 @@ const equipList = ref([
   },
   {
     id: 10,
-    title: "形體控制戒指",
+    name: "形體控制戒指",
     src: "/src/assets/equip_right-ring.png",
     category: "right-ring",
     toDisplay: {
@@ -185,7 +183,7 @@ const equipList = ref([
   },
   {
     id: 11,
-    title: "鋼鐵長靴",
+    name: "鋼鐵長靴",
     src: "/src/assets/equip_boots.jpg",
     category: "boots",
     toDisplay: {
@@ -199,7 +197,9 @@ const equipList = ref([
     },
   },
 ]);
-// 控制css字體的顏色
+// 透過vue方法，抓取<ul>的DOM
+const dom = ref();
+// 透過vue方法，控制css字體的顏色
 const color = {
   // 已鑑定顏色
   white: "#f2f2f2",
@@ -223,15 +223,19 @@ function addCategoryToClass() {
     });
   });
 }
-
-function displayEquipInfo(equip) {
+function getEquipInfo(equip) {
   // 未鑑定狀態： 不打算開放飾品衝裝，不喜歡 '+3 妖魔戰士護身符' 的感覺。
-  const noInfoList = ["妖魔戰士護身符", "瞬間移動控制戒指", "歐吉皮帶", "形體控制戒指"];
+  const blockEquipInfo = [
+    "妖魔戰士護身符",
+    "瞬間移動控制戒指",
+    "歐吉皮帶",
+    "形體控制戒指",
+  ];
 
-  if (equip.title === "瑟魯基之劍")
-    return `+${equip.toDisplay.currentValue} ${equip.title} (揮舞)`;
-  else if (noInfoList.includes(equip.title)) return `${equip.title} (使用中)`;
-  else return `+${equip.toDisplay.currentValue} ${equip.title} (使用中)`;
+  if (equip.name === "瑟魯基之劍")
+    return `+${equip.toDisplay.currentValue} ${equip.name} (揮舞)`;
+  else if (blockEquipInfo.includes(equip.name)) return `${equip.name} (使用中)`;
+  else return `+${equip.toDisplay.currentValue} ${equip.name} (使用中)`;
 }
 
 onMounted(() => {
@@ -247,8 +251,9 @@ li {
 }
 
 li::after {
-  /* 透過attr()的ＣＳＳ方法，可以抓取Dom的屬性使用（content以外都在實驗階段），也藉由template可以使用ＪＳ的特性，所以實現出動態渲染   + X 某某裝備   */
-  content: attr(data-fullTitle);
+  /* 透過attr()的ＣＳＳ方法，抓取Dom屬性使用（content以外都在實驗階段），
+     也藉著template特性使用ＪＳ實現出，動態渲染 '+ X 某某裝備 '。 */
+  content: attr(data-displayEquipInfo);
   position: relative;
   top: 33px;
   left: -25px;
@@ -273,8 +278,7 @@ li::after {
 }
 
 li:hover::after {
-  /* 滑到圖案時，裝備提示框on */
-  display: block;
+  display: block; /* 滑到圖案時，裝備提示框on */
 }
 
 .oneHandedSword {
@@ -351,16 +355,16 @@ li:hover::after {
   left: 38.7%;
   background-image: url("../assets/equip_boots.jpg");
 }
-/* 裝備提示框，顯示一行（未鑑定） */
+/*  blockEquipInfo的樣式（未鑑定），只會顯示一行 */
 .necklace::after,
 .belt::after,
 .left-ring::after,
 .right-ring::after {
   color: v-bind(color.white);
-  height: 1rem;
   border: unset;
   background: unset;
   padding: unset;
+  height: 1rem;
   overflow-y: hidden;
 }
 </style>
