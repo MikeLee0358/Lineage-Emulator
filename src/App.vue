@@ -14,8 +14,8 @@ import SlotList from "./components/SlotList.vue";
 <style>
 main {
   position: relative;
-  top: 10px;
   width: 800px;
+  height: 100vh;
   margin: 0 auto;
 }
 </style>

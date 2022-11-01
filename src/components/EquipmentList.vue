@@ -141,9 +141,9 @@ function showFullTitle(equipment) {
   const blockList = ["妖魔戰士護身符", "瞬間移動控制戒指", "歐吉皮帶", "形體控制戒指"];
 
   // 例子： 妖魔戰士的護身符
-  if (blockList.includes(equipment.title)) return `${equipment.title}`;
+  if (blockList.includes(equipment.title)) return `${equipment.title} (使用中)`;
   // 例子： +9 精靈金屬盔甲
-  else return `+${equipment.currentValue} ${equipment.title}`;
+  else return `+${equipment.currentValue} ${equipment.title} (使用中)`;
 }
 onMounted(() => {
   addClassToNode();
@@ -155,12 +155,6 @@ li {
   position: absolute;
   width: 31px;
   height: 31px;
-  color: v-bind(color.white);
-  -webkit-text-stroke: 0.05px black;
-  /* width and color */
-  font-family: "Noto Sans TC", sans-serif;
-  font-weight: 400;
-  font-size: 12px;
 }
 
 li::after {
@@ -168,17 +162,29 @@ li::after {
   content: attr(data-fullTitle);
   position: relative;
   top: 30px;
-
-  display: block;
   z-index: 1;
-  opacity: 0;
-  /* 顯示名稱寬度 */
-  width: 100px;
+
+  /* 文字框樣式 */
+  /* display: block; */
+  display: none;
+  width: 90px;
+  height: 50px;
+  border: 1.5px ridge;
+  border-color: darkgrey grey grey darkgrey;
+  background: rgba(0, 0, 0, 0.3);
+
+  padding: 2px;
+  color: v-bind(color.white);
+  -webkit-text-stroke: 0.1px black;
+  /* width and color */
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 10px;
 }
 
 li:hover::after {
   /* 滑鼠移到時，顯示文字 */
-  opacity: 1;
+  display: block;
 }
 
 .weapon {
@@ -197,12 +203,9 @@ li:hover::after {
   top: 16.5%;
   left: 31.75%;
   background-image: url("/src/assets/equipment_amulet.png");
-  color: v-bind(color.gray);
 }
-
 .amulet::after {
-  left: 35px;
-  top: 10px;
+  color: v-bind(color.gray);
 }
 
 .shirt {
@@ -227,35 +230,27 @@ li:hover::after {
   top: 30%;
   left: 22.8%;
   background-image: url("/src/assets/equipment_right-ring.png");
-  color: v-bind(color.gray);
 }
-
 .left-ring::after {
-  top: -20px;
-  left: -60px;
+  color: v-bind(color.gray);
 }
 
 .belt {
   top: 29.5%;
   left: 34%;
   background-image: url("/src/assets/equipment_belt.png");
+}
+belt::after {
   color: v-bind(color.gray);
 }
 
-.belt::after {
-  width: 50px;
-  left: -10px;
-}
-
 .shield {
-  top: 31.3%;
-  left: 39.3%;
+  top: 31.2%;
+  left: 39.35%;
   background-image: url("../assets/equipment_shield.jpg");
-  color: v-bind(color.yellow);
 }
-
 .shield::after {
-  left: -15px;
+  color: v-bind(color.yellow);
 }
 
 .gloves {
@@ -263,13 +258,13 @@ li:hover::after {
   left: 28%;
   background-image: url("../assets/equipment_gloves.jpg");
 }
-.gloves::after {
-  width: 80px;
-}
+
 .right-ring {
   top: 37.45%;
   left: 38.75%;
   background-image: url("/src/assets/equipment_right-ring.png");
+}
+.right-ring::after {
   color: v-bind(color.gray);
 }
 
