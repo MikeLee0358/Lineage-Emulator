@@ -113,9 +113,9 @@ const equipmentList = ref([
 // 控制css字體的顏色
 const color = {
   // 已鑑定顏色
-  white: "#fffdfd",
+  white: "#f2f2f2",
   // 未鑑定顏色
-  gray: "#b3b1b1",
+  gray: "#999",
   // 祝福的顏色
   yellow: "#ECF0A3",
   // 受詛咒的顏色
@@ -137,12 +137,10 @@ function addClassToNode() {
   });
 }
 function showFullTitle(equipment) {
-  // 針對飾品，不打算開放飾品衝裝，想保持未鑑定的灰色。   +X 飾品 沒有美感～
+  // 不打算開放飾品衝裝，想保持未鑑定的狀態。  不喜歡 '+3 妖魔戰士護身符' 的感覺
   const blockList = ["妖魔戰士護身符", "瞬間移動控制戒指", "歐吉皮帶", "形體控制戒指"];
 
-  // 例子： 妖魔戰士的護身符
   if (blockList.includes(equipment.title)) return `${equipment.title} (使用中)`;
-  // 例子： +9 精靈金屬盔甲
   else return `+${equipment.currentValue} ${equipment.title} (使用中)`;
 }
 onMounted(() => {
@@ -161,29 +159,30 @@ li::after {
   /* 透過attr()的ＣＳＳ方法，可以抓取Dom的屬性使用（content以外都在實驗階段），也藉由template可以使用ＪＳ的特性，所以實現出動態渲染   + X 某某裝備   */
   content: attr(data-fullTitle);
   position: relative;
-  top: 30px;
+  top: 33px;
+  left: -25px;
   z-index: 1;
 
-  /* 文字框樣式 */
-  /* display: block; */
-  display: none;
-  width: 90px;
+  /* 裝備提示框樣式 */
+  display: none; /* 預設off*/
+  width: 150px;
   height: 50px;
-  border: 1.5px ridge;
-  border-color: darkgrey grey grey darkgrey;
-  background: rgba(0, 0, 0, 0.3);
 
-  padding: 2px;
+  padding: 3px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid;
+  border-color: v-bind(color.white) v-bind(color.gray) v-bind(color.gray)
+    v-bind(color.white);
+
   color: v-bind(color.white);
-  -webkit-text-stroke: 0.1px black;
-  /* width and color */
-  font-family: "Noto Sans TC", sans-serif;
+  font-family: "Noto Sans SC", sans-serif;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 10px;
 }
 
 li:hover::after {
-  /* 滑鼠移到時，顯示文字 */
+  /* 滑到圖案時，裝備提示框on */
   display: block;
 }
 
@@ -204,9 +203,6 @@ li:hover::after {
   left: 31.75%;
   background-image: url("/src/assets/equipment_amulet.png");
 }
-.amulet::after {
-  color: v-bind(color.gray);
-}
 
 .shirt {
   top: 23.35%;
@@ -219,7 +215,6 @@ li:hover::after {
   left: 32.25%;
   background-image: url("../assets/equipment_armor.jpg");
 }
-
 .cloak {
   top: 23.35%;
   left: 36.85%;
@@ -231,17 +226,12 @@ li:hover::after {
   left: 22.8%;
   background-image: url("/src/assets/equipment_right-ring.png");
 }
-.left-ring::after {
-  color: v-bind(color.gray);
-}
 
 .belt {
   top: 29.5%;
   left: 34%;
   background-image: url("/src/assets/equipment_belt.png");
-}
-belt::after {
-  color: v-bind(color.gray);
+  display: block;
 }
 
 .shield {
@@ -264,13 +254,22 @@ belt::after {
   left: 38.75%;
   background-image: url("/src/assets/equipment_right-ring.png");
 }
-.right-ring::after {
-  color: v-bind(color.gray);
-}
 
 .boots {
   top: 52.3%;
   left: 38.7%;
   background-image: url("../assets/equipment_boots.jpg");
+}
+/* 裝備提示框，顯示一行（未鑑定） */
+.amulet::after,
+.belt::after,
+.left-ring::after,
+.right-ring::after {
+  color: v-bind(color.white);
+  height: 1rem;
+  border: unset;
+  background: unset;
+  padding: unset;
+  overflow-y: hidden;
 }
 </style>
