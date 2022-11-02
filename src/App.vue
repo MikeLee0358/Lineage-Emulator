@@ -5,7 +5,7 @@
     <SlotList />
   </main>
 </template>
-
+q
 <script setup>
 import EquipmentList from "./components/EquipmentList.vue";
 import SlotList from "./components/SlotList.vue";

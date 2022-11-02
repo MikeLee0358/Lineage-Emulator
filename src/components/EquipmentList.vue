@@ -197,7 +197,7 @@ const equipList = ref([
     },
   },
 ]);
-// 透過vue方法，抓取<ul>的DOM
+// 透過vue方法，抓取<ul>的DOM，經過一些處理變成array，再來操作資料。
 const dom = ref();
 // 透過vue方法，控制css字體的顏色
 const color = {
