@@ -18,7 +18,7 @@ const slotList = ref([
     id: 0,
     slotName: "F5",
     name: "空格圖案",
-    src: "/src/assets/Slot_empty.jpg",
+    src: "/src/assets/Slot_empty.png",
   },
 
   {
@@ -43,7 +43,7 @@ const slotList = ref([
     id: 4,
     slotName: "F9",
     name: "空格圖案",
-    src: "/src/assets/slot_empty.jpg",
+    src: "/src/assets/slot_empty.png",
   },
   {
     id: 5,
@@ -72,7 +72,7 @@ onMounted(() => {
 
   document.addEventListener("keydown", keydownToActive);
   function keydownToActive(e) {
-    e.preventDefault(); // 關閉瀏覽器的預設，Ｆ5的重新整理、Ｆ11的全螢幕等。
+    // e.preventDefault(); // 關閉瀏覽器的預設，Ｆ5的重新整理、Ｆ11的全螢幕等。
     nodeList.forEach((node) => {
       node.classList.remove("active");
 

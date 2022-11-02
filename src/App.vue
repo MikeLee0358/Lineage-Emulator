@@ -1,6 +1,6 @@
 <template>
   <main>
-    <img src="./assets/base.png" alt="base-picture" />
+    <img src="./assets/base.jpg" alt="base-picture" />
     <EquipmentList />
     <SlotList />
   </main>
@@ -13,9 +13,11 @@ import SlotList from "./components/SlotList.vue";
 
 <style>
 main {
+  display: grid;
+  place-content: center;
+
   position: relative;
   width: 800px;
-  height: 100vh;
-  margin: 0 auto;
+  height: 600px;
 }
 </style>

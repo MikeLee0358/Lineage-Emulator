@@ -49,7 +49,7 @@ const equipList = ref([
   {
     id: 2,
     name: "妖魔戰士護身符",
-    src: "/src/assets/equip_amulet.png",
+    src: "/src/assets/equip_amulet.jpg",
     category: "necklace",
     toDisplay: {
       armor: 0,
@@ -109,7 +109,7 @@ const equipList = ref([
   {
     id: 6,
     name: "瞬間移動控制戒指",
-    src: "/src/assets/equip_left-ring.png",
+    src: "/src/assets/equip_left-ring.jpg",
     category: "left-ring",
     toDisplay: {
       armor: 0,
@@ -124,7 +124,7 @@ const equipList = ref([
   {
     id: 7,
     name: "歐吉皮帶",
-    src: "/src/assets/equip_belt.png",
+    src: "/src/assets/equip_belt.jpg",
     category: "belt",
     toDisplay: {
       armor: 0,
@@ -169,7 +169,7 @@ const equipList = ref([
   {
     id: 10,
     name: "形體控制戒指",
-    src: "/src/assets/equip_right-ring.png",
+    src: "/src/assets/equip_right-ring.jpg",
     category: "right-ring",
     toDisplay: {
       armor: 0,
@@ -246,8 +246,8 @@ onMounted(() => {
 <style scoped>
 li {
   position: absolute;
-  width: 31px;
-  height: 31px;
+  width: 30px;
+  height: 30px;
 }
 
 li::after {
@@ -296,7 +296,7 @@ li:hover::after {
 .necklace {
   top: 16.5%;
   left: 31.75%;
-  background-image: url("/src/assets/equip_amulet.png");
+  background-image: url("/src/assets/equip_amulet.jpg");
 }
 
 .shirt {
@@ -319,13 +319,13 @@ li:hover::after {
 .left-ring {
   top: 30%;
   left: 22.8%;
-  background-image: url("/src/assets/equip_right-ring.png");
+  background-image: url("/src/assets/equip_right-ring.jpg");
 }
 
 .belt {
   top: 29.5%;
   left: 34%;
-  background-image: url("/src/assets/equip_belt.png");
+  background-image: url("/src/assets/equip_belt.jpg");
   display: block;
 }
 
@@ -347,7 +347,7 @@ li:hover::after {
 .right-ring {
   top: 37.45%;
   left: 38.75%;
-  background-image: url("/src/assets/equip_right-ring.png");
+  background-image: url("/src/assets/equip_right-ring.jpg");
 }
 
 .boots {
