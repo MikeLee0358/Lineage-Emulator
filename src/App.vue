@@ -1,6 +1,6 @@
 <template>
   <main>
-    <img src="./assets/base.jpg" alt="base-picture" />
+    <img src="./assets/base.jpg" class="bg" alt="base-picture" />
     <EquipmentList />
     <SlotList />
   </main>
@@ -11,12 +11,15 @@ import EquipmentList from "./components/EquipmentList.vue";
 import SlotList from "./components/SlotList.vue";
 </script>
 
-<style>
+<style scoped>
 main {
-  display: grid;
-  place-content: center;
-
   position: relative;
+  top: 50%;
+  width: 800px;
+  height: 600px;
+  margin: 0 auto;
+}
+.bg {
   width: 800px;
   height: 600px;
 }

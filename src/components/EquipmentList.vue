@@ -204,7 +204,7 @@ const color = {
   // 已鑑定顏色
   white: "#f2f2f2",
   // 未鑑定顏色
-  gray: "#999",
+  gray: "#717070",
   // 祝福的顏色
   yellow: "#ECF0A3",
   // 受詛咒的顏色
@@ -249,12 +249,12 @@ li {
   width: 30px;
   height: 30px;
 }
-
+/* infoBox : 動態渲染 + X 某某裝備 
+     透過attr()的ＣＳＳ方法，抓取Dom屬性使用（content以外都在實驗階段），
+     也藉著template特性使用ＪＳ實現出來， */
 li::after {
-  /* 透過attr()的ＣＳＳ方法，抓取Dom屬性使用（content以外都在實驗階段），
-     也藉著template特性使用ＪＳ實現出，動態渲染 '+ X 某某裝備 '。 */
   content: attr(data-displayEquipInfo);
-  position: relative;
+  position: absolute;
   top: 33px;
   left: -25px;
   z-index: 1;
@@ -264,17 +264,17 @@ li::after {
   width: 150px;
   height: 50px;
 
-  padding: 3px;
-  background: rgba(0, 0, 0, 0.5);
-  border: 2px solid;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1.75px solid;
   border-color: v-bind(color.white) v-bind(color.gray) v-bind(color.gray)
     v-bind(color.white);
 
   color: v-bind(color.white);
   font-family: "Noto Sans SC", sans-serif;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 10px;
+  font-size: 13px;
+  line-height: 13px;
 }
 
 li:hover::after {
