@@ -272,7 +272,7 @@ li::after {
 
   color: v-bind(color.white);
   font-family: "Noto Sans SC", sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 13px;
   line-height: 13px;
 }
