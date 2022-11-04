@@ -6,11 +6,11 @@
       :class="slot.name"
       class="infoClass"
       :data-showInfo="getInfo(slot.name, slot.toDisplay)"
-      @click="clickToActive"
     >
-      <img :src="checkSrc(slot.src)" />
+      <img :src="checkSrc(slot.src)" @click="clickToActive" />
     </li>
   </ul>
+  <input type="text" class="test" />
 </template>
 
 <script setup>
@@ -43,9 +43,9 @@ const slotList = ref([
     name: "F6",
     src: "/src/assets/slot_white-armor.png",
     toDisplay: {
-      item: "對盔甲施法的卷軸 (141)",
+      item: "對盔甲施法的卷軸",
       material: "紙",
-      weight: "141",
+      weight: "-",
     },
   },
   {
@@ -53,9 +53,9 @@ const slotList = ref([
     name: "F7",
     src: "/src/assets/slot_blessed-armor.png",
     toDisplay: {
-      item: "對盔甲施法的卷軸 (∞)",
+      item: "對盔甲施法的卷軸",
       material: "紙",
-      weight: "∞",
+      weight: "- .",
     },
   },
   {
@@ -63,7 +63,7 @@ const slotList = ref([
     name: "F8",
     src: "/src/assets/slot_cursed-armor.png",
     toDisplay: {
-      item: "對盔甲施法的卷軸 (∞)",
+      item: "對盔甲施法的卷軸",
       material: "紙",
       weight: "∞",
     },
@@ -83,9 +83,9 @@ const slotList = ref([
     name: "F10",
     src: "/src/assets/slot_white-weapon.png",
     toDisplay: {
-      item: "對武器施法的卷軸 (∞)",
+      item: "對武器施法的卷軸",
       material: "紙",
-      weight: "∞",
+      weight: "防禦 5+0",
     },
   },
   {
@@ -93,7 +93,7 @@ const slotList = ref([
     name: "F11",
     src: "/src/assets/slot_blessed-weapon.png",
     toDisplay: {
-      item: "對武器施法的卷軸 (∞)",
+      item: "對武器施法的卷軸",
       material: "紙",
       weight: "∞",
     },
@@ -103,22 +103,12 @@ const slotList = ref([
     name: "F12",
     src: "/src/assets/slot_cursed-weapon.png",
     toDisplay: {
-      item: "對武器施法的卷軸 (82)",
+      item: "對武器施法的卷軸",
       material: "紙",
       weight: "82",
     },
   },
 ]);
-const color = {
-  // 已鑑定顏色
-  white: "#e8e8e8",
-  // 未鑑定顏色
-  gray: "#717070",
-  // 祝福的顏色
-  yellow: "#ECF0A3",
-  // 受詛咒的顏色
-  red: "#FB293B",
-};
 
 onMounted(function keydownToActives() {
   const nodeList = Array.from(iNeedThisNode.value.children);
@@ -181,7 +171,7 @@ function checkSrc(imgSrc) {
   position: relative;
 }
 
-.infoClass:after {
+.infoClass::after {
   content: attr(data-showInfo);
   position: absolute;
   top: -90%;
@@ -193,17 +183,15 @@ function checkSrc(imgSrc) {
   display: none;
   width: 150px;
   height: 40px;
-  padding: 3.5px 0px 0px 2.5px;
+  padding: 6px 0px 0px 3px;
   background: rgba(0, 0, 0, 0.5);
   border: 2px solid;
-  border-color: v-bind(color.white) v-bind(color.gray) v-bind(color.gray)
-    v-bind(color.white);
-  color: v-bind(color.white);
-
-  font-family: "Noto Serif HK", "Crimson Pro", serif;
+  border-color: var(--color-white) var(--color-grey) var(--color-grey) var(--color-white);
+  font-family: serif, "Noto Serif TC";
   font-weight: 400;
   font-size: 12.5px;
-  line-height: 12px;
+  line-height: 12.75px;
+  color: var(--color-white);
 }
 
 .infoClass:hover::after {
@@ -216,26 +204,26 @@ function checkSrc(imgSrc) {
 }
 
 .F5::after {
-  content: “123”;
+  content: “”;
   height: 200px;
-  top: -290%;
+  top: -310%;
   line-height: 14px;
   left: -1%;
 }
 
 .F9::after {
   height: 200px;
-  top: -305%;
+  top: -310%;
 }
 
 .F7::after,
 .F11::after {
-  color: v-bind(color.yellow);
+  color: var(--color-yellow);
 }
 
 .F8::after,
 .F12::after {
-  color: v-bind(color.red);
+  color: var(--color-red);
 }
 
 .active {
@@ -243,5 +231,8 @@ function checkSrc(imgSrc) {
   box-shadow: 0 0 2px 0px rgb(245, 217, 198, 0.83);
   background-image: url("../assets/slot_empty.png");
   opacity: 1;
+}
+.test {
+  color: var(--color-red, orange);
 }
 </style>
