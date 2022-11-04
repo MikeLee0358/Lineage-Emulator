@@ -43,7 +43,7 @@ const slotList = ref([
     toDisplay: {
       item: "對盔甲施法的卷軸",
       material: "紙",
-      weight: "-",
+      weight: "1",
     },
   },
   {
@@ -54,7 +54,7 @@ const slotList = ref([
     toDisplay: {
       item: "對盔甲施法的卷軸",
       material: "紙",
-      weight: "-",
+      weight: "1",
     },
   },
   {
@@ -64,7 +64,7 @@ const slotList = ref([
     toDisplay: {
       item: "對盔甲施法的卷軸",
       material: "紙",
-      weight: "-",
+      weight: "1",
     },
   },
   {
@@ -84,7 +84,7 @@ const slotList = ref([
     toDisplay: {
       item: "對武器施法的卷軸",
       material: "紙",
-      weight: "-",
+      weight: "1",
     },
   },
   {
@@ -94,7 +94,7 @@ const slotList = ref([
     toDisplay: {
       item: "對武器施法的卷軸",
       material: "紙",
-      weight: "-",
+      weight: "1",
     },
   },
   {
@@ -104,7 +104,7 @@ const slotList = ref([
     toDisplay: {
       item: "對武器施法的卷軸",
       material: "紙",
-      weight: "-",
+      weight: "1",
     },
   },
 ]);
@@ -182,7 +182,7 @@ ul {
   left: -2%;
   /* template顯示開關 */
   opacity: 0;
-  transition: opacity 0.3s ease-in 0.5s;
+  transition: opacity 0.2s ease-in 0.5s;
 }
 
 .infoTemplate:hover::after {

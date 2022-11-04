@@ -20,7 +20,7 @@
    color: var(--color-white);
    font-family: serif, "Noto Serif TC";
    font-weight: 400;
-   font-size: 13px;
+   font-size: 12px;
    line-height: 12.5px;
    /* 針對content的換行css語法 */
    white-space: pre-wrap;
