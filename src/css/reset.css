@@ -1,10 +1,7 @@
-
  /* reset css */
  body {
    margin: 0;
    padding: 0;
-   box-sizing: border-box;
-   background-color: black;
  }
 
  * {
@@ -73,14 +70,5 @@
 
  input:invalid {
    box-shadow: none;
- }
- 
-
- /* custom css */
- :root {
-  --color-grey: #717070;
-  --color-white: #e8e8e8;
-  --color-yellow: #ECF0A3;
-  --color-red: #FB293B;
  }
  

@@ -1,0 +1,27 @@
+/* custom css */
+ :root {
+   --color-grey: #717070;
+   --color-white: #e8e8e8;
+   --color-yellow: #E9EE8B;
+   --color-red: #FF1313;
+   background: black;
+ }
+
+ .infoTemplate::after {
+   content: '';
+
+   width: 150px;
+   height: 40px;
+   padding: 6px 0px 0px 3px;
+   background: rgba(0, 0, 0, 0.5);
+   border: 1.75px solid;
+   border-color: var(--color-white) var(--color-grey) var(--color-grey) var(--color-white);
+
+   color: var(--color-white);
+   font-family: serif, "Noto Serif TC";
+   font-weight: 400;
+   font-size: 13px;
+   line-height: 12.5px;
+   /* 針對content的換行css語法 */
+   white-space: pre-wrap;
+ }
