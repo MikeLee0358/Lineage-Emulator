@@ -21,18 +21,18 @@ const slotList = ref([
     name: "F5",
     src: "/src/assets/slot_empty.png",
     toDisplay: {
-      myPurpose: `       Side project由來
+      myPurpose: `          Side project由來
 
-  一直找不到天堂衝裝模
-  擬器過過乾癮，正好轉
-  職的技能可以練習，藉
-  此機會磨練自己的技能
-  ，也是私心想回憶衝裝
-  的天堂，打到人生第一
-  張祝防的喜悅，開心沒
-  過多久，隔天就被盜帳
-  號...  總之
-                        Enjoy it !`,
+   一直找不到天堂衝裝模
+   擬器過過乾癮，正好轉
+   職的技能可以練習，藉
+   此機會磨練自己的技能
+   ，也是私心想回憶衝裝
+   的天堂，打到人生第一
+   張祝防的喜悅，開心沒
+   過多久，隔天就被盜帳
+   號...  總之
+                            Enjoy it !`,
     },
   },
   {
