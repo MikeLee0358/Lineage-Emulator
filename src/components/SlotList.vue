@@ -185,7 +185,7 @@ function checkSrc(imgSrc) {
   left: -2%;
   /* template顯示開關 */
   opacity: 0;
-  transition: opacity 0.25s ease-in 0.5s;
+  transition: opacity 0.1s ease-in 0.4s;
 }
 
 .infoTemplate:hover::after {
