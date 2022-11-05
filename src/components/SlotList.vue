@@ -1,5 +1,5 @@
 <template>
-  <ul ref="nodeForArray">
+  <ul ref="nodeForArray" class="slotContainer">
     <li
       v-for="slot in slotList"
       :key="slot.id"
@@ -154,7 +154,7 @@ function checkSrc(imgSrc) {
 </script>
 
 <style scoped>
-ul {
+.slotContainer {
   position: absolute;
   top: 81.55%;
   left: 79.55%;
@@ -167,6 +167,9 @@ ul {
 
 /* 統一排版位置：
 第0個定位為relative，absolute做定位。*/
+.infoTemplate {
+  z-index: 1;
+}
 .infoTemplate:nth-of-type(0) {
   position: relative;
 }
@@ -182,7 +185,7 @@ ul {
   left: -2%;
   /* template顯示開關 */
   opacity: 0;
-  transition: opacity 0.2s ease-in 0.5s;
+  transition: opacity 0.25s ease-in 0.5s;
 }
 
 .infoTemplate:hover::after {
@@ -194,6 +197,8 @@ ul {
   top: -298%;
   height: 190px;
   line-height: 15px;
+  font-size: 13px;
+  line-height: 13.5px;
 }
 
 .F7::after,
