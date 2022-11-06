@@ -13,19 +13,19 @@ body {
   color: var(--color-white);
   font-family: serif, "Noto Serif TC";
   font-weight: 400;
-  font-size: 14px;
-  line-height: 13.25px;
+  font-size: 15px;
+  line-height: 14.5px;
 }
 
 .infoTemplate::after {
   content: '';
   /* 框框樣式設定 */
-  width: 150px;
-  height: 40px;
-  padding: 5px 0px 0px 3px;
+  width: 170px;
+  height: 45px;
+  padding: 6px 0px 0px 3px;
   background: rgba(0, 0, 0, 0.45);
-  border: 1.75px solid;
-  border-color: var(--color-white) var(--color-grey) var(--color-grey) var(--color-white);
+  border: 2.5px solid;
+  border-color: gainsboro var(--color-grey) var(--color-grey) gainsboro;
   /* 針對content的換行css語法 */
   white-space: pre-wrap;
 }

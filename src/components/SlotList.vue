@@ -154,21 +154,21 @@ function checkSrc(imgSrc) {
 </script>
 
 <style scoped>
-.slotContainer {
+.slotContainer[data-v-0e48e3e6] {
   position: absolute;
-  top: 81.55%;
-  left: 79.55%;
-
+  top: 80.2%;
+  left: 78.3%;
   display: grid;
   grid-template-columns: repeat(4, auto);
   grid-template-rows: repeat(2, auto);
-  gap: 4px;
+  gap: 3px;
 }
 
 /* 統一排版位置：
 第0個定位為relative，absolute做定位。*/
 .infoTemplate {
   z-index: 1;
+  width: 40px;
 }
 .infoTemplate:nth-of-type(0) {
   position: relative;
@@ -181,11 +181,11 @@ function checkSrc(imgSrc) {
 .infoTemplate::after {
   content: attr(data-showInfo);
   position: absolute;
-  top: -90%;
-  left: -2%;
+  top: -75%;
+  left: -3%;
   /* template顯示開關 */
   opacity: 0;
-  transition: opacity 0.1s ease-in 0.4s;
+  transition: opacity 0.1s ease-in 0.35s;
 }
 
 .infoTemplate:hover::after {
@@ -194,7 +194,7 @@ function checkSrc(imgSrc) {
 
 .F5::after,
 .F9::after {
-  top: -298%;
+  top: -250%;
   height: 190px;
   line-height: 15px;
   font-size: 13px;
