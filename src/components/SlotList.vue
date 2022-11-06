@@ -168,7 +168,6 @@ function checkSrc(imgSrc) {
 第0個定位為relative，absolute做定位。*/
 .infoTemplate {
   z-index: 1;
-  width: 40px;
 }
 .infoTemplate:nth-of-type(0) {
   position: relative;
