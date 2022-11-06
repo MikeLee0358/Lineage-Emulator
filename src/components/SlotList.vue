@@ -6,9 +6,9 @@
       :class="slot.name"
       class="infoTemplate"
       :data-showInfo="getInfoData(slot.name, slot.toDisplay)"
-      @click="clickToChangeColor(slot.name)"
+      @click="clickToActive(slot.name)"
     >
-      <img :src="checkSrc(slot.src)" @click="clickToActive" />
+      <img :src="checkSrc(slot.src)" />
     </li>
   </ul>
 </template>
@@ -109,8 +109,11 @@ const slotList = ref([
     },
   },
 ]);
-// 讓css的v-bind(function（）)觸發響應，使得ＪＳ邏輯控制在css有效。
+// css的v-bind(clickToActive())觸發響應，讓ＪＳ能邏輯控制css，使css code精簡，代價是執行兩次click事件。
 const nameBox = ref("");
+// F5 - F12 沒有填入，預設白色。
+const slotYellow = ["F7", "F11"];
+const slotRed = ["F8", "F12"];
 const color = {
   grey: "#717070",
   white: "#e8e8e8",
@@ -118,24 +121,24 @@ const color = {
   red: "#FF2424",
 };
 
-function clickToActive(e) {
+function clickToActive(name) {
   const nodeList = Array.from(nodeForArray.value.children);
+  let displayColor = "";
   nodeList.forEach((node) => {
     node.classList.remove("active");
-    const targetClass = e.target.parentElement.classList[0];
-    if (node.classList[0] === targetClass) node.classList.add("active");
+    if (node.matches(`.${name}`)) node.classList.add("active");
   });
-}
-function clickToChangeColor(name) {
-  const slotYellow = ["F7", "F11"];
-  const slotRed = ["F8", "F12"];
+  function toDisplayColor() {
+    name === undefined ? undefined : (nameBox.value = name);
+    if (slotYellow.includes(nameBox.value)) displayColor = color.yellow;
+    else if (slotRed.includes(nameBox.value)) displayColor = color.red;
+    else displayColor = color.white;
+  }
 
-  name === undefined ? undefined : (nameBox.value = name);
-
-  if (slotYellow.includes(nameBox.value)) return color.yellow;
-  else if (slotRed.includes(nameBox.value)) return color.red;
-  else return color.white;
+  toDisplayColor();
+  return displayColor;
 }
+
 function getInfoData(name, toDisplay) {
   // 這排版是故意的，white-space跟空白有關
   const content = `${toDisplay.item}
@@ -179,10 +182,6 @@ onMounted(function keydownToActives() {
 
 /* 統一排版位置：
 第0個定位為relative，absolute做定位。*/
-.infoTemplate {
-  z-index: 1;
-}
-
 .infoTemplate:nth-of-type(0) {
   position: relative;
 }
@@ -194,7 +193,7 @@ onMounted(function keydownToActives() {
   left: -3%;
   /* template顯示開關 */
   opacity: 0;
-  transition: opacity 0.2s ease-out 0.5s;
+  transition: opacity 0.3s ease-out 1.5s;
 }
 
 .infoTemplate:hover::after {
@@ -223,14 +222,13 @@ onMounted(function keydownToActives() {
 .F10,
 .F11,
 .F12 {
-  color: v-bind(clickToChangeColor());
+  color: v-bind(clickToActive());
 }
 
 .active {
   opacity: 1;
   background-image: url("../assets/slot_empty.png");
   outline: 1.75px solid rgba(245, 217, 198, 0.83);
-
   box-shadow: 0 0 2px 0px rgb(245, 217, 198, 0.83);
 }
 </style>
