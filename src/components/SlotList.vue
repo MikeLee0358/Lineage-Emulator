@@ -6,6 +6,7 @@
       :class="slot.name"
       class="infoTemplate"
       :data-showInfo="getInfoData(slot.name, slot.toDisplay)"
+      @click="clickToChangeColor(slot.name)"
     >
       <img :src="checkSrc(slot.src)" @click="clickToActive" />
     </li>
@@ -108,26 +109,15 @@ const slotList = ref([
     },
   },
 ]);
+// 讓css的v-bind(function（）)觸發響應，使得ＪＳ邏輯控制在css有效。
+const nameBox = ref("");
+const color = {
+  grey: "#717070",
+  white: "#e8e8e8",
+  yellow: "#E9EE8B",
+  red: "#FF2424",
+};
 
-onMounted(function keydownToActives() {
-  const nodeList = Array.from(nodeForArray.value.children);
-  const whiteSlot = ["F6", "F10"];
-  const blessedSlot = ["F7", "F11"];
-  const cursedSlot = ["F8", "F12"];
-
-  document.addEventListener("keydown", (e) => {
-    e.preventDefault(); // 關閉瀏覽器的預設，Ｆ5的重新整理、Ｆ11的全螢幕等。
-
-    nodeList.forEach((node) => {
-      node.classList.remove("active");
-      if (node.classList[0] !== e.key) return;
-      else if (whiteSlot.includes(e.key)) node.classList.add("active");
-      else if (blessedSlot.includes(e.key)) node.classList.add("active");
-      else if (cursedSlot.includes(e.key)) node.classList.add("active");
-      else node.classList.add("active");
-    });
-  });
-});
 function clickToActive(e) {
   const nodeList = Array.from(nodeForArray.value.children);
   nodeList.forEach((node) => {
@@ -135,6 +125,16 @@ function clickToActive(e) {
     const targetClass = e.target.parentElement.classList[0];
     if (node.classList[0] === targetClass) node.classList.add("active");
   });
+}
+function clickToChangeColor(name) {
+  const slotYellow = ["F7", "F11"];
+  const slotRed = ["F8", "F12"];
+
+  name === undefined ? undefined : (nameBox.value = name);
+
+  if (slotYellow.includes(nameBox.value)) return color.yellow;
+  else if (slotRed.includes(nameBox.value)) return color.red;
+  else return color.white;
 }
 function getInfoData(name, toDisplay) {
   // 這排版是故意的，white-space跟空白有關
@@ -151,10 +151,23 @@ function checkSrc(imgSrc) {
   const fakeImgSrc = "https://fakeimg.pl/34x34/";
   return !imgSrc ? fakeImgSrc : imgSrc;
 }
+onMounted(function keydownToActives() {
+  const nodeList = Array.from(nodeForArray.value.children);
+
+  document.addEventListener("keydown", (e) => {
+    e.preventDefault(); // 關閉瀏覽器的預設，Ｆ5重新整理、Ｆ11全螢幕。
+
+    nodeList.forEach((node) => {
+      node.classList.remove("active");
+      if (node.classList[0] !== e.key) return;
+      node.classList.add("active");
+    });
+  });
+});
 </script>
 
 <style scoped>
-.slotContainer[data-v-0e48e3e6] {
+.slotContainer {
   position: absolute;
   top: 80.2%;
   left: 78.3%;
@@ -169,14 +182,11 @@ function checkSrc(imgSrc) {
 .infoTemplate {
   z-index: 1;
 }
+
 .infoTemplate:nth-of-type(0) {
   position: relative;
 }
-.F5,
-.F9 {
-  /* 圖片顯示開關 */
-  opacity: 0;
-}
+
 .infoTemplate::after {
   content: attr(data-showInfo);
   position: absolute;
@@ -184,11 +194,16 @@ function checkSrc(imgSrc) {
   left: -3%;
   /* template顯示開關 */
   opacity: 0;
-  transition: opacity 0.1s ease-in 0.35s;
+  transition: opacity 0.2s ease-out 0.5s;
 }
 
 .infoTemplate:hover::after {
   opacity: 1;
+}
+.F5,
+.F9 {
+  /* 圖片顯示開關 */
+  opacity: 0;
 }
 
 .F5::after,
@@ -200,14 +215,15 @@ function checkSrc(imgSrc) {
   line-height: 13.5px;
 }
 
-.F7::after,
-.F11::after {
-  color: var(--color-yellow);
-}
-
-.F8::after,
-.F12::after {
-  color: var(--color-red);
+.F5,
+.F6,
+.F7,
+.F8,
+.F9,
+.F10,
+.F11,
+.F12 {
+  color: v-bind(clickToChangeColor());
 }
 
 .active {

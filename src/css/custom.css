@@ -1,9 +1,10 @@
 /* custom css */
 :root {
-  --color-grey: #717070;
+  /* --color-grey: #717070;
   --color-white: #e8e8e8;
   --color-yellow: #E9EE8B;
-  --color-red: #FF1313;
+  --color-red: #FF1313; */
+
 }
 
 body {
@@ -13,8 +14,8 @@ body {
   color: var(--color-white);
   font-family: serif, "Noto Serif TC";
   font-weight: 400;
-  font-size: 15px;
-  line-height: 14.5px;
+  font-size: 15.5px;
+  line-height: 15px;
 }
 
 .infoTemplate::after {
@@ -25,7 +26,7 @@ body {
   padding: 6px 0px 0px 3px;
   background: rgba(0, 0, 0, 0.45);
   border: 2.5px solid;
-  border-color: gainsboro var(--color-grey) var(--color-grey) gainsboro;
+  border-color: gainsboro #717070 #717070 gainsboro;
   /* 針對content的換行css語法 */
   white-space: pre-wrap;
 }
