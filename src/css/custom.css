@@ -1,32 +1,20 @@
 /* custom css */
-:root {
-  /* --color-grey: #717070;
-  --color-white: #e8e8e8;
-  --color-yellow: #E9EE8B;
-  --color-red: #FF1313; */
-
-}
-
 body {
-  /* 背景設定 */
   background: black;
-  /* 字體設定 */
   color: var(--color-white);
   font-family: serif, "Noto Serif TC";
   font-weight: 400;
-  font-size: 15.5px;
+  font-size: 15px;
   line-height: 15px;
 }
 
 .infoTemplate::after {
   content: '';
-  /* 框框樣式設定 */
   width: 170px;
   height: 45px;
-  padding: 6px 0px 0px 3px;
+  padding: 5px 0px 0px 3px;
   background: rgba(0, 0, 0, 0.45);
   border: 2.5px solid;
   border-color: gainsboro #717070 #717070 gainsboro;
-  /* 針對content的換行css語法 */
   white-space: pre-wrap;
 }

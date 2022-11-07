@@ -5,7 +5,7 @@
       :key="slot.id"
       :class="slot.name"
       class="infoTemplate"
-      :data-showInfo="getInfoData(slot.name, slot.toDisplay)"
+      :data-Content="getContent(slot.name, slot.toDisplay)"
       @click="clickToActive(slot.name)"
     >
       <img :src="checkSrc(slot.src)" />
@@ -109,9 +109,7 @@ const slotList = ref([
     },
   },
 ]);
-// css的v-bind(clickToActive())觸發響應，讓ＪＳ能邏輯控制css，使css code精簡，代價是執行兩次click事件。
 const nameBox = ref("");
-// F5 - F12 沒有填入，預設白色。
 const slotYellow = ["F7", "F11"];
 const slotRed = ["F8", "F12"];
 const color = {
@@ -121,26 +119,32 @@ const color = {
   red: "#FF2424",
 };
 
-function clickToActive(name) {
-  const nodeList = Array.from(nodeForArray.value.children);
-  let displayColor = "";
-  nodeList.forEach((node) => {
-    node.classList.remove("active");
-    if (node.matches(`.${name}`)) node.classList.add("active");
-  });
-  function toDisplayColor() {
-    name === undefined ? undefined : (nameBox.value = name);
-    if (slotYellow.includes(nameBox.value)) displayColor = color.yellow;
-    else if (slotRed.includes(nameBox.value)) displayColor = color.red;
-    else displayColor = color.white;
+const clickToActive = function (name) {
+  let colorContainer = "";
+  function addClass() {
+    const nodeList = Array.from(nodeForArray.value.children);
+    nodeList.forEach((node) => {
+      node.classList.remove("active");
+      node.classList.remove("infoTemplate");
+      if (node.matches(`.${name}`)) {
+        node.classList.add("active");
+        node.classList.add("infoTemplate");
+      }
+    });
   }
-
-  toDisplayColor();
-  return displayColor;
-}
-
-function getInfoData(name, toDisplay) {
-  // 這排版是故意的，white-space跟空白有關
+  function getColor() {
+    // This function controls CSS property, it requires reactive variable(nameBox) & v-bind(function ()). Because of v-bind method, it will implement twice. Get 'name' and then 'undefined'.
+    name === undefined ? undefined : (nameBox.value = name);
+    if (slotYellow.includes(nameBox.value)) colorContainer = color.yellow;
+    else if (slotRed.includes(nameBox.value)) colorContainer = color.red;
+    else colorContainer = color.white;
+  }
+  addClass();
+  getColor();
+  return colorContainer;
+};
+function getContent(name, toDisplay) {
+  // The space relate to 'white-space' attribute
   const content = `${toDisplay.item}
 材質:${toDisplay.material}
  重量 ${toDisplay.weight}`;
@@ -150,19 +154,17 @@ function getInfoData(name, toDisplay) {
   else return content;
 }
 function checkSrc(imgSrc) {
-  // How to use:  https://fakeimg.pl
   const fakeImgSrc = "https://fakeimg.pl/34x34/";
   return !imgSrc ? fakeImgSrc : imgSrc;
 }
-onMounted(function keydownToActives() {
+onMounted(function whenPressKeyboard() {
   const nodeList = Array.from(nodeForArray.value.children);
 
   document.addEventListener("keydown", (e) => {
-    e.preventDefault(); // 關閉瀏覽器的預設，Ｆ5重新整理、Ｆ11全螢幕。
-
+    e.preventDefault(); // to prevent F5, F11 default
     nodeList.forEach((node) => {
       node.classList.remove("active");
-      if (node.classList[0] !== e.key) return;
+      if (!node.matches(`.${e.key}`)) return;
       node.classList.add("active");
     });
   });
@@ -179,55 +181,41 @@ onMounted(function keydownToActives() {
   grid-template-rows: repeat(2, auto);
   gap: 3px;
 }
-
-/* 統一排版位置：
-第0個定位為relative，absolute做定位。*/
 .infoTemplate:nth-of-type(0) {
   position: relative;
 }
 
+.infoTemplate {
+  color: v-bind(clickToActive());
+}
+
 .infoTemplate::after {
-  content: attr(data-showInfo);
+  content: attr(data-content);
   position: absolute;
   top: -75%;
   left: -3%;
-  /* template顯示開關 */
-  opacity: 0;
-  transition: opacity 0.3s ease-out 1.5s;
+  display: none;
 }
 
 .infoTemplate:hover::after {
-  opacity: 1;
+  display: block;
 }
+
 .F5,
 .F9 {
-  /* 圖片顯示開關 */
   opacity: 0;
 }
 
 .F5::after,
 .F9::after {
   top: -250%;
-  height: 190px;
-  line-height: 15px;
+  height: 200px;
   font-size: 13px;
-  line-height: 13.5px;
-}
-
-.F5,
-.F6,
-.F7,
-.F8,
-.F9,
-.F10,
-.F11,
-.F12 {
-  color: v-bind(clickToActive());
+  line-height: 13px;
 }
 
 .active {
   opacity: 1;
-  background-image: url("../assets/slot_empty.png");
   outline: 1.75px solid rgba(245, 217, 198, 0.83);
   box-shadow: 0 0 2px 0px rgb(245, 217, 198, 0.83);
 }
