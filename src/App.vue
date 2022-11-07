@@ -13,11 +13,10 @@ import SlotList from "./components/SlotList.vue";
 
 <style scoped>
 main {
-  position: relative;
-  top: 50%;
-  width: 800px;
-  height: 600px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 .bg {
   width: 800px;
