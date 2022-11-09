@@ -1,5 +1,5 @@
 <template>
-  <ul ref="dom" class="container">
+  <ul ref="dom">
     <li
       v-for="equip in equipList"
       :key="equip.id"
@@ -14,42 +14,42 @@ import { onMounted, ref } from "vue";
 const equipList = ref([
   {
     id: 0,
-    name: "瑟魯基之劍",
-    src: "/src/assets/equip_weapon.jpg",
-    category: "oneHandedSword",
+    name: "大馬士革刀",
+    src: "/src/assets/equip_weapon.png",
+    category: "weapon",
     toDisplay: {
       attack: {
-        small: 16,
-        larger: 10,
+        small: 10,
+        larger: 11,
       },
       grip: "單手武器",
       currentValue: 9,
       stableValue: 6,
-      material: "金屬",
-      weight: 120,
-      occupation: ["騎士", "龍騎士"],
-      description: "近距離命中+2",
+      material: "鐵",
+      weight: 45,
+      occupation: ["妖精", "王族", "騎士", "黑暗妖精", "龍騎士"],
+      description: "不會損壞",
     },
   },
   {
     id: 1,
-    name: "騎士面甲",
-    src: "/src/assets/equip_helmet.jpg",
+    name: "抗魔法頭盔",
+    src: "/src/assets/equip_helmet.png",
     category: "helmet",
     toDisplay: {
-      armor: -3,
-      currentValue: 4,
+      armor: -2,
+      currentValue: 0,
       stableValue: 4,
-      material: "金屬",
-      weight: 40,
-      occupation: ["騎士", "戰士"],
-      description: null,
+      material: "鐵",
+      weight: 35,
+      occupation: ["妖精", "幻術士", "法師", "王族", "騎士", "黑暗妖精", "龍騎士"],
+      description: ["魔法防禦+4", "使用防卷成功+1，魔法防禦也會+1"],
     },
   },
   {
     id: 2,
     name: "妖魔戰士護身符",
-    src: "/src/assets/equip_amulet.jpg",
+    src: "/src/assets/equip_amulet.png",
     category: "necklace",
     toDisplay: {
       armor: 0,
@@ -64,7 +64,7 @@ const equipList = ref([
   {
     id: 3,
     name: "T恤",
-    src: "/src/assets/equip_shirt.jpg",
+    src: "/src/assets/equip_shirt.png",
     category: "shirt",
     toDisplay: {
       armor: 0,
@@ -78,23 +78,23 @@ const equipList = ref([
   },
   {
     id: 4,
-    name: "精靈金屬盔甲",
-    src: "/src/assets/equip_armor.jpg",
+    name: "精靈鏈甲",
+    src: "/src/assets/equip_armor.png",
     category: "armor",
     toDisplay: {
-      armor: -6,
+      armor: -5,
       currentValue: 0,
       stableValue: 6,
-      material: "奧里哈魯根",
-      weight: 250,
-      occupation: ["騎士", "妖精", "黑暗妖精", "戰士"],
+      material: "米索莉",
+      weight: 150,
+      occupation: ["王族", "騎士", "黑暗妖精", "龍騎士", "戰士"],
       description: null,
     },
   },
   {
     id: 5,
     name: "保護者斗篷",
-    src: "/src/assets/equip_cloak.jpg",
+    src: "/src/assets/equip_cloak.png",
     category: "cloak",
     toDisplay: {
       armor: -3,
@@ -109,7 +109,7 @@ const equipList = ref([
   {
     id: 6,
     name: "瞬間移動控制戒指",
-    src: "/src/assets/equip_left-ring.jpg",
+    src: "/src/assets/equip_left-ring.png",
     category: "left-ring",
     toDisplay: {
       armor: 0,
@@ -124,7 +124,7 @@ const equipList = ref([
   {
     id: 7,
     name: "歐吉皮帶",
-    src: "/src/assets/equip_belt.jpg",
+    src: "/src/assets/equip_belt.png",
     category: "belt",
     toDisplay: {
       armor: 0,
@@ -138,23 +138,23 @@ const equipList = ref([
   },
   {
     id: 8,
-    name: "精靈盾牌",
-    src: "/src/assets/equip_shield.jpg",
+    name: "反射之盾",
+    src: "/src/assets/equip_shield.png",
     category: "shield",
     toDisplay: {
       armor: -2,
       currentValue: 0,
-      stableValue: 6,
+      stableValue: 4,
       material: "銀",
       weight: 50,
-      occupation: ["騎士", "妖精", "法師", "黑暗妖精", "龍騎士", "幻術士"],
+      occupation: ["妖精", "王族", "騎士", "黑暗妖精", "龍騎士"],
       description: "妖精裝備，魔法防禦+5",
     },
   },
   {
     id: 9,
     name: "力量手套",
-    src: "/src/assets/equip_gloves.jpg",
+    src: "/src/assets/equip_gloves.png",
     category: "gloves",
     toDisplay: {
       armor: 0,
@@ -169,7 +169,7 @@ const equipList = ref([
   {
     id: 10,
     name: "形體控制戒指",
-    src: "/src/assets/equip_right-ring.jpg",
+    src: "/src/assets/equip_right-ring.png",
     category: "right-ring",
     toDisplay: {
       armor: 0,
@@ -184,7 +184,7 @@ const equipList = ref([
   {
     id: 11,
     name: "鋼鐵長靴",
-    src: "/src/assets/equip_boots.jpg",
+    src: "/src/assets/equip_boots.png",
     category: "boots",
     toDisplay: {
       armor: -3,
@@ -197,18 +197,14 @@ const equipList = ref([
     },
   },
 ]);
-// 透過vue方法，抓取<ul>的DOM，經過一些處理變成array，再來操作資料。
+
 const dom = ref();
-// 透過vue方法，控制css字體的顏色
+
 const color = {
-  // 已鑑定顏色
-  white: "#f2f2f2",
-  // 未鑑定顏色
-  gray: "#717070",
-  // 祝福的顏色
-  yellow: "#ECF0A3",
-  // 受詛咒的顏色
-  red: "red",
+  grey: "#717070",
+  white: "#e8e8e8",
+  yellow: "#E9EE8B",
+  red: "#FF2424",
 };
 
 function addCategoryToClass() {
@@ -232,7 +228,7 @@ function getEquipInfo(equip) {
     "形體控制戒指",
   ];
 
-  if (equip.name === "瑟魯基之劍")
+  if (equip.name === "大馬士革刀")
     return `+${equip.toDisplay.currentValue} ${equip.name} (揮舞)`;
   else if (blockEquipInfo.includes(equip.name)) return `${equip.name} (使用中)`;
   else return `+${equip.toDisplay.currentValue} ${equip.name} (使用中)`;
@@ -243,15 +239,87 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 li {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 11%;
+  height: 9%;
+  background-repeat: round;
+  background-size: cover;
+
+  &.weapon {
+    top: 52.5%;
+    left: 37.2%;
+    background-image: url("../assets/equip_weapon.png");
+  }
+  &.helmet {
+    top: 13.2%;
+    left: 73.1%;
+    background-image: url("../assets/equip_helmet.png");
+  }
+
+  &.necklace {
+    top: 19.3%;
+    left: 60.3%;
+    background-image: url("/src/assets/equip_amulet.png");
+  }
+
+  &.shirt {
+    top: 31%;
+    left: 49%;
+    background-image: url("../assets/equip_shirt.png");
+  }
+
+  &.armor {
+    top: 31%;
+    left: 61.7%;
+    background-image: url("/src/assets/equip_armor.png");
+  }
+  &.cloak {
+    top: 31%;
+    left: 74.2%;
+    background-image: url("../assets/equip_cloak.png");
+  }
+
+  &.left-ring {
+    top: 42.2%;
+    left: 35.5%;
+    background-image: url("/src/assets/equip_right-ring.png");
+  }
+
+  &.belt {
+    top: 41.2%;
+    left: 66.6%;
+    background-image: url("/src/assets/equip_belt.png");
+    display: block;
+  }
+
+  &.shield {
+    top: 44.3%;
+    left: 81.5%;
+    background-image: url("../assets/equip_shield.png");
+  }
+  .shield::after {
+    color: v-bind("red");
+  }
+
+  &.gloves {
+    top: 48.8%;
+    left: 49.8%;
+    background-image: url("../assets/equip_gloves.png");
+  }
+
+  &.right-ring {
+    top: 55%;
+    left: 79.8%;
+    background-image: url("/src/assets/equip_right-ring.png");
+  }
+  &.boots {
+    top: 80.1%;
+    left: 79.7%;
+    background-image: url("../assets/equip_boots.png");
+  }
 }
-/* infoBox : 動態渲染 + X 某某裝備 
-     透過attr()的ＣＳＳ方法，抓取Dom屬性使用（content以外都在實驗階段），
-     也藉著template特性使用ＪＳ實現出來， */
 li::after {
   content: attr(data-displayEquipInfo);
   position: absolute;
@@ -259,18 +327,16 @@ li::after {
   left: -25px;
   z-index: 1;
 
-  /* 裝備提示框樣式 */
-  display: none; /* 預設off*/
+  display: none;
   width: 150px;
   height: 50px;
 
   padding: 5px;
   background: rgba(0, 0, 0, 0.4);
   border: 1.75px solid;
-  border-color: v-bind(color.white) v-bind(color.gray) v-bind(color.gray)
-    v-bind(color.white);
+  border-color: gainsboro #717070 #717070 gainsboro;
 
-  color: v-bind(color.white);
+  color: v-bind("color.white");
   font-family: "Noto Sans SC", sans-serif;
   font-weight: 300;
   font-size: 13px;
@@ -278,89 +344,14 @@ li::after {
 }
 
 li:hover::after {
-  display: block; /* 滑到圖案時，裝備提示框on */
-}
-
-.oneHandedSword {
-  top: 36%;
-  left: 23.5%;
-  background-image: url("../assets/equip_weapon.jpg");
-}
-
-.helmet {
-  top: 13%;
-  left: 36.3%;
-  background-image: url("../assets/equip_helmet.jpg");
-}
-
-.necklace {
-  top: 16.5%;
-  left: 31.75%;
-  background-image: url("/src/assets/equip_amulet.jpg");
-}
-
-.shirt {
-  top: 23.35%;
-  left: 27.75%;
-  background-image: url("../assets/equip_shirt.jpg");
-}
-
-.armor {
-  top: 23.35%;
-  left: 32.25%;
-  background-image: url("../assets/equip_armor.jpg");
-}
-.cloak {
-  top: 23.35%;
-  left: 36.85%;
-  background-image: url("../assets/equip_cloak.jpg");
-}
-
-.left-ring {
-  top: 30%;
-  left: 22.8%;
-  background-image: url("/src/assets/equip_right-ring.jpg");
-}
-
-.belt {
-  top: 29.5%;
-  left: 34%;
-  background-image: url("/src/assets/equip_belt.jpg");
   display: block;
 }
 
-.shield {
-  top: 31.2%;
-  left: 39.35%;
-  background-image: url("../assets/equip_shield.jpg");
-}
-.shield::after {
-  color: v-bind(color.yellow);
-}
-
-.gloves {
-  top: 34%;
-  left: 28%;
-  background-image: url("../assets/equip_gloves.jpg");
-}
-
-.right-ring {
-  top: 37.45%;
-  left: 38.75%;
-  background-image: url("/src/assets/equip_right-ring.jpg");
-}
-
-.boots {
-  top: 52.3%;
-  left: 38.7%;
-  background-image: url("../assets/equip_boots.jpg");
-}
-/*  blockEquipInfo的樣式（未鑑定），只會顯示一行 */
 .necklace::after,
 .belt::after,
 .left-ring::after,
 .right-ring::after {
-  color: v-bind(color.white);
+  color: v-bind("color.grey");
   border: unset;
   background: unset;
   padding: unset;

@@ -1,0 +1,25 @@
+/* custom css */
+body {
+  background: black;
+  color: var(--color-white);
+  font-family: serif, "Noto Serif TC";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+%infoTemplateStyle {
+  position: absolute;
+  padding: 0.5vw 0px 0.1vw 0.3vw;
+  background: rgba(0, 0, 0, 0.45);
+  border: 0.3vw solid;
+  border-color: gainsboro #717070 #717070 gainsboro;
+  white-space: pre-wrap;
+  line-height: 100%;
+}
+%activeStyle {
+  background-repeat: round;
+  background-size: contain;
+  outline: 0.2vw solid rgba(244, 230, 174, 0.83);
+  box-shadow: 0 0 1.25vw 0 rgba(244, 230, 174, 0.83);
+}

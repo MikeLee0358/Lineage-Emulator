@@ -1,5 +1,5 @@
 <template>
-  <ul ref="nodeForArray" class="slotContainer">
+  <ul ref="nodeForArray">
     <li
       v-for="slot in slotList"
       :key="slot.id"
@@ -8,7 +8,7 @@
       :data-Content="getContent(slot.name, slot.toDisplay)"
       @click="clickToActive(slot.name)"
     >
-      <img :src="checkSrc(slot.src)" />
+      <img :src="slot.src" />
     </li>
   </ul>
 </template>
@@ -16,24 +16,23 @@
 <script setup>
 import { onMounted, ref } from "vue";
 const nodeForArray = ref();
+const nameBox = ref("");
 const slotList = ref([
   {
     id: 0,
     name: "F5",
     src: "/src/assets/slot_empty.png",
     toDisplay: {
-      myPurpose: `          Side project由來
+      myPurpose: `                Side project由來
 
-   一直找不到天堂衝裝模
-   擬器過過乾癮，正好轉
-   職的技能可以練習，藉
-   此機會磨練自己的技能
-   ，也是私心想回憶衝裝
-   的天堂，打到人生第一
-   張祝防的喜悅，開心沒
-   過多久，隔天就被盜帳
-   號...  總之
-                            Enjoy it !`,
+   一直找不到天堂衝裝模擬器過
+   過乾癮，正好轉職的技能可以
+   練習，藉此機會磨練自己的技
+   能，也是私心想回憶衝裝的天
+   堂，打到人生第一張祝防的喜
+   悅，開心沒過多久，隔天就被
+   盜帳號...  總之
+                                       Enjoy it !`,
     },
   },
   {
@@ -109,9 +108,7 @@ const slotList = ref([
     },
   },
 ]);
-const nameBox = ref("");
-const slotYellow = ["F7", "F11"];
-const slotRed = ["F8", "F12"];
+
 const color = {
   grey: "#717070",
   white: "#e8e8e8",
@@ -120,7 +117,7 @@ const color = {
 };
 
 const clickToActive = function (name) {
-  let colorContainer = "";
+  let cssColor = "";
   function addClass() {
     const nodeList = Array.from(nodeForArray.value.children);
     nodeList.forEach((node) => {
@@ -132,16 +129,19 @@ const clickToActive = function (name) {
       }
     });
   }
-  function getColor() {
-    // This function controls CSS property, it requires reactive variable(nameBox) & v-bind(function ()). Because of v-bind method, it will implement twice. Get 'name' and then 'undefined'.
+  // I try to all logic in JS, so requiring reactive variable(nameBox) & v-bind(function ()).
+  function getCssColor() {
+    const slotYellow = ["F7", "F11"];
+    const slotRed = ["F8", "F12"];
+
     name === undefined ? undefined : (nameBox.value = name);
-    if (slotYellow.includes(nameBox.value)) colorContainer = color.yellow;
-    else if (slotRed.includes(nameBox.value)) colorContainer = color.red;
-    else colorContainer = color.white;
+    if (slotYellow.includes(nameBox.value)) cssColor = color.yellow;
+    else if (slotRed.includes(nameBox.value)) cssColor = color.red;
+    else cssColor = color.white;
   }
   addClass();
-  getColor();
-  return colorContainer;
+  getCssColor();
+  return cssColor;
 };
 function getContent(name, toDisplay) {
   // The space relate to 'white-space' attribute
@@ -153,10 +153,7 @@ function getContent(name, toDisplay) {
   else if (name === "F9") return toDisplay.msgToAll;
   else return content;
 }
-function checkSrc(imgSrc) {
-  const fakeImgSrc = "https://fakeimg.pl/34x34/";
-  return !imgSrc ? fakeImgSrc : imgSrc;
-}
+
 onMounted(function whenPressKeyboard() {
   const nodeList = Array.from(nodeForArray.value.children);
 
@@ -164,6 +161,7 @@ onMounted(function whenPressKeyboard() {
     e.preventDefault(); // to prevent F5, F11 default
     nodeList.forEach((node) => {
       node.classList.remove("active");
+      node.classList.remove("infoTemplate");
       if (!node.matches(`.${e.key}`)) return;
       node.classList.add("active");
     });
@@ -171,52 +169,36 @@ onMounted(function whenPressKeyboard() {
 });
 </script>
 
-<style scoped>
-.slotContainer {
-  position: absolute;
-  top: 80.2%;
-  left: 78.3%;
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  grid-template-rows: repeat(2, auto);
-  gap: 3px;
-}
-.infoTemplate:nth-of-type(0) {
-  position: relative;
-}
-
+<style lang="scss" scoped>
+@use '../scss/custom.scss';
 .infoTemplate {
   color: v-bind(clickToActive());
+  &:nth-of-type(0) {
+    position: relative;
+  }
+  &::after {
+    content: attr(data-content);
+    position: absolute;
+    bottom: 105%;
+    left: -3.5%;
+    width: 99%;
+    font-size: 2vw;
+    @extend %infoTemplateStyle;
+  }
 }
-
-.infoTemplate::after {
-  content: attr(data-content);
-  position: absolute;
-  top: -75%;
-  left: -3%;
-  display: none;
-}
-
-.infoTemplate:hover::after {
-  display: block;
-}
-
 .F5,
 .F9 {
   opacity: 0;
 }
-
 .F5::after,
 .F9::after {
-  top: -250%;
-  height: 200px;
-  font-size: 13px;
-  line-height: 13px;
+  height: 235%;
+  font-size: 1rem;
+  line-height: 100%;
 }
-
 .active {
   opacity: 1;
-  outline: 1.75px solid rgba(245, 217, 198, 0.83);
-  box-shadow: 0 0 2px 0px rgb(245, 217, 198, 0.83);
+  background-image: url("/src/assets/slot_empty.png");
+  @extend %activeStyle;
 }
 </style>
