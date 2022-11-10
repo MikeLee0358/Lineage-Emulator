@@ -110,7 +110,7 @@ const slotList = ref([
 ]);
 
 const color = {
-  grey: "#717070",
+  grey: "#aaa9a9",
   white: "#e8e8e8",
   yellow: "#E9EE8B",
   red: "#FF2424",
