@@ -1,11 +1,14 @@
 /* custom css */
+:root {
+  --color-grey: #aaa9a9;
+  --color-white: #e8e8e8;
+  --color-yellow: #e9ee8b;
+  --color-red: #ff2424;
+}
 body {
   background: black;
   color: var(--color-white);
-  font-family: serif, "Noto Serif TC";
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1rem;
+  font-family: "Apple LiGothic Regular", " MingLiU-01 Regular", serif;
 }
 
 %infoTemplateStyle {

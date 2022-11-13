@@ -5,8 +5,8 @@
       :key="slot.id"
       :class="slot.name"
       class="infoTemplate"
-      :data-Content="getContent(slot.name, slot.toDisplay)"
-      @click="clickToActive(slot.name)"
+      :data-Content="getSlotInfo(slot.name, slot.toDisplay)"
+      @click.stop="clickToActive(slot.name)"
     >
       <img :src="slot.src" />
     </li>
@@ -15,8 +15,12 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { useAlgorithmStore } from "../stores/algorithm";
+
+const algorithmStore = useAlgorithmStore();
 const nodeForArray = ref();
 const nameBox = ref("");
+
 const slotList = ref([
   {
     id: 0,
@@ -108,16 +112,16 @@ const slotList = ref([
     },
   },
 ]);
-
 const color = {
-  grey: "#aaa9a9",
-  white: "#e8e8e8",
-  yellow: "#E9EE8B",
-  red: "#FF2424",
+  grey: "var(--color-grey)",
+  white: "var(--color-white)",
+  yellow: "var(--color-yellow)",
+  red: "var(--color-red)",
 };
 
-const clickToActive = function (name) {
-  let cssColor = "";
+function clickToActive(name) {
+  let cssColor = ref("");
+
   function addClass() {
     const nodeList = Array.from(nodeForArray.value.children);
     nodeList.forEach((node) => {
@@ -139,11 +143,13 @@ const clickToActive = function (name) {
     else if (slotRed.includes(nameBox.value)) cssColor = color.red;
     else cssColor = color.white;
   }
+
   addClass();
   getCssColor();
+
   return cssColor;
-};
-function getContent(name, toDisplay) {
+}
+function getSlotInfo(name, toDisplay) {
   // The space relate to 'white-space' attribute
   const content = `${toDisplay.item}
 材質:${toDisplay.material}
@@ -153,17 +159,47 @@ function getContent(name, toDisplay) {
   else if (name === "F9") return toDisplay.msgToAll;
   else return content;
 }
-
 onMounted(function whenPressKeyboard() {
   const nodeList = Array.from(nodeForArray.value.children);
 
   document.addEventListener("keydown", (e) => {
     e.preventDefault(); // to prevent F5, F11 default
+    e.stopPropagation();
     nodeList.forEach((node) => {
       node.classList.remove("active");
       node.classList.remove("infoTemplate");
+
       if (!node.matches(`.${e.key}`)) return;
       node.classList.add("active");
+
+      switch (e.key) {
+        case "F6":
+          algorithmStore.scroll = "whiteArmor";
+          break;
+
+        case "F7":
+          algorithmStore.scroll = "blessedArmor";
+          break;
+
+        case "F8":
+          algorithmStore.scroll = "cursedArmor";
+          break;
+        case "F10":
+          algorithmStore.scroll = "whiteWeapon";
+          break;
+
+        case "F11":
+          algorithmStore.scroll = "blessedWeapon";
+          break;
+
+        case "F12":
+          algorithmStore.scroll = "cursedWeapon";
+          break;
+
+        default:
+          algorithmStore.scroll = null;
+          break;
+      }
     });
   });
 });

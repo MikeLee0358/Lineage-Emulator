@@ -1,17 +1,22 @@
 <template>
-  <ul ref="nodeForArray">
+  <ul @click="algorithmStore.algorithm" @load="a">
     <li
       v-for="equip in equipList"
       :key="equip.id"
-      :data-id="equip.id"
-      :data-displayInfo="getInfo(equip)"
+      :class="equip.category"
+      :data-displayEquipInfo="getEquipInfo(equip)"
       :style="{ backgroundImage: `url(${equip.src})` }"
+      @click="dataForAlgorithm(equip)"
     ></li>
   </ul>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+import { useAlgorithmStore } from "../stores/algorithm";
+
+const algorithmStore = useAlgorithmStore();
+
 const equipList = ref([
   {
     id: 0,
@@ -24,8 +29,8 @@ const equipList = ref([
         large: 11,
       },
       grip: "單手武器",
-      currentValue: 9,
-      stableValue: 6,
+      value: 0,
+      safetyValue: 6,
       material: "鐵",
       weight: 45,
       occupation: "[妖精][王族][騎士][黑暗妖精][龍騎士]",
@@ -36,11 +41,11 @@ const equipList = ref([
     id: 1,
     name: "抗魔法頭盔",
     src: "/src/assets/equip_helmet.png",
-    category: "helmet",
+    category: "helmet armor",
     toDisplay: {
       armor: 2,
-      currentValue: 0,
-      stableValue: 4,
+      value: 0,
+      safetyValue: 4,
       material: "鐵",
       weight: 35,
       occupation: "[妖精][幻術士][法師][王族][騎士][黑暗妖精][龍騎士]",
@@ -54,8 +59,8 @@ const equipList = ref([
     category: "amulet",
     toDisplay: {
       armor: 0,
-      currentValue: 0,
-      stableValue: 0,
+      value: 0,
+      safetyValue: 0,
       material: "寶石",
       weight: 5,
       occupation: "[所有職業]",
@@ -69,8 +74,8 @@ const equipList = ref([
     category: "shirt",
     toDisplay: {
       armor: 0,
-      currentValue: 0,
-      stableValue: 0,
+      value: 0,
+      safetyValue: 4,
       material: "布",
       weight: 5,
       occupation: "[所有職業]",
@@ -81,11 +86,11 @@ const equipList = ref([
     id: 4,
     name: "精靈鏈甲",
     src: "/src/assets/equip_armor.png",
-    category: "armor",
+    category: "bodyArmor",
     toDisplay: {
       armor: 5,
-      currentValue: 0,
-      stableValue: 6,
+      value: 0,
+      safetyValue: 6,
       material: "米索莉",
       weight: 150,
       occupation: "[妖精][幻術士][法師][王族][騎士][黑暗妖精][龍騎士]",
@@ -99,8 +104,8 @@ const equipList = ref([
     category: "cloak",
     toDisplay: {
       armor: 3,
-      currentValue: 0,
-      stableValue: 4,
+      value: 0,
+      safetyValue: 4,
       material: "布",
       weight: 10,
       occupation: "[所有職業]",
@@ -114,8 +119,8 @@ const equipList = ref([
     category: "left-ring",
     toDisplay: {
       armor: 0,
-      currentValue: 0,
-      stableValue: 0,
+      value: 0,
+      safetyValue: 0,
       material: "金",
       weight: 3,
       occupation: "[所有職業]",
@@ -129,8 +134,8 @@ const equipList = ref([
     category: "belt",
     toDisplay: {
       armor: 0,
-      currentValue: 0,
-      stableValue: 0,
+      value: 0,
+      safetyValue: 0,
       material: "皮",
       weight: 50,
       occupation: "[所有職業]",
@@ -144,8 +149,8 @@ const equipList = ref([
     category: "shield",
     toDisplay: {
       armor: 2,
-      currentValue: 0,
-      stableValue: 4,
+      value: 0,
+      safetyValue: 4,
       material: "銀",
       weight: 50,
       occupation: "[妖精][王族][騎士][黑暗妖精][龍騎士]",
@@ -159,8 +164,8 @@ const equipList = ref([
     category: "gloves",
     toDisplay: {
       armor: 0,
-      currentValue: 0,
-      stableValue: 4,
+      value: 0,
+      safetyValue: 4,
       material: "皮",
       weight: 18,
       occupation: "[所有職業]",
@@ -174,8 +179,8 @@ const equipList = ref([
     category: "right-ring",
     toDisplay: {
       armor: 0,
-      currentValue: 0,
-      stableValue: 0,
+      value: 0,
+      safetyValue: 0,
       material: "金",
       weight: 3,
       occupation: "[所有職業]",
@@ -189,8 +194,8 @@ const equipList = ref([
     category: "boots",
     toDisplay: {
       armor: 3,
-      currentValue: 0,
-      stableValue: 4,
+      value: 0,
+      safetyValue: 4,
       material: "鐵",
       weight: 50,
       occupation: "[所有職業]",
@@ -198,60 +203,59 @@ const equipList = ref([
     },
   },
 ]);
-const nodeForArray = ref();
-const color = {
-  grey: "#aaa9a9",
-  white: "#e8e8e8",
-  yellow: "#E9EE8B",
-  red: "#FF2424",
-};
 
-function getInfo(equip) {
-  // 未鑑定狀態： 不打算開放飾品衝裝。
-  const blockJewelry = ["amulet", "left-ring", "belt", "right-ring"];
+function dataForAlgorithm(equip) {
+  algorithmStore.targetCategory = equip.category;
+  algorithmStore.targetSafetyValue = equip.toDisplay.safetyValue;
+  //To fixed when clicked, item will show deferent value (global/local) .
+  // if i want to have save equip data feature, keeping this on.
+  algorithmStore.targetValue = equip.toDisplay.value;
+
+  // global data updated to local data, to trigger reactivity for rendering getEquipInfo()
+  setTimeout(() => {
+    equip.toDisplay.value = algorithmStore.targetValue;
+  }, 0);
+}
+
+function getEquipInfo(equip) {
+  const jewelryCategory = ["amulet", "left-ring", "belt", "right-ring"];
+  const armorCategory = ["helmet", "shirt", "armor", "cloak", ""];
   const toDisplay = equip.toDisplay;
-  let occupation = ` 可使用職業:
+
+  const jewelry = jewelryCategory.includes(equip.category);
+  const weapon = equip.category === "weapon";
+  const hasFeature = !!toDisplay.feature;
+
+  let name = null;
+  let career = ` 可使用職業:
 ${toDisplay.occupation}`;
   let material = ` 材質:${toDisplay.material}
  重量 ${toDisplay.weight}`;
-  let content = "";
-  //jewelry info
-  if (blockJewelry.includes(equip.category)) return `${equip.name} (使用中)`;
-  // weapon info
-  if (equip.category === "weapon")
-    return `+${toDisplay.currentValue} ${equip.name} (揮舞)
-攻擊力 ${toDisplay.attack.small}+${toDisplay.currentValue}/${toDisplay.attack.large}+${toDisplay.currentValue}
-${occupation}
-${material}`;
 
-  // armor info
-  if (!!toDisplay.feature) {
-    content = `+${toDisplay.currentValue} ${equip.name} (使用中)
-防禦 ${toDisplay.armor}+${toDisplay.currentValue}
-${occupation}
- ${toDisplay.feature}
-${material}`;
-  } else {
-    content = `+${toDisplay.currentValue} ${equip.name} (使用中)
-防禦 ${toDisplay.armor}+${toDisplay.currentValue}
-${occupation}
-${material}`;
+  function showPlusOrMinus(value) {
+    if (value === 0) return `+0`;
+    return value > 0 ? `+${value}` : value;
   }
 
-  return content;
-}
-function addCategoryToClass() {
-  const equipListArray = Array.from(equipList.value);
-  const nodeListArray = Array.from(nodeForArray.value.children);
+  if (jewelry) return `${equip.name} (使用中)`;
+  if (weapon)
+    name = `${showPlusOrMinus(equip.toDisplay.value)} ${equip.name} (揮舞)
+攻擊力 ${toDisplay.attack.small}+${toDisplay.value}/${toDisplay.attack.large}+${
+      toDisplay.value
+    }`;
+  if (!weapon)
+    name = `${showPlusOrMinus(equip.toDisplay.value)} ${equip.name} (使用中)
+防禦 ${toDisplay.armor}+${toDisplay.value}`;
 
-  equipListArray.forEach((equip) => {
-    nodeListArray.forEach((node) => {
-      const nodeId = Number(node.dataset.id);
-      if (equip.id === nodeId) node.classList.add(equip.category);
-    });
-  });
+  if (hasFeature)
+    return `${name}
+${career}
+ ${toDisplay.feature}
+${material}`;
+  return `${name}
+${career}
+${material}`;
 }
-onMounted(() => addCategoryToClass());
 </script>
 
 <style lang="scss" scoped>
@@ -263,9 +267,10 @@ li {
   height: 9%;
   background-repeat: round;
   background-size: cover;
+  color: transparent;
 
   &::after {
-    content: attr(data-displayInfo);
+    content: attr(data-displayEquipInfo);
     position: absolute;
     top: 102%;
     z-index: 1;
@@ -276,7 +281,7 @@ li {
     font-size: 1.3vw;
     line-height: 106%;
     @extend %infoTemplateStyle;
-    color: v-bind("color.white");
+    color: var(--color-white);
   }
   &:hover::after {
     display: block;
@@ -285,7 +290,7 @@ li {
     top: 52.5%;
     left: 37.2%;
   }
-  &.helmet {
+  &.helmet.armor {
     top: 13.2%;
     left: 73.1%;
   }
@@ -297,7 +302,7 @@ li {
     top: 31%;
     left: 49%;
   }
-  &.armor {
+  &.bodyArmor {
     top: 31%;
     left: 61.7%;
   }
@@ -333,7 +338,7 @@ li {
   &.belt::after,
   &.left-ring::after,
   &.right-ring::after {
-    color: v-bind("color.grey");
+    color: var(--color-grey);
     border: unset;
     background: unset;
     padding: unset;
