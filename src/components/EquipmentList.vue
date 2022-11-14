@@ -41,7 +41,7 @@ const equipList = ref([
     id: 1,
     name: "抗魔法頭盔",
     src: "/src/assets/equip_helmet.png",
-    category: "helmet armor",
+    category: "armors helmet",
     toDisplay: {
       armor: 2,
       value: 0,
@@ -56,7 +56,7 @@ const equipList = ref([
     id: 2,
     name: "妖魔戰士護身符",
     src: "/src/assets/equip_amulet.png",
-    category: "amulet",
+    category: "jewelries amulet",
     toDisplay: {
       armor: 0,
       value: 0,
@@ -71,7 +71,7 @@ const equipList = ref([
     id: 3,
     name: "T恤",
     src: "/src/assets/equip_shirt.png",
-    category: "shirt",
+    category: "armors shirt",
     toDisplay: {
       armor: 0,
       value: 0,
@@ -86,7 +86,7 @@ const equipList = ref([
     id: 4,
     name: "精靈鏈甲",
     src: "/src/assets/equip_armor.png",
-    category: "bodyArmor",
+    category: "armors bodyArmor",
     toDisplay: {
       armor: 5,
       value: 0,
@@ -101,7 +101,7 @@ const equipList = ref([
     id: 5,
     name: "保護者斗篷",
     src: "/src/assets/equip_cloak.png",
-    category: "cloak",
+    category: "armors cloak",
     toDisplay: {
       armor: 3,
       value: 0,
@@ -116,7 +116,7 @@ const equipList = ref([
     id: 6,
     name: "瞬間移動控制戒指",
     src: "/src/assets/equip_left-ring.png",
-    category: "left-ring",
+    category: "jewelries left-ring",
     toDisplay: {
       armor: 0,
       value: 0,
@@ -131,7 +131,7 @@ const equipList = ref([
     id: 7,
     name: "歐吉皮帶",
     src: "/src/assets/equip_belt.png",
-    category: "belt",
+    category: "jewelries belt",
     toDisplay: {
       armor: 0,
       value: 0,
@@ -146,7 +146,7 @@ const equipList = ref([
     id: 8,
     name: "反射之盾",
     src: "/src/assets/equip_shield.png",
-    category: "shield",
+    category: "armors shield",
     toDisplay: {
       armor: 2,
       value: 0,
@@ -161,7 +161,7 @@ const equipList = ref([
     id: 9,
     name: "力量手套",
     src: "/src/assets/equip_gloves.png",
-    category: "gloves",
+    category: "armors gloves",
     toDisplay: {
       armor: 0,
       value: 0,
@@ -176,7 +176,7 @@ const equipList = ref([
     id: 10,
     name: "形體控制戒指",
     src: "/src/assets/equip_right-ring.png",
-    category: "right-ring",
+    category: "jewelries right-ring",
     toDisplay: {
       armor: 0,
       value: 0,
@@ -191,7 +191,7 @@ const equipList = ref([
     id: 11,
     name: "鋼鐵長靴",
     src: "/src/assets/equip_boots.png",
-    category: "boots",
+    category: "armors boots",
     toDisplay: {
       armor: 3,
       value: 0,
@@ -207,7 +207,7 @@ const equipList = ref([
 function dataForAlgorithm(equip) {
   algorithmStore.targetCategory = equip.category;
   algorithmStore.targetSafetyValue = equip.toDisplay.safetyValue;
-  //To fixed when clicked, item will show deferent value (global/local) .
+  //To fixed when each clicked, item will show deferent value (pinia global/local)
   // if i want to have save equip data feature, keeping this on.
   algorithmStore.targetValue = equip.toDisplay.value;
 
@@ -218,43 +218,58 @@ function dataForAlgorithm(equip) {
 }
 
 function getEquipInfo(equip) {
-  const jewelryCategory = ["amulet", "left-ring", "belt", "right-ring"];
-  const armorCategory = ["helmet", "shirt", "armor", "cloak", ""];
-  const toDisplay = equip.toDisplay;
+  let equipInfo = `${getName()}
+  ${getFeature()}
+  ${getMaterial()}`;
 
-  const jewelry = jewelryCategory.includes(equip.category);
-  const weapon = equip.category === "weapon";
-  const hasFeature = !!toDisplay.feature;
+  function getName() {
+    const equipValue = equip.toDisplay.value;
+    const equipName = equip.name;
+    const equipAttack = equip.toDisplay.attack;
+    const equipArmor = equip.toDisplay.armor;
 
-  let name = null;
-  let career = ` 可使用職業:
-${toDisplay.occupation}`;
-  let material = ` 材質:${toDisplay.material}
+    function showPlusOrMinus(value) {
+      if (value === 0) return `+0`;
+      return value > 0 ? `+${value}` : value;
+    }
+
+    if (equip.category === "weapon") {
+      return `${showPlusOrMinus(equipValue)} ${equipName} (揮舞)
+ 攻擊力 ${equipAttack.small}${showPlusOrMinus(equipValue)}/${
+        equipAttack.large
+      }${showPlusOrMinus(equipValue)}`;
+    } else if (equip.category.includes("armor")) {
+      return `${showPlusOrMinus(equipValue)} ${equipName} (使用中)
+ 防禦 ${equipArmor}${showPlusOrMinus(equipValue)}`;
+    } else if (equip.category.includes("jewelries")) {
+      return `${equipName} (使用中)`;
+    }
+  }
+  function getFeature() {
+    //Jewelries are not opened yet
+    if (equip.category.includes("jewelries")) return ``;
+    const hasFeature = equip.toDisplay.feature;
+    const occupation = equip.toDisplay.occupation;
+
+    if (hasFeature) {
+      return `可使用職業:
+ ${occupation}
+ ${hasFeature}`;
+    } else {
+      return `可使用職業:
+ ${occupation}`;
+    }
+  }
+  function getMaterial() {
+    //Jewelries are not opened yet
+    if (equip.category.includes("jewelries")) return ``;
+    const toDisplay = equip.toDisplay;
+
+    return ` 材質:${toDisplay.material}
  重量 ${toDisplay.weight}`;
-
-  function showPlusOrMinus(value) {
-    if (value === 0) return `+0`;
-    return value > 0 ? `+${value}` : value;
   }
 
-  if (jewelry) return `${equip.name} (使用中)`;
-  if (weapon)
-    name = `${showPlusOrMinus(equip.toDisplay.value)} ${equip.name} (揮舞)
-攻擊力 ${toDisplay.attack.small}+${toDisplay.value}/${toDisplay.attack.large}+${
-      toDisplay.value
-    }`;
-  if (!weapon)
-    name = `${showPlusOrMinus(equip.toDisplay.value)} ${equip.name} (使用中)
-防禦 ${toDisplay.armor}+${toDisplay.value}`;
-
-  if (hasFeature)
-    return `${name}
-${career}
- ${toDisplay.feature}
-${material}`;
-  return `${name}
-${career}
-${material}`;
+  return equipInfo;
 }
 </script>
 
@@ -290,59 +305,63 @@ li {
     top: 52.5%;
     left: 37.2%;
   }
-  &.helmet.armor {
-    top: 13.2%;
-    left: 73.1%;
+  &.armors {
+    &.helmet {
+      top: 13.2%;
+      left: 73.1%;
+    }
+    &.shirt {
+      top: 31%;
+      left: 49%;
+    }
+    &.bodyArmor {
+      top: 31%;
+      left: 61.7%;
+    }
+    &.cloak {
+      top: 31%;
+      left: 74.2%;
+    }
+    &.shield {
+      top: 44.3%;
+      left: 81.5%;
+    }
+    &.gloves {
+      top: 48.8%;
+      left: 49.8%;
+    }
+    &.boots {
+      top: 80.1%;
+      left: 79.7%;
+    }
   }
-  &.amulet {
-    top: 19.3%;
-    left: 60.3%;
-  }
-  &.shirt {
-    top: 31%;
-    left: 49%;
-  }
-  &.bodyArmor {
-    top: 31%;
-    left: 61.7%;
-  }
-  &.cloak {
-    top: 31%;
-    left: 74.2%;
-  }
-  &.left-ring {
-    top: 42.3%;
-    left: 35.9%;
-  }
-  &.belt {
-    top: 41.2%;
-    left: 66.6%;
-  }
-  &.shield {
-    top: 44.3%;
-    left: 81.5%;
-  }
-  &.gloves {
-    top: 48.8%;
-    left: 49.8%;
-  }
-  &.right-ring {
-    top: 55%;
-    left: 80%;
-  }
-  &.boots {
-    top: 80.1%;
-    left: 79.7%;
-  }
-  &.amulet::after,
-  &.belt::after,
-  &.left-ring::after,
-  &.right-ring::after {
-    color: var(--color-grey);
-    border: unset;
-    background: unset;
-    padding: unset;
-    white-space: nowrap;
+  &.jewelries {
+    &.amulet {
+      top: 19.3%;
+      left: 60.3%;
+    }
+    &.left-ring {
+      top: 42.3%;
+      left: 35.9%;
+    }
+    &.belt {
+      top: 41.2%;
+      left: 66.6%;
+    }
+    &.right-ring {
+      top: 55%;
+      left: 80%;
+    }
+    &.amulet::after,
+    &.belt::after,
+    &.left-ring::after,
+    &.right-ring::after {
+      color: var(--color-grey);
+      border: unset;
+      background: unset;
+      padding: unset;
+      white-space: nowrap;
+    }
   }
 }
 </style>

@@ -4,6 +4,7 @@
       <img src="./assets/base_prince.png" class="baseImage" alt="base-prince" />
       <EquipmentList class="equipmentList" />
       <SlotList class="slotList" />
+      <img src="./assets/logout.png" alt="" />
     </article>
   </main>
 </template>

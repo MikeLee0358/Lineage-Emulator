@@ -150,14 +150,13 @@ function clickToActive(name) {
   return cssColor;
 }
 function getSlotInfo(name, toDisplay) {
-  // The space relate to 'white-space' attribute
-  const content = `${toDisplay.item}
-材質:${toDisplay.material}
- 重量 ${toDisplay.weight}`;
-
   if (name === "F5") return toDisplay.myPurpose;
   else if (name === "F9") return toDisplay.msgToAll;
-  else return content;
+  else {
+    return `${toDisplay.item}
+材質:${toDisplay.material}
+ 重量 ${toDisplay.weight}`;
+  }
 }
 onMounted(function whenPressKeyboard() {
   const nodeList = Array.from(nodeForArray.value.children);

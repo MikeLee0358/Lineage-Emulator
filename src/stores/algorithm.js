@@ -4,9 +4,9 @@ import { defineStore } from "pinia";
 export const useAlgorithmStore = defineStore("algorithm", () => {
   const scroll = ref(null);
   const targetCategory = ref(null)
-  const targetValue = ref(0)
-  const targetSafetyValue = ref(0)
-  const dice = ref(0)
+  const targetValue = ref(null)
+  const targetSafetyValue = ref(null)
+  const dice = ref(null)
 
   function checkTargetSafetyValue(num) {
     return targetSafetyValue.value === num
@@ -1692,7 +1692,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     else {
       //jewelry not open yet
     }
-
   })
 
   return { scroll, targetValue, targetSafetyValue, targetCategory, algorithm };
