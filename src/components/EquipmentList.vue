@@ -14,6 +14,8 @@
 <script setup>
 import { ref } from "vue";
 import { useAlgorithmStore } from "../stores/algorithm";
+import { useRoleStore } from "../stores/roles";
+const roleStore = useRoleStore();
 
 const algorithmStore = useAlgorithmStore();
 
@@ -21,7 +23,7 @@ const equipList = ref([
   {
     id: 0,
     name: "大馬士革刀",
-    src: "/src/assets/equip_weapon.png",
+    src: "/src/assets/prince/equips/equip_weapon.png",
     category: "weapon",
     toDisplay: {
       attack: {
@@ -40,7 +42,7 @@ const equipList = ref([
   {
     id: 1,
     name: "抗魔法頭盔",
-    src: "/src/assets/equip_helmet.png",
+    src: "/src/assets/prince/equips/equip_helmet.png",
     category: "armors helmet",
     toDisplay: {
       armor: 2,
@@ -48,14 +50,14 @@ const equipList = ref([
       safetyValue: 4,
       material: "鐵",
       weight: 35,
-      occupation: "[妖精][幻術士][法師][王族][騎士][黑暗妖精][龍騎士]",
+      occupation: "[所有職業]",
       feature: "魔法防禦額外點數 +4",
     },
   },
   {
     id: 2,
     name: "妖魔戰士護身符",
-    src: "/src/assets/equip_amulet.png",
+    src: "/src/assets/prince/equips/equip_amulet.png",
     category: "jewelries amulet",
     toDisplay: {
       armor: 0,
@@ -70,7 +72,7 @@ const equipList = ref([
   {
     id: 3,
     name: "T恤",
-    src: "/src/assets/equip_shirt.png",
+    src: "/src/assets/prince/equips/equip_shirt.png",
     category: "armors shirt",
     toDisplay: {
       armor: 0,
@@ -85,7 +87,7 @@ const equipList = ref([
   {
     id: 4,
     name: "精靈鏈甲",
-    src: "/src/assets/equip_armor.png",
+    src: "/src/assets/prince/equips/equip_BodyArmor.png",
     category: "armors bodyArmor",
     toDisplay: {
       armor: 5,
@@ -93,14 +95,14 @@ const equipList = ref([
       safetyValue: 6,
       material: "米索莉",
       weight: 150,
-      occupation: "[妖精][幻術士][法師][王族][騎士][黑暗妖精][龍騎士]",
+      occupation: "[所有職業]",
       feature: null,
     },
   },
   {
     id: 5,
     name: "保護者斗篷",
-    src: "/src/assets/equip_cloak.png",
+    src: "/src/assets/prince/equips/equip_cloak.png",
     category: "armors cloak",
     toDisplay: {
       armor: 3,
@@ -115,7 +117,7 @@ const equipList = ref([
   {
     id: 6,
     name: "瞬間移動控制戒指",
-    src: "/src/assets/equip_left-ring.png",
+    src: "/src/assets/prince/equips/equip_left-ring.png",
     category: "jewelries left-ring",
     toDisplay: {
       armor: 0,
@@ -130,7 +132,7 @@ const equipList = ref([
   {
     id: 7,
     name: "歐吉皮帶",
-    src: "/src/assets/equip_belt.png",
+    src: "/src/assets/prince/equips/equip_belt.png",
     category: "jewelries belt",
     toDisplay: {
       armor: 0,
@@ -145,7 +147,7 @@ const equipList = ref([
   {
     id: 8,
     name: "反射之盾",
-    src: "/src/assets/equip_shield.png",
+    src: "/src/assets/prince/equips/equip_shield.png",
     category: "armors shield",
     toDisplay: {
       armor: 2,
@@ -160,7 +162,7 @@ const equipList = ref([
   {
     id: 9,
     name: "力量手套",
-    src: "/src/assets/equip_gloves.png",
+    src: "/src/assets/prince/equips/equip_gloves.png",
     category: "armors gloves",
     toDisplay: {
       armor: 0,
@@ -175,7 +177,7 @@ const equipList = ref([
   {
     id: 10,
     name: "形體控制戒指",
-    src: "/src/assets/equip_right-ring.png",
+    src: "/src/assets/prince/equips/equip_right-ring.png",
     category: "jewelries right-ring",
     toDisplay: {
       armor: 0,
@@ -190,7 +192,7 @@ const equipList = ref([
   {
     id: 11,
     name: "鋼鐵長靴",
-    src: "/src/assets/equip_boots.png",
+    src: "/src/assets/prince/equips/equip_boots.png",
     category: "armors boots",
     toDisplay: {
       armor: 3,
@@ -302,55 +304,55 @@ li {
     display: block;
   }
   &.weapon {
-    top: 52.5%;
-    left: 37.2%;
+    top: 52.2%;
+    left: 36.1%;
   }
   &.armors {
     &.helmet {
-      top: 13.2%;
-      left: 73.1%;
+      top: 13.5%;
+      left: 71.2%;
     }
     &.shirt {
       top: 31%;
-      left: 49%;
+      left: 47.7%;
     }
     &.bodyArmor {
       top: 31%;
-      left: 61.7%;
+      left: 60%;
     }
     &.cloak {
       top: 31%;
-      left: 74.2%;
+      left: 72.2%;
     }
     &.shield {
-      top: 44.3%;
-      left: 81.5%;
+      top: 44.2%;
+      left: 79.2%;
     }
     &.gloves {
-      top: 48.8%;
-      left: 49.8%;
+      top: 48.7%;
+      left: 48.5%;
     }
     &.boots {
-      top: 80.1%;
-      left: 79.7%;
+      top: 79.6%;
+      left: 77.7%;
     }
   }
   &.jewelries {
     &.amulet {
       top: 19.3%;
-      left: 60.3%;
+      left: 58.7%;
     }
     &.left-ring {
-      top: 42.3%;
-      left: 35.9%;
+      top: 42.2%;
+      left: 34.7%;
     }
     &.belt {
       top: 41.2%;
-      left: 66.6%;
+      left: 64.9%;
     }
     &.right-ring {
-      top: 55%;
-      left: 80%;
+      top: 54.5%;
+      left: 78%;
     }
     &.amulet::after,
     &.belt::after,
