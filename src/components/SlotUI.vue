@@ -205,7 +205,7 @@ onMounted(function whenPressKeyboard() {
 </script>
 
 <style lang="scss" scoped>
-@use '../scss/custom.scss';
+@use '../scss/common.scss';
 .infoTemplate {
   color: v-bind(clickToActive());
   &:nth-of-type(0) {

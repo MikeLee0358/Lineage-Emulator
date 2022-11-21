@@ -19,7 +19,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     // About number... I use switch to get more effect.
     // About scroll... I use if-else, cost a little bit effect, but get lots of readability. 
     if (!scroll.value) return
-
     const armorScroll = scroll.value.includes('Armor')
     const weaponScroll = scroll.value.includes('Weapon')
     const whiteScroll = scroll.value.includes('white')
@@ -28,7 +27,9 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
     const weaponCategory = targetCategory.value === 'weapon'
     const jewelryCategory = ["amulet", "left-ring", "belt", "right-ring"];
-    const armorCategory = !(jewelryCategory.includes(targetCategory.value)) || !weaponCategory
+    const armorCategory = !(jewelryCategory.includes(targetCategory.value)) && targetCategory.value !== 'weapon'
+
+
 
 
     if (weaponCategory && weaponScroll && checkTargetSafetyValue(6)) {
@@ -566,6 +567,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       }
     }
     else if (armorCategory && armorScroll && checkTargetSafetyValue(6)) {
+
       if (targetValue.value >= 0) {
         switch (targetValue.value) {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3

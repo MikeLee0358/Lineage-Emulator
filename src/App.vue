@@ -27,7 +27,7 @@ main {
   .roleBg {
     width: 100%;
     height: 80%;
-    background-image: v-bind("roleStore.changeBg");
+    background-image: v-bind("roleStore.roleBg");
     background-repeat: round;
     background-size: cover;
 
