@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 
 export const useRoleStore = defineStore('role', () => {
-  const currentRole = ref('prince')
+  const currentRole = ref('knight')
   const roles = ref({
     prince: {
       title: 'prince',
