@@ -1,5 +1,5 @@
 <template>
-  <ul @click="toggle">
+  <ul @click="toggleBtn">
     <li class="characterBtn">
       <CharacterUI />
     </li>
@@ -13,7 +13,7 @@
 import LogoutUI from "./LogoutUI.vue";
 import CharacterUI from "./CharacterUI.vue";
 
-function toggle(e) {
+function toggleBtn(e) {
   if (e.target.tagName !== "LI") return;
   const targetUI = e.target.firstElementChild.classList;
   const roleListUI = e.target.firstElementChild.children[1].firstElementChild.classList;

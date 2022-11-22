@@ -25,8 +25,8 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     const cursedScroll = scroll.value.includes('cursed')
     const blessedScroll = scroll.value.includes('blessed')
 
-    const weaponCategory = targetCategory.value === 'weapon'
     const jewelryCategory = ["amulet", "left-ring", "belt", "right-ring"];
+    const weaponCategory = targetCategory.value === 'weapon'
     const armorCategory = !(jewelryCategory.includes(targetCategory.value)) && targetCategory.value !== 'weapon'
 
 

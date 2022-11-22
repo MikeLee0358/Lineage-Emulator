@@ -1,5 +1,5 @@
 <template>
-  <ul class="logoutUI" ref="logoutUINode" @click.stop="toggleLogout">
+  <ul class="logoutUI" ref="logoutUINode" @click.stop="logoutUIHandler">
     <li class="close"></li>
     <li class="restart">
       <figure class="roleList">
@@ -24,16 +24,17 @@ import { ref } from "vue";
 const roleStore = useRoleStore();
 const logoutUINode = ref();
 
-function toggleLogout(e) {
-  const target = e.target;
-  const targetClass = target.className;
+function logoutUIHandler(e) {
+  const targetClass = e.target.className;
   const logoutClass = logoutUINode.value.classList;
   const roleListClass = logoutUINode.value.children[1].firstElementChild.classList;
 
   function removeCharacterUI() {
-    const btnUIArr = Array.from(logoutUINode.value.parentElement.parentElement.children);
+    const functionUIArr = Array.from(
+      logoutUINode.value.parentElement.parentElement.children
+    );
 
-    btnUIArr.forEach((btn) => {
+    functionUIArr.forEach((btn) => {
       if (btn.className === "characterBtn") {
         btn.firstElementChild.classList.remove("show");
       }

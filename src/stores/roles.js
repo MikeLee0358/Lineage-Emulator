@@ -807,6 +807,6 @@ export const useRoleStore = defineStore('role', () => {
   const roleBg = computed(() => `url(src/assets/${currentRole.value}/bg_${currentRole.value}.png)`
   )
   const roleData = computed(() => roles.value[currentRole.value])
-  return { roles, currentRole, roleBg, roleData }
+  return { currentRole, roleBg, roleData }
 })
 

@@ -43,10 +43,6 @@ const roleStore = useRoleStore();
 const algorithmStore = useAlgorithmStore();
 const { roleData } = storeToRefs(roleStore);
 
-function toggleCharacter(e) {
-  e.target.firstElementChild.classList.toggle("show");
-}
-
 function dataForAlgorithm(equip) {
   algorithmStore.targetCategory = equip.category;
   algorithmStore.targetSafetyValue = equip.toDisplay.safetyValue;
@@ -147,11 +143,11 @@ ${occupation}`;
       top: 102%;
       z-index: 1;
       width: 375%;
-      border-width: 0.3vw;
+      border-width: 0.22vw;
       display: none;
 
       font-size: 1.3vw;
-      line-height: 102%;
+      line-height: 100%;
       @extend %infoTemplateStyle;
       color: var(--color-white);
     }
@@ -237,19 +233,19 @@ ${occupation}`;
   }
   .numberPanel {
     position: absolute;
-    inset: 0%;
+    inset: -32.75%;
     text-align: center;
-    font-size: 2.2vmin;
+    line-height: 100%;
+    transform: scale(0.6);
 
     .level {
       position: absolute;
-      inset: 4% 15% 91% 30%;
+      inset: 2.5% 15% 90.5% 30%;
       display: grid;
       grid-auto-flow: column;
       align-items: center;
       gap: 5%;
-      padding-top: 0.5%;
-
+      padding-top: 0.75%;
       .lv {
         justify-self: right;
       }
@@ -259,23 +255,30 @@ ${occupation}`;
     }
     .basic {
       position: absolute;
-      inset: 13% 46% 73% 30%;
+      inset: 12.5% 46% 73% 30%;
       display: grid;
       align-items: center;
-      gap: 3%;
     }
     .attributes {
       position: absolute;
-      inset: 41.3% 68% 30% 13%;
+      inset: 41.5% 68% 30% 13%;
       display: grid;
       align-items: center;
     }
     .mr {
       position: absolute;
-      inset: 90% 23% 6% 63%;
+      inset: 90.5% 23% 6% 63%;
       display: grid;
       align-items: center;
     }
+  }
+}
+
+@media screen and (min-height: 433px) {
+  .characterUI .numberPanel {
+    transform: unset;
+    inset: 0%;
+    font-size: clamp(9.5px, 2.2vmin, 18px);
   }
 }
 </style>
