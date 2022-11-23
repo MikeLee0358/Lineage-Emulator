@@ -256,7 +256,7 @@ export const useRoleStore = defineStore('role', () => {
             material: "鐵",
             weight: 40,
             occupation: "[騎士]",
-            feature: "魔法防禦額外點數 +4",
+            feature: null,
           },
         },
         {

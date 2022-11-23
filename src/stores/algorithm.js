@@ -31,7 +31,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
 
 
-
     if (weaponCategory && weaponScroll && checkTargetSafetyValue(6)) {
       if (targetValue.value >= 0) {
         switch (targetValue.value) {
@@ -567,7 +566,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       }
     }
     else if (armorCategory && armorScroll && checkTargetSafetyValue(6)) {
-
       if (targetValue.value >= 0) {
         switch (targetValue.value) {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
@@ -631,62 +629,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (whiteScroll) targetValue.value++
             else targetValue.value--
 
-            scroll.value = null
-            break;
-
-            switch (scroll.value) {
-              case blessedScroll:
-                diceOneTo(3)
-
-                switch (dice.value) {
-                  case 2:
-                    targetValue.value = targetValue.value + 2
-                    break;
-
-                  case 3:
-                    targetValue.value = targetValue.value + 3
-                    break;
-
-                  default:
-                    targetValue.value++
-                    break;
-                }
-                break;
-
-              case cursedScroll:
-                targetValue.value--
-                break;
-
-              default:
-                targetValue.value++
-                break;
-            }
-            scroll.value = null
-            break;
-
-            switch (scroll.value) {
-              case blessedScroll:
-                diceOneTo(2)
-
-                switch (dice.value) {
-                  case 2:
-                    targetValue.value = targetValue.value + 2
-                    break;
-
-                  default:
-                    targetValue.value++
-                    break;
-                }
-                break;
-
-              case cursedScroll:
-                targetValue.value--
-                break;
-
-              default:
-                targetValue.value++
-                break;
-            }
             scroll.value = null
             break;
           // blessed scroll # 50% +1 | 50% +2

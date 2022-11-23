@@ -16,7 +16,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useAlgorithmStore } from "../stores/algorithm";
-
 const algorithmStore = useAlgorithmStore();
 const nodeForArray = ref();
 const nameBox = ref("");
@@ -112,12 +111,6 @@ const slotList = ref([
     },
   },
 ]);
-const color = {
-  grey: "var(--color-grey)",
-  white: "var(--color-white)",
-  yellow: "var(--color-yellow)",
-  red: "var(--color-red)",
-};
 
 function clickToActive(name) {
   let cssColor = ref("");
@@ -133,8 +126,15 @@ function clickToActive(name) {
       }
     });
   }
-  // I try to all logic in JS, so requiring reactive variable(nameBox) & v-bind(function ()).
+
   function getCssColor() {
+    // I try to all logic in JS, so requiring reactive variable(nameBox) & v-bind(function ()).
+    const color = {
+      grey: "var(--color-grey)",
+      white: "var(--color-white)",
+      yellow: "var(--color-yellow)",
+      red: "var(--color-red)",
+    };
     const slotYellow = ["F7", "F11"];
     const slotRed = ["F8", "F12"];
 
@@ -158,54 +158,58 @@ function getSlotInfo(name, toDisplay) {
  重量 ${toDisplay.weight}`;
   }
 }
-onMounted(function whenPressKeyboard() {
-  const nodeList = Array.from(nodeForArray.value.children);
+onMounted(() => {
+  function whenKeyDown() {
+    const nodeList = Array.from(nodeForArray.value.children);
 
-  document.addEventListener("keydown", (e) => {
-    e.preventDefault(); // to prevent F5, F11 default
-    e.stopPropagation();
-    nodeList.forEach((node) => {
-      node.classList.remove("active");
-      node.classList.remove("infoTemplate");
+    document.addEventListener("keydown", (e) => {
+      e.preventDefault(); // to prevent F5, F11 default
+      e.stopPropagation();
+      nodeList.forEach((node) => {
+        node.classList.remove("active");
+        node.classList.remove("infoTemplate");
 
-      if (!node.matches(`.${e.key}`)) return;
-      node.classList.add("active");
+        if (!node.matches(`.${e.key}`)) return;
+        node.classList.add("active");
 
-      switch (e.key) {
-        case "F6":
-          algorithmStore.scroll = "whiteArmor";
-          break;
+        switch (e.key) {
+          case "F6":
+            algorithmStore.scroll = "whiteArmor";
+            break;
 
-        case "F7":
-          algorithmStore.scroll = "blessedArmor";
-          break;
+          case "F7":
+            algorithmStore.scroll = "blessedArmor";
+            break;
 
-        case "F8":
-          algorithmStore.scroll = "cursedArmor";
-          break;
-        case "F10":
-          algorithmStore.scroll = "whiteWeapon";
-          break;
+          case "F8":
+            algorithmStore.scroll = "cursedArmor";
+            break;
+          case "F10":
+            algorithmStore.scroll = "whiteWeapon";
+            break;
 
-        case "F11":
-          algorithmStore.scroll = "blessedWeapon";
-          break;
+          case "F11":
+            algorithmStore.scroll = "blessedWeapon";
+            break;
 
-        case "F12":
-          algorithmStore.scroll = "cursedWeapon";
-          break;
+          case "F12":
+            algorithmStore.scroll = "cursedWeapon";
+            break;
 
-        default:
-          algorithmStore.scroll = null;
-          break;
-      }
+          default:
+            algorithmStore.scroll = null;
+            break;
+        }
+      });
     });
-  });
+  }
+  whenKeyDown();
 });
 </script>
 
 <style lang="scss" scoped>
 @use '../scss/common.scss';
+
 .infoTemplate {
   color: v-bind(clickToActive());
   &:nth-of-type(0) {
@@ -231,6 +235,7 @@ onMounted(function whenPressKeyboard() {
   font-size: 1rem;
   line-height: 100%;
 }
+
 .active {
   opacity: 1;
   background-image: url("/src/assets/image_slot/slot_empty.png");

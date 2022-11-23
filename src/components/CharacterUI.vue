@@ -1,5 +1,5 @@
 <template>
-  <section @click.stop="algorithmStore.algorithm" class="characterUI show">
+  <section class="characterUI show" @click.stop="algorithmStore.algorithm">
     <ul class="numberPanel">
       <ul class="level">
         <li class="lv">{{ roleData.basic.lv }}</li>
@@ -10,7 +10,6 @@
         <li class="mp">{{ roleData.basic.mp }}/{{ roleData.basic.mp }}</li>
         <li class="ac">{{ roleData.basic.ac }}</li>
       </ul>
-      <li class="mr">{{ roleData.basic.mr }}</li>
       <ul class="attributes">
         <li class="str">{{ roleData.basic.str }}</li>
         <li class="dex">{{ roleData.basic.dex }}</li>
@@ -19,6 +18,7 @@
         <li class="wis">{{ roleData.basic.wis }}</li>
         <li class="cha">{{ roleData.basic.cha }}</li>
       </ul>
+      <li class="mr">{{ roleData.basic.mr }}</li>
     </ul>
     <ul class="equipPanel">
       <li
@@ -124,7 +124,7 @@ ${occupation}`;
 .characterUI {
   position: absolute;
   inset: -2210% 46vw 686% -80.5vw;
-  background-image: url("/src/assets/UI/UI_equip.png");
+  background-image: url("/src/assets/UI/UI_character.png");
   background-size: cover;
   background-repeat: round;
   visibility: hidden;
@@ -246,6 +246,7 @@ ${occupation}`;
       align-items: center;
       gap: 5%;
       padding-top: 0.75%;
+      user-select: none;
       .lv {
         justify-self: right;
       }

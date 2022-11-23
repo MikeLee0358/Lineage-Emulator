@@ -1,7 +1,7 @@
 <template>
   <main>
     <article class="roleBg">
-      <section class="view"></section>
+      <section class="viewPanel"></section>
       <section class="UIPanel">
         <SlotUI class="slotUI" />
         <FunctionUI class="functionUI" />
@@ -12,9 +12,18 @@
 
 <script setup>
 import { useRoleStore } from "./stores/roles";
+import { useAlgorithmStore } from "./stores/algorithm";
 import FunctionUI from "./components/FunctionUI.vue";
 import SlotUI from "./components/SlotUI.vue";
 const roleStore = useRoleStore();
+
+function changeCursor() {
+  const algorithmStore = useAlgorithmStore();
+
+  if (algorithmStore.scroll === null) {
+    return 'url("/src/assets/UI/UI_pointer.png")15 8, none';
+  } else return 'url("/src/assets/UI/UI_target.png")11 17, auto';
+}
 </script>
 
 <style lang="scss">
@@ -30,8 +39,9 @@ main {
     background-image: v-bind("roleStore.roleBg");
     background-repeat: round;
     background-size: cover;
+    cursor: v-bind(changeCursor());
 
-    .view {
+    .viewPanel {
       position: relative;
       height: 73%;
     }

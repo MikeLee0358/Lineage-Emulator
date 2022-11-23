@@ -4,12 +4,16 @@
   --color-white: #e8e8e8;
   --color-yellow: #e9ee8b;
   --color-red: #ff2424;
+  --default-cursor: '/src/assets/UI/pointer.png';
+  --target-cursor: '/src/assets/UI/gg.jpg';
 }
 body {
   background: black;
   color: var(--color-white);
   font-family: serif;
+  cursor: none;
 }
+
 
 %infoTemplateStyle {
   padding: 0.4vw 0px 0.1vw 0.3vw;
