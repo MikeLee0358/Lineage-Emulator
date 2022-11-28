@@ -1,6 +1,7 @@
 <template>
-  <section class="characterUI show" @click.stop="algorithmStore.algorithm">
-    <ul class="numberPanel">
+  <section class="uiChracter show">
+    <div class="close" @click.stop="closeUI"></div>
+    <ul class="panelNumber">
       <ul class="level">
         <li class="lv">{{ roleData.basic.lv }}</li>
         <li class="exp">{{ roleData.basic.exp }}</li>
@@ -20,7 +21,7 @@
       </ul>
       <li class="mr">{{ roleData.basic.mr }}</li>
     </ul>
-    <ul class="equipPanel">
+    <ul class="panelEquip" @click.stop="algorithmStore.algorithm">
       <li
         v-for="equip in roleData.equips"
         :key="equip.id"
@@ -36,38 +37,30 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { useAlgorithmStore } from "../stores/algorithm";
 import { useRoleStore } from "../stores/roles";
+import { useAlgorithmStore } from "../stores/algorithm";
 
 const roleStore = useRoleStore();
 const algorithmStore = useAlgorithmStore();
 const { roleData } = storeToRefs(roleStore);
 
-function dataForAlgorithm(equip) {
-  algorithmStore.targetCategory = equip.category;
-  algorithmStore.targetSafetyValue = equip.toDisplay.safetyValue;
-  algorithmStore.targetValue = equip.toDisplay.value;
+const closeUI = (e) => e.target.parentElement.classList.remove("show");
+const getEquipInfo = (equip) => {
+  let equipInfo = "";
 
-  // Updating data to trigger reactivity for rendering getEquipInfo()
-  setTimeout(() => {
-    equip.toDisplay.value = algorithmStore.targetValue;
-  }, 0);
-}
-
-function getEquipInfo(equip) {
-  function getName() {
-    const equipValue = equip.toDisplay.value;
+  const getName = () => {
     const equipName = equip.name;
-    const equipAttack = equip.toDisplay.attack;
-    const equipArmor = equip.toDisplay.armor;
+    const equipValue = equip.value;
+    const equipArmor = equip.armor;
+    const equipAttack = equip.attack;
 
-    function isTwoHandsWeapon() {
-      return equip.toDisplay.grip === "雙手武器" ? "\n 雙手武器" : "";
-    }
-    function showPlusOrMinus(value) {
+    const showPlusOrMinus = (value) => {
       if (value === 0) return `+0`;
       return value > 0 ? `+${value}` : value;
-    }
+    };
+    const isTwoHandsWeapon = () => {
+      return equip.grip === "雙手武器" ? "\n 雙手武器" : "";
+    };
 
     if (equip.category === "weapon") {
       return (
@@ -82,12 +75,12 @@ function getEquipInfo(equip) {
     } else if (equip.category.includes("jewelries")) {
       return `${equipName} (使用中)`;
     }
-  }
-  function getFeature() {
+  };
+  const getFeature = () => {
     //Jewelries are not opened yet
     if (equip.category.includes("jewelries")) return ``;
-    const hasFeature = equip.toDisplay.feature;
-    const occupation = equip.toDisplay.occupation;
+    const hasFeature = equip.feature;
+    const occupation = equip.occupation;
 
     if (hasFeature) {
       return `可使用職業:
@@ -97,22 +90,33 @@ ${occupation}
       return `可使用職業:
 ${occupation}`;
     }
-  }
-  function getMaterial() {
+  };
+  const getMaterial = () => {
     //Jewelries are not opened yet
     if (equip.category.includes("jewelries")) return ``;
-    const toDisplay = equip.toDisplay;
+    const toDisplay = equip;
 
     return `材質:${toDisplay.material}
   重量 ${toDisplay.weight}`;
-  }
+  };
 
-  let equipInfo = `${getName()}
+  equipInfo = `${getName()}
   ${getFeature()}
   ${getMaterial()}`;
 
   return equipInfo;
-}
+};
+const dataForAlgorithm = (equip) => {
+  algorithmStore.targetName = equip.name;
+  algorithmStore.targetValue = equip.value;
+  algorithmStore.targetCategory = equip.category;
+  algorithmStore.targetSafetyValue = equip.safetyValue;
+
+  // Updating data to trigger reactivity for rendering getEquipInfo()
+  setTimeout(() => {
+    equip.value = algorithmStore.targetValue;
+  }, 0);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -121,15 +125,20 @@ ${occupation}`;
   visibility: visible !important;
 }
 
-.characterUI {
+.uiChracter {
   position: absolute;
-  inset: -2210% 46vw 686% -80.5vw;
+  inset: -2215% 1487% 704% -2759%;
   background-image: url("/src/assets/UI/UI_character.png");
   background-size: cover;
   background-repeat: round;
   visibility: hidden;
 
-  .equipPanel .equip {
+  .close {
+    position: absolute;
+    inset: 0 0 93% 87%;
+    z-index: 1;
+  }
+  .panelEquip .equip {
     position: absolute;
     width: 11%;
     height: 9%;
@@ -148,7 +157,7 @@ ${occupation}`;
 
       font-size: 1.3vw;
       line-height: 100%;
-      @extend %infoTemplateStyle;
+      @extend %templateInfoStyle;
       color: var(--color-white);
     }
 
@@ -161,7 +170,7 @@ ${occupation}`;
       left: 36.1%;
     }
 
-    &.armors {
+    &.armor {
       &.helmet {
         top: 13.5%;
         left: 71.2%;
@@ -231,7 +240,7 @@ ${occupation}`;
       }
     }
   }
-  .numberPanel {
+  .panelNumber {
     position: absolute;
     inset: -32.75%;
     text-align: center;
@@ -246,7 +255,6 @@ ${occupation}`;
       align-items: center;
       gap: 5%;
       padding-top: 0.75%;
-      user-select: none;
       .lv {
         justify-self: right;
       }
@@ -276,10 +284,10 @@ ${occupation}`;
 }
 
 @media screen and (min-height: 433px) {
-  .characterUI .numberPanel {
+  .uiChracter .panelNumber {
     transform: unset;
     inset: 0%;
-    font-size: clamp(9.5px, 2.2vmin, 18px);
+    font-size: clamp(9.5px, 2.4vmin, 25px);
   }
 }
 </style>

@@ -12,10 +12,11 @@ body {
   color: var(--color-white);
   font-family: serif;
   cursor: none;
+  user-select: none;
 }
 
 
-%infoTemplateStyle {
+%templateInfoStyle {
   padding: 0.4vw 0px 0.1vw 0.3vw;
   background: rgba(0, 0, 0, 0.45);
   border: 0.3vw solid;

@@ -4,7 +4,7 @@
       v-for="slot in slotList"
       :key="slot.id"
       :class="slot.name"
-      class="infoTemplate"
+      class="templateInfo"
       :data-Content="getSlotInfo(slot.name, slot.toDisplay)"
       @click.stop="clickToActive(slot.name)"
     >
@@ -16,10 +16,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useAlgorithmStore } from "../stores/algorithm";
-const algorithmStore = useAlgorithmStore();
-const nodeForArray = ref();
-const nameBox = ref("");
-
 const slotList = ref([
   {
     id: 0,
@@ -111,24 +107,28 @@ const slotList = ref([
     },
   },
 ]);
+const namedBox = ref("");
+const nodeForArray = ref();
+const algorithmStore = useAlgorithmStore();
 
-function clickToActive(name) {
-  let cssColor = ref("");
+const clickToActive = (name) => {
+  let colorCss = ref("");
 
-  function addClass() {
+  const classAdd = () => {
     const nodeList = Array.from(nodeForArray.value.children);
+
     nodeList.forEach((node) => {
       node.classList.remove("active");
-      node.classList.remove("infoTemplate");
+      node.classList.remove("templateInfo");
       if (node.matches(`.${name}`)) {
         node.classList.add("active");
-        node.classList.add("infoTemplate");
+        node.classList.add("templateInfo");
       }
     });
-  }
+  };
 
-  function getCssColor() {
-    // I try to all logic in JS, so requiring reactive variable(nameBox) & v-bind(function ()).
+  const getColorCss = () => {
+    // I try to all logic in JS, so requiring reactive variable(namedBox) & v-bind(function ()).
     const color = {
       grey: "var(--color-grey)",
       white: "var(--color-white)",
@@ -138,18 +138,18 @@ function clickToActive(name) {
     const slotYellow = ["F7", "F11"];
     const slotRed = ["F8", "F12"];
 
-    name === undefined ? undefined : (nameBox.value = name);
-    if (slotYellow.includes(nameBox.value)) cssColor = color.yellow;
-    else if (slotRed.includes(nameBox.value)) cssColor = color.red;
-    else cssColor = color.white;
-  }
+    name === undefined ? undefined : (namedBox.value = name);
+    if (slotYellow.includes(namedBox.value)) colorCss = color.yellow;
+    else if (slotRed.includes(namedBox.value)) colorCss = color.red;
+    else colorCss = color.white;
+  };
 
-  addClass();
-  getCssColor();
+  classAdd();
+  getColorCss();
 
-  return cssColor;
-}
-function getSlotInfo(name, toDisplay) {
+  return colorCss;
+};
+const getSlotInfo = (name, toDisplay) => {
   if (name === "F5") return toDisplay.myPurpose;
   else if (name === "F9") return toDisplay.msgToAll;
   else {
@@ -157,52 +157,54 @@ function getSlotInfo(name, toDisplay) {
 材質:${toDisplay.material}
  重量 ${toDisplay.weight}`;
   }
-}
+};
 onMounted(() => {
-  function whenKeyDown() {
+  const whenKeyDown = () => {
     const nodeList = Array.from(nodeForArray.value.children);
 
     document.addEventListener("keydown", (e) => {
       e.preventDefault(); // to prevent F5, F11 default
       e.stopPropagation();
+
       nodeList.forEach((node) => {
         node.classList.remove("active");
-        node.classList.remove("infoTemplate");
+        node.classList.remove("templateInfo");
 
         if (!node.matches(`.${e.key}`)) return;
         node.classList.add("active");
 
         switch (e.key) {
           case "F6":
-            algorithmStore.scroll = "whiteArmor";
+            algorithmStore.targetScroll = "whiteArmor";
             break;
 
           case "F7":
-            algorithmStore.scroll = "blessedArmor";
+            algorithmStore.targetScroll = "blessedArmor";
             break;
 
           case "F8":
-            algorithmStore.scroll = "cursedArmor";
+            algorithmStore.targetScroll = "cursedArmor";
             break;
           case "F10":
-            algorithmStore.scroll = "whiteWeapon";
+            algorithmStore.targetScroll = "whiteWeapon";
             break;
 
           case "F11":
-            algorithmStore.scroll = "blessedWeapon";
+            algorithmStore.targetScroll = "blessedWeapon";
             break;
 
           case "F12":
-            algorithmStore.scroll = "cursedWeapon";
+            algorithmStore.targetScroll = "cursedWeapon";
             break;
 
           default:
-            algorithmStore.scroll = null;
+            algorithmStore.targetScroll = null;
             break;
         }
       });
+      algorithmStore.scrollChat;
     });
-  }
+  };
   whenKeyDown();
 });
 </script>
@@ -210,7 +212,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 @use '../scss/common.scss';
 
-.infoTemplate {
+.templateInfo {
   color: v-bind(clickToActive());
   &:nth-of-type(0) {
     position: relative;
@@ -222,7 +224,7 @@ onMounted(() => {
     left: -3.5%;
     width: 99%;
     font-size: 2vw;
-    @extend %infoTemplateStyle;
+    @extend %templateInfoStyle;
   }
 }
 .F5,

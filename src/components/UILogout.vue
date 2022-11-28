@@ -19,17 +19,25 @@
 </template>
 
 <script setup>
-import { useRoleStore } from "../stores/roles";
 import { ref } from "vue";
+import { useRoleStore } from "../stores/roles";
+
 const roleStore = useRoleStore();
 const logoutUINode = ref();
 
-function logoutUIHandler(e) {
-  const targetClass = e.target.className;
-  const logoutClass = logoutUINode.value.classList;
-  const roleListClass = logoutUINode.value.children[1].firstElementChild.classList;
+const logoutUIHandler = (e) => {
+  const classTarget = e.target.className;
+  const classLogout = logoutUINode.value.classList;
+  const classRoleList = logoutUINode.value.children[1].firstElementChild.classList;
 
-  function removeCharacterUI() {
+  const changeRoleTo = (role) => {
+    roleStore.roleNow = role;
+  };
+  const resetLogoutUI = () => {
+    classLogout.toggle("show");
+    classRoleList.remove("show");
+  };
+  const removeCharacterUI = () => {
     const functionUIArr = Array.from(
       logoutUINode.value.parentElement.parentElement.children
     );
@@ -39,68 +47,28 @@ function logoutUIHandler(e) {
         btn.firstElementChild.classList.remove("show");
       }
     });
+  };
+
+  if (classTarget === "exit") {
+    resetLogoutUI();
+    removeCharacterUI();
+  } else if (classTarget === "restart") {
+    classRoleList.toggle("show");
+  } else if (["close", "cancel"].includes(classTarget)) {
+    resetLogoutUI();
+  } else if (["elf", "prince", "knight", "magician"].includes(classTarget)) {
+    changeRoleTo(classTarget);
+    resetLogoutUI();
+    removeCharacterUI();
   }
-  function changeRoleTo(role) {
-    roleStore.currentRole = role;
-  }
-  function resetLogoutUI() {
-    logoutClass.toggle("show");
-    roleListClass.remove("show");
-  }
-
-  switch (targetClass) {
-    case "close":
-      resetLogoutUI();
-      break;
-
-    case "restart":
-      roleListClass.toggle("show");
-      break;
-
-    case "exit":
-      resetLogoutUI();
-      removeCharacterUI();
-      break;
-
-    case "cancel":
-      resetLogoutUI();
-      break;
-
-    case "prince":
-      changeRoleTo(targetClass);
-      resetLogoutUI();
-      removeCharacterUI();
-
-      break;
-
-    case "knight":
-      changeRoleTo(targetClass);
-      resetLogoutUI();
-      removeCharacterUI();
-      break;
-
-    case "elf":
-      changeRoleTo(targetClass);
-      resetLogoutUI();
-      removeCharacterUI();
-      break;
-
-    case "magician":
-      changeRoleTo(targetClass);
-      resetLogoutUI();
-      removeCharacterUI();
-      break;
-  }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .logoutUI {
   visibility: hidden;
   position: absolute;
-  inset: -2210% 0% 0% -1140%;
-  width: 37.3vw;
-  height: 1655%;
+  inset: -2215% 0% 704% -1046%;
 
   background-image: url("src/assets/UI/UI_logout.png");
   background-size: cover;
@@ -114,18 +82,34 @@ function logoutUIHandler(e) {
       display: grid;
       grid-auto-flow: column;
       width: 250%;
+      height: 233%;
       position: relative;
-      inset: -210% 0 0 -80%;
-      height: 130%;
+      inset: -235% 0 0 -79%;
       visibility: hidden;
-      gap: 3%;
 
       img {
-        opacity: 0.3;
+        opacity: 0.25;
+        position: relative;
       }
 
       img:hover {
         opacity: 1;
+      }
+      .prince {
+        top: 20%;
+        left: -30%;
+      }
+      .knight {
+        top: 25%;
+        left: 210%;
+      }
+      .elf {
+        top: 140%;
+        left: -220%;
+      }
+      .magician {
+        top: 140%;
+        left: 10%;
       }
     }
   }

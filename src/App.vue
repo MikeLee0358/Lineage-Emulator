@@ -1,10 +1,10 @@
 <template>
   <main>
     <article class="roleBg">
-      <section class="viewPanel"></section>
-      <section class="UIPanel">
-        <SlotUI class="slotUI" />
-        <FunctionUI class="functionUI" />
+      <section class="panelView"></section>
+      <section class="panelUI">
+        <UISlot class="uiSlot" />
+        <UIFunction class="uiFunction" />
       </section>
     </article>
   </main>
@@ -13,17 +13,17 @@
 <script setup>
 import { useRoleStore } from "./stores/roles";
 import { useAlgorithmStore } from "./stores/algorithm";
-import FunctionUI from "./components/FunctionUI.vue";
-import SlotUI from "./components/SlotUI.vue";
+import UISlot from "./components/UIslot.vue";
+import UIFunction from "./components/UIFunction.vue";
 const roleStore = useRoleStore();
 
-function changeCursor() {
+const changeCursor = () => {
   const algorithmStore = useAlgorithmStore();
 
-  if (algorithmStore.scroll === null) {
-    return 'url("/src/assets/UI/UI_pointer.png")15 8, none';
+  if (algorithmStore.targetScroll === null) {
+    return 'url("/src/assets/UI/UI_pointer.png")15 8, auto';
   } else return 'url("/src/assets/UI/UI_target.png")11 17, auto';
-}
+};
 </script>
 
 <style lang="scss">
@@ -41,24 +41,24 @@ main {
     background-size: cover;
     cursor: v-bind(changeCursor());
 
-    .viewPanel {
+    .panelView {
       position: relative;
       height: 73%;
     }
-    .UIPanel {
+    .panelUI {
       display: grid;
       grid-template-columns: 18% 1fr 22.5%;
       grid-template-rows: 20% 1fr 16%;
       grid-template-areas:
         ". hpUI ."
-        "armorUI chattingUI slotUI"
-        "armorUI chattingUI functionUI";
+        "armorUI chattingUI uiSlot"
+        "armorUI chattingUI uiFunction";
 
       position: relative;
       height: 27%;
 
-      .slotUI {
-        grid-area: slotUI;
+      .uiSlot {
+        grid-area: uiSlot;
         position: absolute;
         inset: 0;
         display: grid;
@@ -68,8 +68,8 @@ main {
         padding: 5% 3% 3% 3%;
       }
 
-      .functionUI {
-        grid-area: functionUI;
+      .uiFunction {
+        grid-area: uiFunction;
         position: relative;
       }
     }
