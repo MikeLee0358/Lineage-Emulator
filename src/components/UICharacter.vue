@@ -72,13 +72,13 @@ const getEquipInfo = (equip) => {
     } else if (equip.category.includes("armor")) {
       return `${showPlusOrMinus(equipValue)} ${equipName} (使用中)
 防禦 ${equipArmor}${showPlusOrMinus(equipValue)}`;
-    } else if (equip.category.includes("jewelries")) {
+    } else if (equip.category.includes("jewelry")) {
       return `${equipName} (使用中)`;
     }
   };
   const getFeature = () => {
-    //Jewelries are not opened yet
-    if (equip.category.includes("jewelries")) return ``;
+    //Jewelry are not opened yet
+    if (equip.category.includes("jewelry")) return ``;
     const hasFeature = equip.feature;
     const occupation = equip.occupation;
 
@@ -92,8 +92,8 @@ ${occupation}`;
     }
   };
   const getMaterial = () => {
-    //Jewelries are not opened yet
-    if (equip.category.includes("jewelries")) return ``;
+    //Jewelry are not opened yet
+    if (equip.category.includes("jewelry")) return ``;
     const toDisplay = equip;
 
     return `材質:${toDisplay.material}
@@ -210,7 +210,7 @@ const dataForAlgorithm = (equip) => {
         }
       }
 
-      &.jewelries {
+      &.jewelry {
         &.amulet {
           top: 19.3%;
           left: 58.7%;

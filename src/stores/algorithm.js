@@ -1,163 +1,140 @@
-import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 
 export const useAlgorithmStore = defineStore("algorithm", () => {
   const dice = ref(null)
-  const targetScroll = ref(null);
   const targetValue = ref(null)
+  const targetScroll = ref(null);
   const targetCategory = ref(null)
   const targetSafetyValue = ref(null)
 
-  const checkTargetSafetyValue = (num) => {
-    return targetSafetyValue.value === num
-  }
-  const diceOneTo = (num) => dice.value = Math.floor(Math.random() * num) + 1
-
-
-
   const algorithm = computed(() => {
-    // About number... I use switch to get more effect.
-    // About scroll... I use if-else, cost a little bit effect, but get lots of readability. 
-
+    // About equip number searching... I use switch to get more effect.
+    // About other... I use if-else get readability more. 
     if (!targetScroll.value) return
+    const typeEquip = (text) => targetCategory.value.toLowerCase().includes(text.toLowerCase())
+    const typeScroll = (text) => targetScroll.value.toLowerCase().includes(text.toLowerCase())
+    const diceOneTo = (num) => dice.value = Math.floor(Math.random() * num) + 1
+    const checkTargetSafetyValue = (num) => targetSafetyValue.value === num
 
-    const scrollArmor = targetScroll.value.includes('Armor')
-    const scrollWeapon = targetScroll.value.includes('Weapon')
-
-    const scrollWhite = targetScroll.value.includes('white')
-    const scrollCursed = targetScroll.value.includes('cursed')
-    const scrollBlessed = targetScroll.value.includes('blessed')
-
-    const categoryJewelry = ["amulet", "left-ring", "belt", "right-ring"];
-    const categoryWeapon = targetCategory.value === 'weapon'
-    const categoryArmor = !(categoryJewelry.includes(targetCategory.value)) && targetCategory.value !== 'weapon'
-
-
-
-    if (categoryWeapon && scrollWeapon && checkTargetSafetyValue(6)) {
+    if (typeEquip('weapon') && typeScroll('weapon') && checkTargetSafetyValue(6)) {
       if (targetValue.value >= 0) {
         switch (targetValue.value) {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
           case 0:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
-              switch (dice.value) {
-                case 2:
-                  targetValue.value = targetValue.value + 2
-                  break;
-                case 3:
-                  targetValue.value = targetValue.value + 3
-                  break;
-                default:
-                  targetValue.value++
-                  break;
-              }
+
+              if (dice.value === 2) targetValue.value += 2
+              else if (dice.value === 3) targetValue.value += 3
+              else targetValue.value++
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
+
           case 1:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 2:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           // blessed scroll # 50% +1 | 50% +2
           case 3:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(2)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 4:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(2)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 5:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(2)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           // white = blessed scroll # 33.3% success  66.6% failure
           case 6:
-            if (scrollBlessed || scrollWhite) {
+            if (typeScroll('blessed') || typeScroll('white')) {
               diceOneTo(3)
 
               switch (dice.value) {
@@ -174,7 +151,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case 7:
-            if (scrollBlessed || scrollWhite) {
+            if (typeScroll('blessed') || typeScroll('white')) {
               diceOneTo(3)
 
               switch (dice.value) {
@@ -191,7 +168,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case 8:
-            if (scrollBlessed || scrollWhite) {
+            if (typeScroll('blessed') || typeScroll('white')) {
               diceOneTo(3)
 
               switch (dice.value) {
@@ -211,7 +188,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // if white scroll # 33.3% +1 | 66.6% nothing happened
           // if blessed scroll # 66.6% +1 | 33.3% nothing happened 
           case targetValue.value:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -234,7 +211,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
 
             }
-            else if (scrollWhite) {
+            else if (typeScroll('white')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -270,16 +247,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
           // white scroll # 100% +1
           case -1:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -290,16 +267,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -2:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -310,16 +287,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -3:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -330,16 +307,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -4:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -350,16 +327,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -5:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -371,7 +348,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             break;
           // cursed scroll # 33.3% success  66.6% failure
           case -6:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(3)
 
               switch (dice.value) {
@@ -383,15 +360,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -402,7 +379,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -7:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(3)
 
               switch (dice.value) {
@@ -414,15 +391,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -433,7 +410,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -8:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(3)
 
               switch (dice.value) {
@@ -445,15 +422,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -466,7 +443,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // (infinity loop) 10% success  90% failure and then
           // if cursed scroll # 50% +1 | 50% nothing happened
           case targetValue.value:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -489,15 +466,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -512,130 +489,130 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
         }
       }
     }
-    else if (categoryArmor && scrollArmor && checkTargetSafetyValue(6)) {
+    else if (typeEquip('armor') && typeScroll('armor') && checkTargetSafetyValue(6)) {
       if (targetValue.value >= 0) {
         switch (targetValue.value) {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
           case 0:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 1:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 2:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           // blessed scroll # 50% +1 | 50% +2
           case 3:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(2)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 4:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(2)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 5:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(2)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           // white = blessed scroll # 1/n% success  n-1/n% failure
           case 6:
-            if (scrollBlessed || scrollWhite) {
+            if (typeScroll('blessed') || typeScroll('white')) {
               diceOneTo(6)
 
               switch (dice.value) {
@@ -652,7 +629,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case 7:
-            if (scrollBlessed || scrollWhite) {
+            if (typeScroll('blessed') || typeScroll('white')) {
               diceOneTo(7)
 
               switch (dice.value) {
@@ -669,7 +646,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case 8:
-            if (scrollBlessed || scrollWhite) {
+            if (typeScroll('blessed') || typeScroll('white')) {
               diceOneTo(8)
 
               switch (dice.value) {
@@ -689,7 +666,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // if white scroll # 33.3% +1 | 66.6% nothing happened
           // if blessed scroll # 66.6% +1 | 33.3% nothing happened 
           case targetValue.value:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -712,7 +689,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
 
             }
-            else if (scrollWhite) {
+            else if (typeScroll('white')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -748,16 +725,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
           // white scroll # 100% +1
           case -1:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -768,16 +745,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -2:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -788,16 +765,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -3:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -808,16 +785,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -4:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -828,16 +805,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -5:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (typeScroll('cursed')) targetValue.value--
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -849,7 +826,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             break;
           // cursed scroll # 33.3% success  66.6% failure
           case -6:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(6)
 
               switch (dice.value) {
@@ -861,15 +838,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -880,7 +857,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -7:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(7)
 
               switch (dice.value) {
@@ -892,15 +869,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -911,7 +888,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -8:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(8)
 
               switch (dice.value) {
@@ -923,15 +900,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -944,7 +921,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // (infinity loop) 10% success  90% failure and then
           // if cursed scroll # 50% +1 | 50% nothing happened
           case targetValue.value:
-            if (scrollCursed) {
+            if (typeScroll('cursed')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -967,15 +944,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -991,87 +968,87 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
         }
       }
     }
-    else if (categoryArmor && scrollArmor && checkTargetSafetyValue(4)) {
+    else if (typeEquip('armor') && typeScroll('armor') && checkTargetSafetyValue(4)) {
       if (targetValue.value >= 0) {
         switch (targetValue.value) {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
           case 0:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 1:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           case 2:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
             break;
           // blessed scroll # 50% +1 | 50% +2
           case 3:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(2)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value++
                   break;
               }
             }
-            else if (scrollWhite) targetValue.value++
+            else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
             targetScroll.value = null
@@ -1079,7 +1056,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // blessed scroll # 12.5% +1 | 12.5% +2 | 75% failure 
           // white scroll # 25% +1 || 75% failure
           case 4:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(8)
 
               switch (dice.value) {
@@ -1087,14 +1064,14 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   targetValue.value = targetValue.value + 1
                   break;
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value = 0
                   break;
               }
             }
-            else if (scrollWhite) {
+            else if (typeScroll('white')) {
               diceOneTo(4)
 
               switch (dice.value) {
@@ -1113,7 +1090,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // blessed scroll # 10% +1 | 10% +2 | 80% failure 
           // white scroll # 20% +1 || 80% failure
           case 5:
-            if (scrollBlessed) {
+            if (typeScroll('blessed')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -1121,14 +1098,14 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   targetValue.value = targetValue.value + 1
                   break;
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 default:
                   targetValue.value = 0
                   break;
               }
             }
-            else if (scrollWhite) {
+            else if (typeScroll('white')) {
               diceOneTo(5)
 
               switch (dice.value) {
@@ -1146,7 +1123,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             break;
           // white = blessed scroll # 1/n% success  n-1/n% failure
           case 6:
-            if (scrollBlessed || scrollWhite) {
+            if (scrollType('blessed') || scrollType('white')) {
               diceOneTo(6)
 
               switch (dice.value) {
@@ -1163,7 +1140,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case 7:
-            if (scrollBlessed || scrollWhite) {
+            if (scrollType('blessed') || scrollType('white')) {
               diceOneTo(7)
 
               switch (dice.value) {
@@ -1180,7 +1157,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case 8:
-            if (scrollBlessed || scrollWhite) {
+            if (scrollType('blessed') || scrollType('white')) {
               diceOneTo(8)
 
               switch (dice.value) {
@@ -1200,7 +1177,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // if white scroll # 33.3% +1 | 66.6% nothing happened
           // if blessed scroll # 66.6% +1 | 33.3% nothing happened 
           case targetValue.value:
-            if (scrollBlessed) {
+            if (scrollType('blessed')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -1223,7 +1200,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
 
             }
-            else if (scrollWhite) {
+            else if (scrollType('white')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -1259,16 +1236,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
           // white scroll # 100% +1
           case -1:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (scrollType('cursed')) targetValue.value--
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1279,16 +1256,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -2:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (scrollType('cursed')) targetValue.value--
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1299,16 +1276,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -3:
-            if (scrollCursed) targetValue.value--
-            else if (scrollBlessed) {
+            if (scrollType('cursed')) targetValue.value--
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1320,7 +1297,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             break;
           // cursed scroll # 1/n% success  n-1/n% failure
           case -4:
-            if (scrollCursed) {
+            if (scrollType('cursed')) {
               diceOneTo(4)
 
               switch (dice.value) {
@@ -1332,15 +1309,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1351,7 +1328,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -5:
-            if (scrollCursed) {
+            if (scrollType('cursed')) {
               diceOneTo(5)
 
               switch (dice.value) {
@@ -1363,15 +1340,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1382,7 +1359,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -6:
-            if (scrollCursed) {
+            if (scrollType('cursed')) {
               diceOneTo(6)
 
               switch (dice.value) {
@@ -1394,15 +1371,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1413,7 +1390,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -7:
-            if (scrollCursed) {
+            if (scrollType('cursed')) {
               diceOneTo(7)
 
               switch (dice.value) {
@@ -1425,15 +1402,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1444,7 +1421,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             targetScroll.value = null
             break;
           case -8:
-            if (scrollCursed) {
+            if (scrollType('cursed')) {
               diceOneTo(8)
 
               switch (dice.value) {
@@ -1456,15 +1433,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1477,7 +1454,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           // (infinity loop) 10% success  90% failure and then
           // if cursed scroll # 50% +1 | 50% nothing happened
           case targetValue.value:
-            if (scrollCursed) {
+            if (scrollType('cursed')) {
               diceOneTo(10)
 
               switch (dice.value) {
@@ -1500,15 +1477,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   break;
               }
             }
-            else if (scrollBlessed) {
+            else if (scrollType('blessed')) {
               diceOneTo(3)
 
               switch (dice.value) {
                 case 2:
-                  targetValue.value = targetValue.value + 2
+                  targetValue.value += 2
                   break;
                 case 3:
-                  targetValue.value = targetValue.value + 3
+                  targetValue.value += 3
                   break;
                 default:
                   targetValue.value++
@@ -1529,6 +1506,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     }
   })
 
-  return { targetScroll, targetValue, targetSafetyValue, targetCategory, algorithm };
+  return { algorithm, targetValue, targetScroll, targetCategory, targetSafetyValue };
 });
 

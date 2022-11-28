@@ -5,12 +5,14 @@
       <section class="panelUI">
         <UISlot class="uiSlot" />
         <UIFunction class="uiFunction" />
+        <UIChat />
       </section>
     </article>
   </main>
 </template>
 
 <script setup>
+import UIChat from "./components/UIChat.vue";
 import { useRoleStore } from "./stores/roles";
 import { useAlgorithmStore } from "./stores/algorithm";
 import UISlot from "./components/UIslot.vue";

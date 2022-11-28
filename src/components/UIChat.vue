@@ -1,12 +1,12 @@
 <template>
   <ul>
-    <li v-for="chatline in algorithmStore.chatLines">{{ chatline }}</li>
+    <!-- <li v-for="chatline in algorithmStore.chatLines">{{ chatline }}</li> -->
   </ul>
 </template>
 
 <script setup>
-import { useAlgorithmStore } from "../stores/algorithm";
-const algorithmStore = useAlgorithmStore();
+import { useChatStore } from "../stores/chat";
+const chatStore = useChatStore();
 </script>
 
 <style scoped>
