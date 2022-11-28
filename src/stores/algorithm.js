@@ -11,14 +11,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
   const checkTargetSafetyValue = (num) => {
     return targetSafetyValue.value === num
   }
-  const diceOneTo = (num) => {
-    dice.value = Math.floor(Math.random() * num) + 1
-  }
+  const diceOneTo = (num) => dice.value = Math.floor(Math.random() * num) + 1
+
+
 
   const algorithm = computed(() => {
     // About number... I use switch to get more effect.
     // About scroll... I use if-else, cost a little bit effect, but get lots of readability. 
+
     if (!targetScroll.value) return
+
     const scrollArmor = targetScroll.value.includes('Armor')
     const scrollWeapon = targetScroll.value.includes('Weapon')
 

@@ -1,5 +1,5 @@
 <template>
-  <ul class="logoutUI" ref="logoutUINode" @click.stop="logoutUIHandler">
+  <ul class="uiLogout" ref="uiLogoutNode" @click.stop="uiLogoutHandler">
     <li class="close"></li>
     <li class="restart">
       <figure class="roleList">
@@ -23,12 +23,12 @@ import { ref } from "vue";
 import { useRoleStore } from "../stores/roles";
 
 const roleStore = useRoleStore();
-const logoutUINode = ref();
+const uiLogoutNode = ref();
 
-const logoutUIHandler = (e) => {
+const uiLogoutHandler = (e) => {
   const classTarget = e.target.className;
-  const classLogout = logoutUINode.value.classList;
-  const classRoleList = logoutUINode.value.children[1].firstElementChild.classList;
+  const classLogout = uiLogoutNode.value.classList;
+  const classRoleList = uiLogoutNode.value.children[1].firstElementChild.classList;
 
   const changeRoleTo = (role) => {
     roleStore.roleNow = role;
@@ -37,13 +37,13 @@ const logoutUIHandler = (e) => {
     classLogout.toggle("show");
     classRoleList.remove("show");
   };
-  const removeCharacterUI = () => {
-    const functionUIArr = Array.from(
-      logoutUINode.value.parentElement.parentElement.children
+  const removeUIChracter = () => {
+    const uiFunction = Array.from(
+      uiLogoutNode.value.parentElement.parentElement.children
     );
 
-    functionUIArr.forEach((btn) => {
-      if (btn.className === "characterBtn") {
+    uiFunction.forEach((btn) => {
+      if (btn.className === "btnCharacter") {
         btn.firstElementChild.classList.remove("show");
       }
     });
@@ -51,7 +51,7 @@ const logoutUIHandler = (e) => {
 
   if (classTarget === "exit") {
     resetLogoutUI();
-    removeCharacterUI();
+    removeUIChracter();
   } else if (classTarget === "restart") {
     classRoleList.toggle("show");
   } else if (["close", "cancel"].includes(classTarget)) {
@@ -59,13 +59,13 @@ const logoutUIHandler = (e) => {
   } else if (["elf", "prince", "knight", "magician"].includes(classTarget)) {
     changeRoleTo(classTarget);
     resetLogoutUI();
-    removeCharacterUI();
+    removeUIChracter();
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.logoutUI {
+.uiLogout {
   visibility: hidden;
   position: absolute;
   inset: -2215% 0% 704% -1046%;

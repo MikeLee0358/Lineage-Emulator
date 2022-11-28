@@ -242,9 +242,9 @@ const dataForAlgorithm = (equip) => {
   }
   .panelNumber {
     position: absolute;
-    inset: -32.75%;
+    inset: -32.65%;
     text-align: center;
-    line-height: 100%;
+    line-height: 50%;
     transform: scale(0.6);
 
     .level {
@@ -287,7 +287,8 @@ const dataForAlgorithm = (equip) => {
   .uiChracter .panelNumber {
     transform: unset;
     inset: 0%;
-    font-size: clamp(9.5px, 2.4vmin, 25px);
+    top: 0.5%;
+    font-size: clamp(9.5px, 2.65vmin, 2.5rem);
   }
 }
 </style>
