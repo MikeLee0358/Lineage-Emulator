@@ -50,9 +50,9 @@ main {
       grid-template-columns: 18% 1fr 22.5%;
       grid-template-rows: 20% 1fr 16%;
       grid-template-areas:
-        ". hpUI ."
-        "armorUI chattingUI uiSlot"
-        "armorUI chattingUI uiFunction";
+        ". uiHp ."
+        "uiInterface uiChat uiSlot"
+        "uiInterface . uiFunction";
 
       position: relative;
       height: 27%;

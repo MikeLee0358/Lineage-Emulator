@@ -138,105 +138,109 @@ const dataForAlgorithm = (equip) => {
     inset: 0 0 93% 87%;
     z-index: 1;
   }
-  .panelEquip .equip {
+  .panelEquip {
     position: absolute;
-    width: 11%;
-    height: 9%;
-    background-repeat: round;
-    background-size: cover;
-    color: transparent;
-
-    &::after {
-      content: attr(data-displayEquipInfo);
+    inset: 0;
+    .equip {
       position: absolute;
-      top: 102%;
-      z-index: 1;
-      width: 375%;
-      border-width: 0.22vw;
-      display: none;
+      width: 11%;
+      height: 9%;
+      background-repeat: round;
+      background-size: cover;
+      color: transparent;
 
-      font-size: 1.3vw;
-      line-height: 100%;
-      @extend %templateInfoStyle;
-      color: var(--color-white);
-    }
+      &::after {
+        content: attr(data-displayEquipInfo);
+        position: absolute;
+        top: 102%;
+        z-index: 1;
+        width: 375%;
+        border-width: 0.22vw;
+        display: none;
 
-    &:hover::after {
-      display: block;
-    }
-
-    &.weapon {
-      top: 52.2%;
-      left: 36.1%;
-    }
-
-    &.armor {
-      &.helmet {
-        top: 13.5%;
-        left: 71.2%;
+        font-size: 1.3vw;
+        line-height: 100%;
+        @extend %templateInfoStyle;
+        color: var(--color-white);
       }
 
-      &.shirt {
-        top: 31%;
-        left: 47.7%;
+      &:hover::after {
+        display: block;
       }
 
-      &.bodyArmor {
-        top: 31%;
-        left: 60%;
+      &.weapon {
+        top: 52.2%;
+        left: 36.1%;
       }
 
-      &.cloak {
-        top: 31%;
-        left: 72.2%;
+      &.armor {
+        &.helmet {
+          top: 13.5%;
+          left: 71.2%;
+        }
+
+        &.shirt {
+          top: 31%;
+          left: 47.7%;
+        }
+
+        &.bodyArmor {
+          top: 31%;
+          left: 60%;
+        }
+
+        &.cloak {
+          top: 31%;
+          left: 72.2%;
+        }
+
+        &.shield {
+          top: 44.2%;
+          left: 79.2%;
+        }
+
+        &.gloves {
+          top: 48.7%;
+          left: 48.5%;
+        }
+
+        &.boots {
+          top: 79.6%;
+          left: 77.7%;
+        }
       }
 
-      &.shield {
-        top: 44.2%;
-        left: 79.2%;
-      }
+      &.jewelries {
+        &.amulet {
+          top: 19.3%;
+          left: 58.7%;
+        }
 
-      &.gloves {
-        top: 48.7%;
-        left: 48.5%;
-      }
+        &.left-ring {
+          top: 42.2%;
+          left: 34.7%;
+        }
 
-      &.boots {
-        top: 79.6%;
-        left: 77.7%;
-      }
-    }
+        &.belt {
+          top: 41.2%;
+          left: 64.9%;
+        }
 
-    &.jewelries {
-      &.amulet {
-        top: 19.3%;
-        left: 58.7%;
-      }
+        &.right-ring {
+          top: 54.5%;
+          left: 78%;
+        }
 
-      &.left-ring {
-        top: 42.2%;
-        left: 34.7%;
-      }
-
-      &.belt {
-        top: 41.2%;
-        left: 64.9%;
-      }
-
-      &.right-ring {
-        top: 54.5%;
-        left: 78%;
-      }
-
-      &.amulet::after,
-      &.belt::after,
-      &.left-ring::after,
-      &.right-ring::after {
-        color: var(--color-grey);
-        border: unset;
-        background: unset;
-        padding: unset;
-        white-space: nowrap;
+        &.amulet::after,
+        &.belt::after,
+        &.left-ring::after,
+        &.right-ring::after {
+          color: var(--color-grey);
+          border: unset;
+          background: unset;
+          padding: unset;
+          white-space: nowrap;
+        }
       }
     }
   }
