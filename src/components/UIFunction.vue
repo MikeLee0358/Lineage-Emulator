@@ -4,13 +4,13 @@
       <UICharacter />
     </li>
     <li class="btnLogout">
-      <UIlogout />
+      <UILogout />
     </li>
   </ul>
 </template>
 
 <script setup>
-import UIlogout from "./UILogout.vue";
+import UILogout from "./UILogout.vue";
 import UICharacter from "./UICharacter.vue";
 
 const btnToggle = (e) => {

@@ -14,15 +14,15 @@
 <script setup>
 import UIChat from "./components/UIChat.vue";
 import { useRoleStore } from "./stores/role";
-import { useAlgorithmStore } from "./stores/algorithm";
+import { useScrollStore } from "./stores/scroll";
 import UISlot from "./components/UIslot.vue";
 import UIFunction from "./components/UIFunction.vue";
 const roleStore = useRoleStore();
 
 const changeCursor = () => {
-  const algorithmStore = useAlgorithmStore();
+  const scrollStore = useScrollStore();
 
-  if (algorithmStore.targetScroll === null) {
+  if (scrollStore.targetScroll === null) {
     return 'url("/src/assets/UI/UI_pointer.png")15 8, auto';
   } else return 'url("/src/assets/UI/UI_target.png")11 17, auto';
 };

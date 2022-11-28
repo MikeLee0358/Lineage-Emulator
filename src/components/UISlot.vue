@@ -15,7 +15,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useAlgorithmStore } from "../stores/algorithm";
+import { useScrollStore } from "../stores/scroll";
 const slotList = ref([
   {
     id: 0,
@@ -109,7 +109,7 @@ const slotList = ref([
 ]);
 const namedBox = ref("");
 const nodeForArray = ref();
-const algorithmStore = useAlgorithmStore();
+const scrollStore = useScrollStore();
 
 const clickToActive = (name) => {
   let colorCss = ref("");
@@ -140,7 +140,7 @@ const clickToActive = (name) => {
     const slotCursed = ["F8", "F12"];
 
     name === undefined ? undefined : (namedBox.value = name);
-    
+
     if (slotBlessed.includes(namedBox.value)) colorCss = color.yellow;
     else if (slotCursed.includes(namedBox.value)) colorCss = color.red;
     else colorCss = color.white;
@@ -165,7 +165,7 @@ onMounted(() => {
     const nodeList = Array.from(nodeForArray.value.children);
 
     document.addEventListener("keydown", (e) => {
-      e.preventDefault(); // to prevent F5, F11 default
+      e.preventDefault(); 
       e.stopPropagation();
 
       nodeList.forEach((node) => {
@@ -174,37 +174,10 @@ onMounted(() => {
 
         if (!node.matches(`.${e.key}`)) return;
         node.classList.add("active");
+        scrollStore.changeScroll(e.key)
 
-        switch (e.key) {
-          case "F6":
-            algorithmStore.targetScroll = "whiteArmor";
-            break;
-
-          case "F7":
-            algorithmStore.targetScroll = "blessedArmor";
-            break;
-
-          case "F8":
-            algorithmStore.targetScroll = "cursedArmor";
-            break;
-          case "F10":
-            algorithmStore.targetScroll = "whiteWeapon";
-            break;
-
-          case "F11":
-            algorithmStore.targetScroll = "blessedWeapon";
-            break;
-
-          case "F12":
-            algorithmStore.targetScroll = "cursedWeapon";
-            break;
-
-          default:
-            algorithmStore.targetScroll = null;
-            break;
-        }
       });
-      algorithmStore.scrollChat;
+      // algorithmStore.scrollChat;
     });
   };
   whenKeyDown();

@@ -1,19 +1,20 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import { useScrollStore } from "./scroll";
 
 export const useAlgorithmStore = defineStore("algorithm", () => {
   const dice = ref(null)
   const targetValue = ref(null)
-  const targetScroll = ref(null);
   const targetCategory = ref(null)
   const targetSafetyValue = ref(null)
 
+  const scrollStore = useScrollStore()
   const algorithm = computed(() => {
     // About equip number searching... I use switch to get more effect.
     // About other... I use if-else get readability more. 
-    if (!targetScroll.value) return
+    if (!scrollStore.targetScroll) return
     const typeEquip = (text) => targetCategory.value.toLowerCase().includes(text.toLowerCase())
-    const typeScroll = (text) => targetScroll.value.toLowerCase().includes(text.toLowerCase())
+    const typeScroll = (text) => scrollStore.targetScroll.toLowerCase().includes(text.toLowerCase())
     const diceOneTo = (num) => dice.value = Math.floor(Math.random() * num) + 1
     const checkTargetSafetyValue = (num) => targetSafetyValue.value === num
 
@@ -32,7 +33,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 1:
             if (typeScroll('blessed')) {
@@ -53,7 +54,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 2:
             if (typeScroll('blessed')) {
@@ -74,7 +75,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // blessed scroll # 50% +1 | 50% +2
           case 3:
@@ -93,7 +94,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 4:
             if (typeScroll('blessed')) {
@@ -111,7 +112,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 5:
             if (typeScroll('blessed')) {
@@ -129,7 +130,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // white = blessed scroll # 33.3% success  66.6% failure
           case 6:
@@ -147,7 +148,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 7:
             if (typeScroll('blessed') || typeScroll('white')) {
@@ -164,7 +165,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 8:
             if (typeScroll('blessed') || typeScroll('white')) {
@@ -181,7 +182,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // (infinity loop) 10% success  90% failure and then
           // if white scroll # 33.3% +1 | 66.6% nothing happened
@@ -234,7 +235,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
 
 
@@ -263,7 +264,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -2:
             if (typeScroll('cursed')) targetValue.value--
@@ -283,7 +284,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -3:
             if (typeScroll('cursed')) targetValue.value--
@@ -303,7 +304,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -4:
             if (typeScroll('cursed')) targetValue.value--
@@ -323,7 +324,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -5:
             if (typeScroll('cursed')) targetValue.value--
@@ -343,7 +344,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // cursed scroll # 33.3% success  66.6% failure
           case -6:
@@ -375,7 +376,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -7:
             if (typeScroll('cursed')) {
@@ -406,7 +407,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -8:
             if (typeScroll('cursed')) {
@@ -437,7 +438,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // (infinity loop) 10% success  90% failure and then
           // if cursed scroll # 50% +1 | 50% nothing happened
@@ -481,7 +482,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
 
 
@@ -510,7 +511,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 1:
             if (typeScroll('blessed')) {
@@ -531,7 +532,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 2:
             if (typeScroll('blessed')) {
@@ -552,7 +553,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // blessed scroll # 50% +1 | 50% +2
           case 3:
@@ -571,7 +572,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 4:
             if (typeScroll('blessed')) {
@@ -589,7 +590,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 5:
             if (typeScroll('blessed')) {
@@ -607,7 +608,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // white = blessed scroll # 1/n% success  n-1/n% failure
           case 6:
@@ -625,7 +626,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 7:
             if (typeScroll('blessed') || typeScroll('white')) {
@@ -642,7 +643,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 8:
             if (typeScroll('blessed') || typeScroll('white')) {
@@ -659,7 +660,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // (infinity loop) 10% success  90% failure and then
           // if white scroll # 33.3% +1 | 66.6% nothing happened
@@ -712,7 +713,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
 
 
@@ -741,7 +742,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -2:
             if (typeScroll('cursed')) targetValue.value--
@@ -761,7 +762,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -3:
             if (typeScroll('cursed')) targetValue.value--
@@ -781,7 +782,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -4:
             if (typeScroll('cursed')) targetValue.value--
@@ -801,7 +802,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -5:
             if (typeScroll('cursed')) targetValue.value--
@@ -821,7 +822,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // cursed scroll # 33.3% success  66.6% failure
           case -6:
@@ -853,7 +854,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -7:
             if (typeScroll('cursed')) {
@@ -884,7 +885,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -8:
             if (typeScroll('cursed')) {
@@ -915,7 +916,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // (infinity loop) 10% success  90% failure and then
           // if cursed scroll # 50% +1 | 50% nothing happened
@@ -959,7 +960,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
 
 
@@ -989,7 +990,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 1:
             if (typeScroll('blessed')) {
@@ -1010,7 +1011,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 2:
             if (typeScroll('blessed')) {
@@ -1031,7 +1032,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // blessed scroll # 50% +1 | 50% +2
           case 3:
@@ -1050,7 +1051,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (typeScroll('white')) targetValue.value++
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // blessed scroll # 12.5% +1 | 12.5% +2 | 75% failure 
           // white scroll # 25% +1 || 75% failure
@@ -1084,7 +1085,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // blessed scroll # 10% +1 | 10% +2 | 80% failure 
           // white scroll # 20% +1 || 80% failure
@@ -1118,7 +1119,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // white = blessed scroll # 1/n% success  n-1/n% failure
           case 6:
@@ -1136,7 +1137,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 7:
             if (typeScroll('blessed') || typeScroll('white')) {
@@ -1153,7 +1154,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case 8:
             if (typeScroll('blessed') || typeScroll('white')) {
@@ -1170,7 +1171,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // (infinity loop) 10% success  90% failure and then
           // if white scroll # 33.3% +1 | 66.6% nothing happened
@@ -1223,7 +1224,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             }
             else targetValue.value--
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
 
 
@@ -1252,7 +1253,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -2:
             if (typeScroll('cursed')) targetValue.value--
@@ -1272,7 +1273,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -3:
             if (typeScroll('cursed')) targetValue.value--
@@ -1292,7 +1293,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // cursed scroll # 1/n% success  n-1/n% failure
           case -4:
@@ -1324,7 +1325,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -5:
             if (typeScroll('cursed')) {
@@ -1355,7 +1356,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -6:
             if (typeScroll('cursed')) {
@@ -1386,7 +1387,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -7:
             if (typeScroll('cursed')) {
@@ -1417,7 +1418,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           case -8:
             if (typeScroll('cursed')) {
@@ -1448,7 +1449,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
           // (infinity loop) 10% success  90% failure and then
           // if cursed scroll # 50% +1 | 50% nothing happened
@@ -1492,7 +1493,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
               }
             } else targetValue.value++
 
-            targetScroll.value = null
+            scrollStore.targetScroll = null
             break;
 
 
@@ -1505,6 +1506,11 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     }
   })
 
-  return { algorithm, targetValue, targetScroll, targetCategory, targetSafetyValue };
+  return {
+    algorithm,
+    targetValue,
+    targetCategory,
+    targetSafetyValue
+  };
 });
 
