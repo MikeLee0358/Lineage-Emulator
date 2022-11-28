@@ -120,6 +120,7 @@ const clickToActive = (name) => {
     nodeList.forEach((node) => {
       node.classList.remove("active");
       node.classList.remove("templateInfo");
+
       if (node.matches(`.${name}`)) {
         node.classList.add("active");
         node.classList.add("templateInfo");
@@ -135,12 +136,13 @@ const clickToActive = (name) => {
       yellow: "var(--color-yellow)",
       red: "var(--color-red)",
     };
-    const slotYellow = ["F7", "F11"];
-    const slotRed = ["F8", "F12"];
+    const slotBlessed = ["F7", "F11"];
+    const slotCursed = ["F8", "F12"];
 
     name === undefined ? undefined : (namedBox.value = name);
-    if (slotYellow.includes(namedBox.value)) colorCss = color.yellow;
-    else if (slotRed.includes(namedBox.value)) colorCss = color.red;
+    
+    if (slotBlessed.includes(namedBox.value)) colorCss = color.yellow;
+    else if (slotCursed.includes(namedBox.value)) colorCss = color.red;
     else colorCss = color.white;
   };
 

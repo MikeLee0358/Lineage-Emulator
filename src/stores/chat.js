@@ -4,7 +4,7 @@ import { useAlgorithmStore } from './algorithm';
 
 export const useChatStore = defineStore('chat', () => {
   const algorithmStore = useAlgorithmStore()
-  
+  const a = algorithmStore.targetScroll
 
 
 

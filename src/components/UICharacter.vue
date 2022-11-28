@@ -37,7 +37,7 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { useRoleStore } from "../stores/roles";
+import { useRoleStore } from "../stores/role";
 import { useAlgorithmStore } from "../stores/algorithm";
 
 const roleStore = useRoleStore();

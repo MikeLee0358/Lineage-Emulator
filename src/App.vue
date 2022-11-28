@@ -13,7 +13,7 @@
 
 <script setup>
 import UIChat from "./components/UIChat.vue";
-import { useRoleStore } from "./stores/roles";
+import { useRoleStore } from "./stores/role";
 import { useAlgorithmStore } from "./stores/algorithm";
 import UISlot from "./components/UIslot.vue";
 import UIFunction from "./components/UIFunction.vue";

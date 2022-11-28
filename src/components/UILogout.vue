@@ -20,7 +20,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRoleStore } from "../stores/roles";
+import { useRoleStore } from "../stores/role";
 
 const roleStore = useRoleStore();
 const uiLogoutNode = ref();
