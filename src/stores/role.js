@@ -216,7 +216,7 @@ export const useRoleStore = defineStore('role', () => {
             large: 10,
           },
           grip: "單手武器",
-          value: 0,
+          value: 6,
           safetyValue: 6,
           material: "金屬",
           weight: 120,
