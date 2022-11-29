@@ -500,7 +500,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       }
     }
     else if (typeEquip('armor') && scrollStore.typeScroll('armor') && checkTargetSafetyValue(6)) {
-      console.log('armor')
       if (targetValue.value >= 0) {
         switch (targetValue.value) {
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
@@ -1289,7 +1288,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
             }
             else if (scrollStore.typeScroll('white')) {
-              diceOneTo(10)
+              secDice.value = diceOneTo(10)
 
               switch (dice.value) {
                 case 1:
@@ -1305,12 +1304,14 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                       chatStore.chatEquip
                       break;
                   }
+                  break;
 
                 default:
                   chatStore.chatEquip
                   targetValue.value = 0
                   break;
               }
+
             }
             else {
               chatStore.chatCurse
@@ -1647,11 +1648,11 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   switch (dice.value) {
                     case 1:
                       chatStore.chatEquip
+                      targetValue.value--
                       break;
 
                     default:
                       chatStore.chatEquip
-                      targetValue.value--
                       break;
                   }
                   break;
@@ -1661,6 +1662,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
                   targetValue.value = 0
                   break;
               }
+
             }
             else if (scrollStore.typeScroll('blessed')) {
               diceOneTo(3)

@@ -230,7 +230,7 @@ export const useRoleStore = defineStore('role', () => {
           src: "/src/assets/knight/equips/equip_helmet.png",
           category: "armor helmet",
           armor: 3,
-          value: -12,
+          value: 9,
           safetyValue: 4,
           material: "鐵",
           weight: 40,

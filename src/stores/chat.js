@@ -54,11 +54,12 @@ export const useChatStore = defineStore('chat', () => {
 
 
   const chatEquip = computed(() => {
-    console.log(1)
+
     switch (true) {
       case scrollStore.typeScroll('blessed'):
 
-        if (algorithmStore.targetSafetyValue > algorithmStore.targetValue) {
+        if (algorithmStore.targetValue < algorithmStore.targetSafetyValue) {
+          // -X ~ safety
           if (algorithmStore.dice === 1) chatPass.value
           else chatLucky.value
         } else if ([3, 4, 5].includes(algorithmStore.targetValue)) {
@@ -69,18 +70,45 @@ export const useChatStore = defineStore('chat', () => {
           if (algorithmStore.dice === 1) chatPass.value
           else chatGone.value
         } else {
+          // +9 up
           if (algorithmStore.secDice === 1) {
             if (algorithmStore.dice === 1) chatNope.value
             else chatPass.value
           } else chatGone.value
         }
-
         break;
 
-      default:
+      case scrollStore.typeScroll('white'):
+        // -X ~ safety
+        if (algorithmStore.targetValue < algorithmStore.targetSafetyValue) chatPass.value
+        else if ([4, 5, 6, 7, 8].includes(algorithmStore.targetValue)) {
+          if (algorithmStore.dice === 1) chatPass.value
+          else chatGone.value
+        } else {
+          // +9 up
+          if (algorithmStore.secDice === 1) {
+            if (algorithmStore.dice === 1) chatPass.value
+            else chatNope.value
+          } else chatGone.value
+        }
         break;
+
+      case scrollStore.typeScroll('cursed'):
+        // X ~ -4
+        if (algorithmStore.targetValue > (algorithmStore.targetSafetyValue * -1)) chatCurse.value
+        else if ([-4, -5, -6, -7, -8].includes(algorithmStore.targetValue)) {
+          if (algorithmStore.dice === 1) chatCurse.value
+          else chatGone.value
+        } else {
+          // -9 up
+          if (algorithmStore.secDice === 1) {
+            if (algorithmStore.dice === 1) chatPass.value
+            else chatNope.value
+          } else chatGone.value
+        }
+        break;
+
     }
-    console.log(2)
   })
 
   return {
