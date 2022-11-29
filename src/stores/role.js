@@ -230,7 +230,7 @@ export const useRoleStore = defineStore('role', () => {
           src: "/src/assets/knight/equips/equip_helmet.png",
           category: "armor helmet",
           armor: 3,
-          value: 0,
+          value: -12,
           safetyValue: 4,
           material: "鐵",
           weight: 40,
@@ -765,6 +765,10 @@ export const useRoleStore = defineStore('role', () => {
   const roleBg = computed(() => `url(src/assets/${roleNow.value}/bg_${roleNow.value}.png)`
   )
   const roleData = computed(() => roles.value[roleNow.value])
-  return { roleNow, roleBg, roleData }
+  return {
+    roleNow,
+    roleBg,
+    roleData
+  }
 })
 

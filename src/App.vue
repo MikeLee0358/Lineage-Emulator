@@ -5,7 +5,7 @@
       <section class="panelUI">
         <UISlot class="uiSlot" />
         <UIFunction class="uiFunction" />
-        <UIChat />
+        <UIChat class="uiChat" />
       </section>
     </article>
   </main>
@@ -50,7 +50,7 @@ main {
     .panelUI {
       display: grid;
       grid-template-columns: 18% 1fr 22.5%;
-      grid-template-rows: 20% 1fr 16%;
+      grid-template-rows: 20% 64% 16%;
       grid-template-areas:
         ". uiHp ."
         "uiInterface uiChat uiSlot"
@@ -73,6 +73,10 @@ main {
       .uiFunction {
         grid-area: uiFunction;
         position: relative;
+      }
+
+      .uiChat {
+        grid-area: uiChat;
       }
     }
   }

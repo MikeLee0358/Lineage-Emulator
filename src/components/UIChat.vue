@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <!-- <li v-for="chatline in algorithmStore.chatLines">{{ chatline }}</li> -->
+    <li v-for="chatline in chatStore.chatLines">{{ chatline }}</li>
   </ul>
 </template>
 

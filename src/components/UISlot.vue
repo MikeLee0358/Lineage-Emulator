@@ -15,6 +15,7 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { useChatStore } from "../stores/chat";
 import { useScrollStore } from "../stores/scroll";
 const slotList = ref([
   {
@@ -110,6 +111,7 @@ const slotList = ref([
 const namedBox = ref("");
 const nodeForArray = ref();
 const scrollStore = useScrollStore();
+const chatStore = useChatStore();
 
 const clickToActive = (name) => {
   let colorCss = ref("");
@@ -165,7 +167,7 @@ onMounted(() => {
     const nodeList = Array.from(nodeForArray.value.children);
 
     document.addEventListener("keydown", (e) => {
-      e.preventDefault(); 
+      e.preventDefault();
       e.stopPropagation();
 
       nodeList.forEach((node) => {
@@ -174,8 +176,8 @@ onMounted(() => {
 
         if (!node.matches(`.${e.key}`)) return;
         node.classList.add("active");
-        scrollStore.changeScroll(e.key)
-
+        scrollStore.changeScroll(e.key);
+        chatStore.chatScroll;
       });
       // algorithmStore.scrollChat;
     });

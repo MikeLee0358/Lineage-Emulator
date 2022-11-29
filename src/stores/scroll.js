@@ -34,9 +34,12 @@ export const useScrollStore = defineStore('scroll', () => {
         break;
     }
   }
+  const typeScroll = (text) => targetScroll.value.toLowerCase().includes(text.toLowerCase())
 
   return {
     targetScroll,
-    changeScroll
+    changeScroll,
+    typeScroll
+
   }
 })

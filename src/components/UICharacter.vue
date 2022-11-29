@@ -27,9 +27,9 @@
         :key="equip.id"
         class="equip"
         :class="equip.category"
-        :data-displayEquipInfo="getEquipInfo(equip)"
         :style="{ backgroundImage: `url(${equip.src})` }"
         @click="dataForAlgorithm(equip)"
+        :data-displayEquipInfo="getEquipInfo(equip)"
       ></li>
     </ul>
   </section>
@@ -38,9 +38,13 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useRoleStore } from "../stores/role";
+import { useChatStore } from "../stores/chat";
+import { useScrollStore } from "../stores/scroll";
 import { useAlgorithmStore } from "../stores/algorithm";
 
 const roleStore = useRoleStore();
+const chatStore = useChatStore();
+const scrollStore = useScrollStore();
 const algorithmStore = useAlgorithmStore();
 const { roleData } = storeToRefs(roleStore);
 
