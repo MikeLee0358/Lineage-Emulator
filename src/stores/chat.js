@@ -47,21 +47,20 @@ export const useChatStore = defineStore("chat", () => {
   const chatUpdateWeapon = () => shiftAndPushArr("請選擇一種武器。");
   const chatUpdateArmor = () => shiftAndPushArr("請選擇一種防具。");
 
-  const chatEquipV2 = () => {
-    console.log(scrollStore.targetScroll);
-    if (scrollStore.targetScroll === "") return;
+  const chatUpdate = () => {
+    if (scrollStore.targetScroll === null) return;
     else if (scrollStore.targetScroll.includes("Weapon")) chatUpdateWeapon();
     else if (scrollStore.targetScroll.includes("Armor")) chatUpdateArmor();
 
-    if (algorithmStore.diceChatState === 1 && scrollStore.targetScroll !== "")
-      chatUpdateOne();
+    if (algorithmStore.diceChatState === null) return;
+    else if (algorithmStore.diceChatState === -1) chatUpdateNope();
     else if (algorithmStore.diceChatState === 0) chatUpdateGone();
-    else if (algorithmStore.diceChatState === null) chatUpdateNope();
+    else if (algorithmStore.diceChatState === 1) chatUpdateOne();
     else chatUpdateMore();
   };
 
   return {
-    chatEquipV2,
+    chatUpdate,
     chatLines,
   };
 });

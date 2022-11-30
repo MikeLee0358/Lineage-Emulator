@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 
 export const useScrollStore = defineStore("scroll", () => {
-  const targetScroll = ref("");
+  const targetScroll = ref(null); //null: pointer icon ; else: target icon
 
   const changeScroll = (targetEventKey) => {
     switch (targetEventKey) {
@@ -30,15 +30,16 @@ export const useScrollStore = defineStore("scroll", () => {
         break;
 
       default:
-        targetScroll.value = "";
+        targetScroll.value = null;
         break;
     }
   };
   const typeScroll = (text) =>
     targetScroll.value.toLowerCase().includes(text.toLowerCase());
+
   return {
-    targetScroll,
-    changeScroll,
     typeScroll,
+    changeScroll,
+    targetScroll,
   };
 });

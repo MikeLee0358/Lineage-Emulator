@@ -176,8 +176,9 @@ onMounted(() => {
 
         if (!node.matches(`.${e.key}`)) return;
         node.classList.add("active");
+
         scrollStore.changeScroll(e.key);
-        chatStore.chatEquipV2();
+        chatStore.chatUpdate();
       });
     });
   };
