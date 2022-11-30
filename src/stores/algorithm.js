@@ -6,6 +6,7 @@ import { useChatStore } from "./chat";
 export const useAlgorithmStore = defineStore("algorithm", () => {
   const dice = ref(null)
   const secDice = ref(null)
+  const diceChatState = ref(1) // set 1 to achieve message poping out for most of stuff whitout state.
   const targetName = ref(null)
   const targetValue = ref(null)
   const targetCategory = ref(null)
@@ -21,9 +22,9 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     // About other... I use if-else get readability more. 
     if (!scrollStore.targetScroll) return
 
-    const diceRoll = () => dice.value = Number((Math.random() * 100 + 1).toFixed(2))
-    const diceOneTo = (num) => dice.value = Number(Math.floor(Math.random() * num) + 1)
-    const successRate = computed(() => Number((1 / targetValue.value) * 100 + 50).toFixed(2))
+    const diceOneTo = (num) => diceChatState.value = Number(Math.floor(Math.random() * num) + 1)
+    const diceRollForAlogrithm = () => dice.value = Number((Math.random() * 100 + 1).toFixed(2))
+    const successRate = computed(() => Number((1 / targetValue.value) * 100).toFixed(2))
 
 
     const checkTargetSafetyValue = (num) => targetSafetyValue.value === num
@@ -32,144 +33,46 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
 
 
-    diceRoll()
+    diceRollForAlogrithm()
     if (typeEquip('weapon') && scrollStore.typeScroll('weapon') && checkTargetSafetyValue(6)) {
-
-      if (targetValue.value >= 0) {
 
         switch (targetValue.value) {
 
 
-          // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
+
           case 0:
-            if (scrollStore.typeScroll('blessed')) {
+            if (scrollStore.typeScroll('cursed')) {
+              chatStore.chatEquipV2()
+              targetValue.value--
+
+            } else if (scrollStore.typeScroll('blessed')) {
               diceOneTo(3)
+              chatStore.chatEquipV2()
+              targetValue.value += diceChatState.value
 
-              targetValue.value += dice.value
-
-              // 1 一瞬間發出
-              // 2 持續發出
-            } else if (scrollStore.typeScroll('white')) {
-              targetValue.value++
             } else {
-              targetValue.value--
+              chatStore.chatEquipV2()
+              targetValue.value++
             }
 
             scrollStore.targetScroll = null
             break;
-          case 1:
-            if (scrollStore.typeScroll('blessed')) {
-              diceOneTo(3)
 
-              targetValue.value += dice.value
 
-              // 1 一瞬間發出
-              // 2 持續發出
-            } else if (scrollStore.typeScroll('white')) {
-              targetValue.value++
-            } else {
-              targetValue.value--
-            }
 
-            scrollStore.targetScroll = null
-            break;
-          case 2:
-            if (scrollStore.typeScroll('blessed')) {
-              diceOneTo(3)
 
-              targetValue.value += dice.value
-
-              // 1 一瞬間發出
-              // 2 持續發出
-            } else if (scrollStore.typeScroll('white')) {
-              targetValue.value++
-            } else {
-              targetValue.value--
-            }
-
-            scrollStore.targetScroll = null
-            break;
-          // blessed scroll # 50% +1 | 50% +2
-          case 3:
-            if (scrollStore.typeScroll('blessed')) {
-              diceOneTo(2)
-
-              targetValue.value += dice.value
-
-              // 1 一瞬間發出
-              // 2 持續發出
-            } else if (scrollStore.typeScroll('white')) {
-              targetValue.value++
-            } else {
-              targetValue.value--
-            }
-
-            scrollStore.targetScroll = null
-            break;
-          case 4:
-            if (scrollStore.typeScroll('blessed')) {
-              diceOneTo(2)
-
-              targetValue.value += dice.value
-
-              // 1 一瞬間發出
-              // 2 持續發出
-            } else if (scrollStore.typeScroll('white')) {
-              targetValue.value++
-            } else {
-              targetValue.value--
-            }
-
-            scrollStore.targetScroll = null
-            break;
-          case 5:
-            if (scrollStore.typeScroll('blessed')) {
-              diceOneTo(2)
-
-              targetValue.value += dice.value
-
-              // 1 一瞬間發出
-              // 2 持續發出
-            } else if (scrollStore.typeScroll('white')) {
-              targetValue.value++
-            } else {
-              targetValue.value--
-            }
-
-            scrollStore.targetScroll = null
-            break;
-          // white = blessed scroll # 33.3% success  66.6% failure
           case 6:
             if (scrollStore.typeScroll('cursed')) {
+              chatStore.chatEquipV2()
               targetValue.value--
-            }
-            else if (successRate.value > dice.value) {
-              targetValue.value++
-            } else {
-              targetValue.value = 0
-            }
 
-            scrollStore.targetScroll = null
-            break;
-          case 7:
-            if (scrollStore.typeScroll('cursed')) {
-              targetValue.value--
-            }
-            else if (successRate.value > dice.value) {
+            } else if (successRate.value > dice.value) {
+              chatStore.chatEquipV2()
               targetValue.value++
-            } else {
-              targetValue.value = 0
-            }
 
-            scrollStore.targetScroll = null
-            break;
-          case 8:
-            if (scrollStore.typeScroll('cursed')) {
-              targetValue.value--
-            }
-            else if (successRate.value > dice.value) {
-              targetValue.value++
             } else {
+              diceChatState.value = 0
+              chatStore.chatEquipV2()
               targetValue.value = 0
             }
 
@@ -177,35 +80,47 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             break;
 
 
-          // (infinity loop) 10% success  90% failure and then
-          // if white scroll # 33.3% +1 | 66.6% nothing happened
-          // if blessed scroll # 66.6% +1 | 33.3% nothing happened 
-          case targetValue.value:
+          case 9:
             if (scrollStore.typeScroll('cursed')) {
+              chatStore.chatEquipV2()
               targetValue.value--
+
             } else if (successRate.value > dice.value) {
               diceOneTo(3)
 
-              if (dice.value === 1) {
+              if (diceChatState.value === 1) {
+                chatStore.chatEquipV2()
                 targetValue.value++
-              } else if (dice.value === 2) {
-                console.log('nope')
+
+              } else if (diceChatState.value === 2) {
+                diceChatState.value = null
+                chatStore.chatEquipV2()
+
               } else {
-                if (scrollStore.typeScroll('blessed')) targetValue.value++
-                if (scrollStore.typeScroll('white')) console.log('nope')
+                if (scrollStore.typeScroll('blessed')) {
+                  diceChatState.value = 1
+                  chatStore.chatEquipV2()
+                  targetValue.value++
+
+                } else if (scrollStore.typeScroll('white')) {
+                  diceChatState.value = null
+                  chatStore.chatEquipV2()
+
+                }
               }
 
             } else {
+              diceChatState.value = 0
+              chatStore.chatEquipV2()
               targetValue.value = 0
             }
 
             scrollStore.targetScroll = null
             break;
 
-
         }
-      }
-      else {
+      
+
         switch (targetValue.value) {
 
           // blessed scroll # 33.3% +1 | 33.3% +2 | 33.3% +3
@@ -215,21 +130,13 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             else if (scrollStore.typeScroll('blessed')) {
               diceOneTo(3)
 
-              switch (dice.value) {
-                case 2:
-                  targetValue.value += 2
-                  break;
-                case 3:
-                  targetValue.value += 3
-                  break;
-                default:
-                  targetValue.value++
-                  break;
-              }
+
             } else targetValue.value++
 
             scrollStore.targetScroll = null
             break;
+
+            
           case -2:
             if (scrollStore.typeScroll('cursed')) targetValue.value--
             else if (scrollStore.typeScroll('blessed')) {
@@ -451,7 +358,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
 
         }
-      }
+      
     }
     // else if (typeEquip('armor') && scrollStore.typeScroll('armor') && checkTargetSafetyValue(6)) {
     //   if (targetValue.value >= 0) {
@@ -1653,6 +1560,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
   return {
     dice,
     secDice,
+    diceChatState,
     typeEquip,
     algorithm,
     targetName,

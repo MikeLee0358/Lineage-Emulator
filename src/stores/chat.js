@@ -4,13 +4,13 @@ import { useScrollStore } from './scroll';
 import { useAlgorithmStore } from './algorithm';
 
 export const useChatStore = defineStore('chat', () => {
-  const chatLines = ref(['1', '2', '3', '4', '5', '6', '7'])
+  const chatLines = ref(Array(7))
   const scrollStore = useScrollStore()
   const algorithmStore = useAlgorithmStore()
 
   const chatUpdate = (text) => {
-    chatLines.value.shift()
     chatLines.value.push(text)
+    chatLines.value.shift()
   }
   const chatScroll = computed(() => {
     if (scrollStore.targetScroll === null) chatUpdate(' ')
@@ -24,95 +24,37 @@ export const useChatStore = defineStore('chat', () => {
   )
   const detectColor = computed(() => {
     if (scrollStore.typeScroll('cursed')) return '黑色的'
-    else if (algorithmStore.typeEquip('Weapon')) return '藍色的'
+    else if (algorithmStore.typeEquip('weapon')) return '藍色的'
     else return '銀色的'
 
   })
-  const chatPass = computed(() => {
+  const chatUpdateOne = computed(() => {
     chatUpdate(`${showNumber.value} ${algorithmStore.targetName} 一瞬間發出 ${detectColor.value} 光芒。`)
   })
-  const chatLucky = computed(() => {
+  const chatUpdateMore = computed(() => {
     chatUpdate(`${showNumber.value} ${algorithmStore.targetName} 持續發出 ${detectColor.value} 光芒。`)
   })
-  const chatGone = computed(() => {
+  const chatUpdateGone = computed(() => {
     chatUpdate(`${showNumber.value} ${algorithmStore.targetName} 產生激烈的 ${detectColor.value} 光芒，一會兒後就消失了。`)
   })
-  const chatNope = computed(() => {
+  const chatUpdateNope = computed(() => {
     chatUpdate(`${showNumber.value} ${algorithmStore.targetName} 持續發出 產生激烈的 ${detectColor.value} 光芒，但是沒有任何事情發生。`)
   })
-  const chatCurse = computed(() => {
-    chatUpdate(`${showNumber.value} ${algorithmStore.targetName} 一瞬間發出 ${detectColor.value} 光芒。`)
-  })
 
 
-  // const chatEquip = computed(() => {
-  //   if (scrollStore.typeScroll('Blessed')) {
-  //     if (algorithmStore.dice === 1) chatPass.value
-  //     else chatLucky.value
-  //   }
-  // })
 
 
-  const chatEquip = computed(() => {
 
-    switch (true) {
-      case scrollStore.typeScroll('blessed'):
 
-        if (algorithmStore.targetValue < algorithmStore.targetSafetyValue) {
-          // -X ~ safety
-          if (algorithmStore.dice === 1) chatPass.value
-          else chatLucky.value
-        } else if ([3, 4, 5].includes(algorithmStore.targetValue)) {
-          if (algorithmStore.dice === 1) chatPass.value
-          else if (algorithmStore.dice === 2) chatLucky.value
-          else chatGone.value
-        } else if ([6, 7, 8].includes(algorithmStore.targetValue)) {
-          if (algorithmStore.dice === 1) chatPass.value
-          else chatGone.value
-        } else {
-          // +9 up
-          if (algorithmStore.secDice === 1) {
-            if (algorithmStore.dice === 1) chatNope.value
-            else chatPass.value
-          } else chatGone.value
-        }
-        break;
-
-      case scrollStore.typeScroll('white'):
-        // -X ~ safety
-        if (algorithmStore.targetValue < algorithmStore.targetSafetyValue) chatPass.value
-        else if ([4, 5, 6, 7, 8].includes(algorithmStore.targetValue)) {
-          if (algorithmStore.dice === 1) chatPass.value
-          else chatGone.value
-        } else {
-          // +9 up
-          if (algorithmStore.secDice === 1) {
-            if (algorithmStore.dice === 1) chatPass.value
-            else chatNope.value
-          } else chatGone.value
-        }
-        break;
-
-      case scrollStore.typeScroll('cursed'):
-        // X ~ -4
-        if (algorithmStore.targetValue > (algorithmStore.targetSafetyValue * -1)) chatCurse.value
-        else if ([-4, -5, -6, -7, -8].includes(algorithmStore.targetValue)) {
-          if (algorithmStore.dice === 1) chatCurse.value
-          else chatGone.value
-        } else {
-          // -9 up
-          if (algorithmStore.secDice === 1) {
-            if (algorithmStore.dice === 1) chatPass.value
-            else chatNope.value
-          } else chatGone.value
-        }
-        break;
-
-    }
-  })
+  const chatEquipV2 = () => {
+    if (algorithmStore.diceChatState === 1) chatUpdateOne.value
+    else if (algorithmStore.diceChatState === 0) chatUpdateGone.value
+    else if (algorithmStore.diceChatState === null) chatUpdateNope.value
+    else chatUpdateMore.value
+  }
 
   return {
-    chatEquip,
+    chatEquipV2,
     chatLines,
     chatScroll,
   }
