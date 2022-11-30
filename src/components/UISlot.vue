@@ -143,9 +143,9 @@ const clickToActive = (name) => {
 
     name === undefined ? undefined : (namedBox.value = name);
 
-    if (slotBlessed.includes(namedBox.value)) colorCss = color.yellow;
-    else if (slotCursed.includes(namedBox.value)) colorCss = color.red;
-    else colorCss = color.white;
+    if (slotBlessed.includes(namedBox.value)) colorCss.value = color.yellow;
+    else if (slotCursed.includes(namedBox.value)) colorCss.value = color.red;
+    else colorCss.value = color.white;
   };
 
   classAdd();
@@ -177,9 +177,8 @@ onMounted(() => {
         if (!node.matches(`.${e.key}`)) return;
         node.classList.add("active");
         scrollStore.changeScroll(e.key);
-        chatStore.chatScroll;
+        chatStore.chatEquipV2();
       });
-      // algorithmStore.scrollChat;
     });
   };
   whenKeyDown();
@@ -187,7 +186,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@use '../scss/common.scss';
+@use "../scss/common.scss";
 
 .templateInfo {
   color: v-bind(clickToActive());

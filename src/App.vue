@@ -22,7 +22,7 @@ const roleStore = useRoleStore();
 const changeCursor = () => {
   const scrollStore = useScrollStore();
 
-  if (scrollStore.targetScroll === null) {
+  if (scrollStore.targetScroll === "") {
     return 'url("/src/assets/UI/UI_pointer.png")15 8, auto';
   } else return 'url("/src/assets/UI/UI_target.png")11 17, auto';
 };

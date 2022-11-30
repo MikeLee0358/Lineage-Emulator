@@ -21,7 +21,7 @@
       </ul>
       <li class="mr">{{ roleData.basic.mr }}</li>
     </ul>
-    <ul class="panelEquip" @click.stop="algorithmStore.algorithm">
+    <ul class="panelEquip" @click.stop="algorithmStore.algorithm()">
       <li
         v-for="equip in roleData.equips"
         :key="equip.id"
@@ -38,13 +38,9 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useRoleStore } from "../stores/role";
-import { useChatStore } from "../stores/chat";
-import { useScrollStore } from "../stores/scroll";
 import { useAlgorithmStore } from "../stores/algorithm";
 
 const roleStore = useRoleStore();
-const chatStore = useChatStore();
-const scrollStore = useScrollStore();
 const algorithmStore = useAlgorithmStore();
 const { roleData } = storeToRefs(roleStore);
 
@@ -124,7 +120,7 @@ const dataForAlgorithm = (equip) => {
 </script>
 
 <style lang="scss" scoped>
-@use '../scss/common.scss';
+@use "../scss/common.scss";
 .show {
   visibility: visible !important;
 }

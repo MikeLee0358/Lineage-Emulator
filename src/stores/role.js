@@ -1,14 +1,14 @@
-import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 
-export const useRoleStore = defineStore('role', () => {
-  const roleNow = ref('knight')  // default role
+export const useRoleStore = defineStore("role", () => {
+  const roleNow = ref("knight"); // default role
 
   const roles = ref({
     prince: {
       basic: {
         lv: 1,
-        exp: '0.00%',
+        exp: "0.00%",
         hp: 34,
         mp: 2,
         ac: 10,
@@ -51,7 +51,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 35,
           occupation: "[所有職業]",
           feature: "魔法防禦額外點數 +4",
-
         },
         {
           id: 2,
@@ -65,7 +64,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 5,
           occupation: "[所有職業]",
           feature: "體力上限+20",
-
         },
         {
           id: 3,
@@ -93,7 +91,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 150,
           occupation: "[所有職業]",
           feature: null,
-
         },
         {
           id: 5,
@@ -107,7 +104,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 10,
           occupation: "[所有職業]",
           feature: null,
-
         },
         {
           id: 6,
@@ -187,12 +183,12 @@ export const useRoleStore = defineStore('role', () => {
           occupation: "[所有職業]",
           feature: null,
         },
-      ]
+      ],
     },
     knight: {
       basic: {
         lv: 1,
-        exp: '0.00%',
+        exp: "0.00%",
         hp: 86,
         mp: 1,
         ac: 10,
@@ -216,13 +212,12 @@ export const useRoleStore = defineStore('role', () => {
             large: 10,
           },
           grip: "單手武器",
-          value: 0,
+          value: -1,
           safetyValue: 6,
           material: "金屬",
           weight: 120,
           occupation: "[騎士]",
           feature: "近距離命中+2",
-
         },
         {
           id: 1,
@@ -236,7 +231,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 40,
           occupation: "[騎士]",
           feature: null,
-
         },
         {
           id: 2,
@@ -265,7 +259,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 5,
           occupation: "[所有職業]",
           feature: null,
-
         },
         {
           id: 4,
@@ -279,7 +272,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 250,
           occupation: "[騎士][妖精]",
           feature: null,
-
         },
         {
           id: 5,
@@ -293,7 +285,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 10,
           occupation: "[所有職業]",
           feature: null,
-
         },
         {
           id: 6,
@@ -307,7 +298,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 3,
           occupation: "[所有職業]",
           feature: "使用傳送術或傳送道具時，可以指定傳送到曾經記憶過的地點",
-
         },
         {
           id: 7,
@@ -321,7 +311,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 50,
           occupation: "[所有職業]",
           feature: "體力上限+50",
-
         },
         {
           id: 8,
@@ -335,7 +324,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 50,
           occupation: "[妖精][王族][騎士]",
           feature: null,
-
         },
         {
           id: 9,
@@ -349,7 +337,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 18,
           occupation: "[所有職業]",
           feature: "力量 +2",
-
         },
         {
           id: 10,
@@ -363,7 +350,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 3,
           occupation: "[所有職業]",
           feature: "使用變身術或變身道具時，可以指定要變身的怪物",
-
         },
         {
           id: 11,
@@ -377,14 +363,13 @@ export const useRoleStore = defineStore('role', () => {
           weight: 50,
           occupation: "[所有職業]",
           feature: null,
-
         },
-      ]
+      ],
     },
     elf: {
       basic: {
         lv: 1,
-        exp: '0.00%',
+        exp: "0.00%",
         hp: 85,
         mp: 5,
         ac: 10,
@@ -415,7 +400,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 40,
           occupation: "[妖精]",
           feature: "額外攻擊點數+2",
-
         },
         {
           id: 1,
@@ -430,7 +414,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 13,
           occupation: "[妖精]",
           feature: "敏捷+1",
-
         },
         {
           id: 2,
@@ -445,7 +428,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 5,
           occupation: "[所有職業]",
           feature: "體力上限+20",
-
         },
         {
           id: 3,
@@ -460,7 +442,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 5,
           occupation: "[妖精]",
           feature: null,
-
         },
         {
           id: 4,
@@ -475,7 +456,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 250,
           occupation: "[騎士][妖精]",
           feature: null,
-
         },
         {
           id: 5,
@@ -489,8 +469,7 @@ export const useRoleStore = defineStore('role', () => {
           material: "布",
           weight: 10,
           occupation: "[所有職業]",
-          feature: '妖精裝備時，體力回復量+1',
-
+          feature: "妖精裝備時，體力回復量+1",
         },
         {
           id: 6,
@@ -505,7 +484,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 3,
           occupation: "[所有職業]",
           feature: "使用傳送術或傳送道具時，可以指定傳送到曾經記憶過的地點",
-
         },
         {
           id: 7,
@@ -520,7 +498,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 50,
           occupation: "[所有職業]",
           feature: "體力上限+50",
-
         },
         {
           id: 9,
@@ -535,7 +512,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 10,
           occupation: "[騎士][妖精]",
           feature: "遠距離命中+2",
-
         },
         {
           id: 10,
@@ -550,7 +526,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 3,
           occupation: "[所有職業]",
           feature: "使用變身術或變身道具時，可以指定要變身的怪物",
-
         },
         {
           id: 11,
@@ -565,14 +540,13 @@ export const useRoleStore = defineStore('role', () => {
           weight: 50,
           occupation: "[所有職業]",
           feature: null,
-
         },
-      ]
+      ],
     },
     magician: {
       basic: {
         lv: 1,
-        exp: '0.00%',
+        exp: "0.00%",
         hp: 32,
         mp: 108,
         ac: 10,
@@ -601,8 +575,7 @@ export const useRoleStore = defineStore('role', () => {
           material: "木",
           weight: 15,
           occupation: "[法師]",
-          feature: '魔攻+1',
-
+          feature: "魔攻+1",
         },
         {
           id: 1,
@@ -615,8 +588,7 @@ export const useRoleStore = defineStore('role', () => {
           material: "布",
           weight: 20,
           occupation: "[法師]",
-          feature: '套裝效果(2/2): 魔力上限+50',
-
+          feature: "套裝效果(2/2): 魔力上限+50",
         },
         {
           id: 2,
@@ -630,7 +602,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 5,
           occupation: "[所有職業]",
           feature: "體力上限+20",
-
         },
         {
           id: 3,
@@ -644,7 +615,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 5,
           occupation: "[所有職業]",
           feature: null,
-
         },
         {
           id: 4,
@@ -657,8 +627,7 @@ export const useRoleStore = defineStore('role', () => {
           material: "布",
           weight: 60,
           occupation: "[法師]",
-          feature: '套裝效果(2/2): 魔力上限+50',
-
+          feature: "套裝效果(2/2): 魔力上限+50",
         },
         {
           id: 5,
@@ -671,8 +640,7 @@ export const useRoleStore = defineStore('role', () => {
           material: "布",
           weight: 10,
           occupation: "[法師]",
-          feature: '魔力回復量+5',
-
+          feature: "魔力回復量+5",
         },
         {
           id: 6,
@@ -686,7 +654,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 3,
           occupation: "[所有職業]",
           feature: "使用傳送術或傳送道具時，可以指定傳送到曾經記憶過的地點",
-
         },
         {
           id: 7,
@@ -700,7 +667,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 50,
           occupation: "[所有職業]",
           feature: "魔力上限+50",
-
         },
         {
           id: 8,
@@ -713,8 +679,7 @@ export const useRoleStore = defineStore('role', () => {
           material: "紙",
           weight: 20,
           occupation: "[法師]",
-          feature: '智力 +1',
-
+          feature: "智力 +1",
         },
         {
           id: 9,
@@ -728,7 +693,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 40,
           occupation: "[所有職業]",
           feature: null,
-
         },
         {
           id: 10,
@@ -742,7 +706,6 @@ export const useRoleStore = defineStore('role', () => {
           weight: 3,
           occupation: "[所有職業]",
           feature: "使用變身術或變身道具時，可以指定要變身的怪物",
-
         },
         {
           id: 11,
@@ -756,19 +719,18 @@ export const useRoleStore = defineStore('role', () => {
           weight: 50,
           occupation: "[所有職業]",
           feature: null,
-
         },
-      ]
+      ],
     },
-  })
+  });
 
-  const roleBg = computed(() => `url(src/assets/${roleNow.value}/bg_${roleNow.value}.png)`
-  )
-  const roleData = computed(() => roles.value[roleNow.value])
+  const roleBg = computed(
+    () => `url(src/assets/${roleNow.value}/bg_${roleNow.value}.png)`
+  );
+  const roleData = computed(() => roles.value[roleNow.value]);
   return {
     roleNow,
     roleBg,
-    roleData
-  }
-})
-
+    roleData,
+  };
+});
