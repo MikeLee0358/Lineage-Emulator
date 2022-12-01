@@ -19,6 +19,8 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
   const typeEquip = (text) =>
     targetCategory.value.toLowerCase().includes(text.toLowerCase());
+  const diceChatStateOneTo = (num) =>
+    (diceState.value = Number(Math.floor(Math.random() * num) + 1));
 
   const isDiceSuccess = () => {
     // HANDLE SUCESS RATE ONLY, DOSEN NOT CARE WHAT SCROLLS ARE.
@@ -58,79 +60,76 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     return dice.value <= diceSuccess.value;
   };
 
-  const diceStateOneTo = (num) =>
-    (diceState.value = Number(Math.floor(Math.random() * num) + 1));
-
   const algorithm = () => {
     if (targetCategory.value === null) return;
     if (scrollStore.targetScroll === null) return;
     const equipReg = /(armor|weapon)/g;
     const equipStr = equipReg.exec(targetCategory.value)[0];
     const isScrollMatchEquip = scrollStore.isScrollType(equipStr);
-    if (!isScrollMatchEquip) return;
 
+    if (!isScrollMatchEquip) return;
     if (isDiceSuccess()) {
       if (scrollStore.isScrollType("blessed")) {
         if (targetValue.value < 3) {
-          diceStateOneTo(3);
-          chatStore.chatUpdateState();
+          diceChatStateOneTo(3);
+          chatStore.chatStateUpdate();
           targetValue.value += diceState.value;
         } else if (targetValue.value < 6) {
-          diceStateOneTo(2);
-          chatStore.chatUpdateState();
+          diceChatStateOneTo(2);
+          chatStore.chatStateUpdate();
           targetValue.value += diceState.value;
         } else if (targetValue.value < 9) {
-          diceStateOneTo(1);
-          chatStore.chatUpdateState();
+          diceChatStateOneTo(1);
+          chatStore.chatStateUpdate();
           targetValue.value++;
         } else {
-          diceStateOneTo(3);
+          diceChatStateOneTo(3);
           if (diceState.value === 1) {
             diceState.value = -1;
-            chatStore.chatUpdateState();
+            chatStore.chatStateUpdate();
           } else {
             diceState.value = 1;
-            chatStore.chatUpdateState();
+            chatStore.chatStateUpdate();
             targetValue.value++;
           }
         }
       } else {
         // white & cursed scroll
         if (Math.abs(targetValue.value) < 9) {
-          diceStateOneTo(1);
+          diceChatStateOneTo(1);
           if (scrollStore.isScrollType("white")) {
-            chatStore.chatUpdateState();
+            chatStore.chatStateUpdate();
             targetValue.value++;
           } else {
-            chatStore.chatUpdateState();
+            chatStore.chatStateUpdate();
             targetValue.value--;
           }
         } else {
           if (scrollStore.isScrollType("white")) {
-            diceStateOneTo(3);
+            diceChatStateOneTo(3);
             if (diceState.value === 1) {
-              chatStore.chatUpdateState();
+              chatStore.chatStateUpdate();
               targetValue.value++;
             } else {
               diceState.value = -1;
-              chatStore.chatUpdateState();
+              chatStore.chatStateUpdate();
             }
           } else {
             // cursed scroll
-            diceStateOneTo(2);
+            diceChatStateOneTo(2);
             if (diceState.value === 1) {
-              chatStore.chatUpdateState();
+              chatStore.chatStateUpdate();
               targetValue.value--;
             } else {
               diceState.value = -1;
-              chatStore.chatUpdateState();
+              chatStore.chatStateUpdate();
             }
           }
         }
       }
     } else {
       diceState.value = 0;
-      chatStore.chatUpdateState();
+      chatStore.chatStateUpdate();
       targetValue.value = 0;
     }
 

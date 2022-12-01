@@ -178,7 +178,7 @@ onMounted(() => {
         node.classList.add("active");
 
         scrollStore.changeScroll(e.key);
-        chatStore.chatUpdateState();
+        chatStore.chatStateUpdate();
       });
     });
   };
