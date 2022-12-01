@@ -16,7 +16,7 @@ export const useChatStore = defineStore("chat", () => {
       : algorithmStore.targetValue;
   });
   const detectColor = computed(() => {
-    if (scrollStore.typeScroll("cursed")) return "黑色的";
+    if (scrollStore.isScrollType("cursed")) return "黑色的";
     else if (algorithmStore.typeEquip("weapon")) return "藍色的";
     else return "銀色的";
   });
@@ -52,10 +52,10 @@ export const useChatStore = defineStore("chat", () => {
     else if (scrollStore.targetScroll.includes("Weapon")) chatUpdateWeapon();
     else if (scrollStore.targetScroll.includes("Armor")) chatUpdateArmor();
 
-    if (algorithmStore.diceChatState === null) return;
-    else if (algorithmStore.diceChatState === -1) chatUpdateNope();
-    else if (algorithmStore.diceChatState === 0) chatUpdateGone();
-    else if (algorithmStore.diceChatState === 1) chatUpdateOne();
+    if (algorithmStore.diceState === null) return;
+    else if (algorithmStore.diceState === -1) chatUpdateNope();
+    else if (algorithmStore.diceState === 0) chatUpdateGone();
+    else if (algorithmStore.diceState === 1) chatUpdateOne();
     else chatUpdateMore();
   };
 
