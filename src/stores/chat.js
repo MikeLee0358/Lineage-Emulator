@@ -47,7 +47,7 @@ export const useChatStore = defineStore("chat", () => {
   const chatUpdateWeapon = () => shiftAndPushArr("請選擇一種武器。");
   const chatUpdateArmor = () => shiftAndPushArr("請選擇一種防具。");
 
-  const chatUpdate = () => {
+  const chatUpdateState = () => {
     if (scrollStore.targetScroll === null) return;
     else if (scrollStore.targetScroll.includes("Weapon")) chatUpdateWeapon();
     else if (scrollStore.targetScroll.includes("Armor")) chatUpdateArmor();
@@ -60,7 +60,7 @@ export const useChatStore = defineStore("chat", () => {
   };
 
   return {
-    chatUpdate,
     chatLines,
+    chatUpdateState,
   };
 });
