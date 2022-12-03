@@ -17,7 +17,7 @@ export const useChatStore = defineStore("chat", () => {
   });
   const detectColor = computed(() => {
     if (scrollStore.isScrollType("cursed")) return "黑色的";
-    else if (algorithmStore.target.isEquipType("weapon")) return "藍色的";
+    else if (algorithmStore.target.isCategoryType("weapon")) return "藍色的";
     else return "銀色的";
   });
   const shiftAndPushArr = (text) => {
