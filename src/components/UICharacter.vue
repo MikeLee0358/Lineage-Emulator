@@ -107,14 +107,14 @@ ${occupation}`;
   return equipInfo;
 };
 const dataForAlgorithm = (equip) => {
-  algorithmStore.targetName = equip.name;
-  algorithmStore.targetValue = equip.value;
-  algorithmStore.targetCategory = equip.category;
-  algorithmStore.targetSafetyValue = equip.safetyValue;
+  algorithmStore.target.name = equip.name;
+  algorithmStore.target.value = equip.value;
+  algorithmStore.target.category = equip.category;
+  algorithmStore.target.safetyValue = equip.safetyValue;
 
   // Updating data to trigger reactivity for rendering getEquipInfo()
   setTimeout(() => {
-    equip.value = algorithmStore.targetValue;
+    equip.value = algorithmStore.target.value;
   }, 0);
 };
 </script>

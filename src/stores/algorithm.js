@@ -1,154 +1,153 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useScrollStore } from "./scroll";
 import { useChatStore } from "./chat";
 
 export const useAlgorithmStore = defineStore("algorithm", () => {
-  const dice = ref(null);
-  const diceState = ref(null);
-  const diceBonus = ref(0);
-  const diceSuccess = ref(null);
-
-  const targetName = ref(null);
-  const targetValue = ref(null);
-  const targetCategory = ref(null);
-  const targetSafetyValue = ref(null);
-  const targetEquipType = computed(() => {
-    if (targetCategory.value === null) return;
-    return targetCategory.value.substring(0, 6);
-  });
-
   const chatStore = useChatStore();
   const scrollStore = useScrollStore();
 
-  const typeEquip = (text) =>
-    targetCategory.value.toLowerCase().includes(text.toLowerCase());
-  const diceChatStateOneTo = (num) =>
-    (diceState.value = Number(Math.floor(Math.random() * num) + 1));
+  const dice = reactive({
+    bonus: 0,
+    value: null,
+    state: null,
+    success: null,
+    rollDice: () => {
+      dice.value = Number((Math.random() * 100).toFixed(2));
+    },
+    rollStateOneTo: (num) => {
+      dice.state = Number(Math.floor(Math.random() * num) + 1);
+    },
+  });
+  const target = reactive({
+    name: null,
+    value: null,
+    category: null,
+    safetyValue: null,
+    isEquipMatchScroll: computed(() => {
+      return scrollStore.isScrollType(target.category.substring(0, 6));
+    }),
+    isEquipType: (text) => {
+      if (typeof text !== "string") return "not a string", text;
+      return target.category.toLowerCase().includes(text.toLowerCase());
+    },
+  });
 
   const isDiceSuccess = () => {
     // HANDLE SUCESS RATE ONLY, DOSEN NOT CARE WHAT SCROLLS ARE.
     // setting range (0.00% ~ 100.00%) because I use toFixed() rounding.
-    (function diceRoll() {
-      dice.value = Number((Math.random() * 100).toFixed(2));
-    })();
-
+    dice.rollDice();
+    
     (function diceSuccessRate() {
       const isPlusScrollUnderZero =
-        (targetValue.value < 0 && scrollStore.isScrollType("blessed")) ||
-        (targetValue.value < 0 && scrollStore.isScrollType("white"));
+        (target.value < 0 && scrollStore.isScrollType("blessed")) ||
+        (target.value < 0 && scrollStore.isScrollType("white"));
       const isMinusScrollOverSafety =
-        targetSafetyValue.value <= targetValue.value &&
+        target.safetyValue <= target.value &&
         scrollStore.isScrollType("cursed");
-      const isUnderSafety =
-        Math.abs(targetValue.value) < targetSafetyValue.value;
-      const diceSuccessArmor = (diceSuccess.value = Number(
-        ((1 / Math.abs(targetValue.value)) * 100 + diceBonus.value).toFixed(2)
+      const isUnderSafety = Math.abs(target.value) < target.safetyValue;
+      const diceSuccessArmor = (dice.success = Number(
+        ((1 / Math.abs(target.value)) * 100 + dice.bonus).toFixed(2)
       ));
-      const isUnder = (num) => Math.abs(targetValue.value) < num;
+      const isUnder = (num) => Math.abs(target.value) < num;
 
       //special case! so need to return first.
-      if (isMinusScrollOverSafety) return (diceSuccess.value = 100);
-      else if (isPlusScrollUnderZero) return (diceSuccess.value = 100);
+      if (isMinusScrollOverSafety) return (dice.success = 100);
+      else if (isPlusScrollUnderZero) return (dice.success = 100);
 
-      if (typeEquip("weapon") && scrollStore.isScrollType("weapon")) {
-        if (isUnderSafety) diceSuccess.value = 100;
-        else if (isUnder(9)) diceSuccess.value = 33.33 + diceBonus.value;
-        else diceSuccess.value = 10 + diceBonus.value;
-      } else if (typeEquip("armor") && scrollStore.isScrollType("armor")) {
-        if (isUnderSafety) diceSuccess.value = 100;
+      if (target.isEquipType("weapon") && scrollStore.isScrollType("weapon")) {
+        if (isUnderSafety) dice.success = 100;
+        else if (isUnder(9)) dice.success = 33.33 + dice.bonus;
+        else dice.success = 10 + dice.bonus;
+      } else if (
+        target.isEquipType("armor") &&
+        scrollStore.isScrollType("armor")
+      ) {
+        if (isUnderSafety) dice.success = 100;
         else if (isUnder(9)) diceSuccessArmor;
-        else diceSuccess.value = 10 + diceBonus.value;
+        else dice.success = 10 + dice.bonus;
       }
     })();
-    return dice.value <= diceSuccess.value;
+    return dice.value <= dice.success;
   };
 
   const algorithm = () => {
-    if (targetCategory.value === null) return;
+    if (target.category === null) return;
     if (scrollStore.targetScroll === null) return;
 
-    if (!scrollStore.isScrollType(targetEquipType.value)) return;
+    if (!target.isEquipMatchScroll) return;
     if (isDiceSuccess()) {
       if (scrollStore.isScrollType("blessed")) {
-        if (targetValue.value < 3) {
-          diceChatStateOneTo(3);
+        if (target.value < 3) {
+          dice.rollStateOneTo(3);
           chatStore.chatStateUpdate();
-          targetValue.value += diceState.value;
-        } else if (targetValue.value < 6) {
-          diceChatStateOneTo(2);
+          target.value += dice.state;
+        } else if (target.value < 6) {
+          dice.rollStateOneTo(2);
           chatStore.chatStateUpdate();
-          targetValue.value += diceState.value;
-        } else if (targetValue.value < 9) {
-          diceChatStateOneTo(1);
+          target.value += dice.state;
+        } else if (target.value < 9) {
+          dice.rollStateOneTo(1);
           chatStore.chatStateUpdate();
-          targetValue.value++;
+          target.value++;
         } else {
-          diceChatStateOneTo(3);
-          if (diceState.value === 1) {
-            diceState.value = -1;
+          dice.rollStateOneTo(3);
+          if (dice.state === 1) {
+            dice.state = -1;
             chatStore.chatStateUpdate();
           } else {
-            diceState.value = 1;
+            dice.state = 1;
             chatStore.chatStateUpdate();
-            targetValue.value++;
+            target.value++;
           }
         }
       } else {
         // white & cursed scroll
-        if (Math.abs(targetValue.value) < 9) {
-          diceChatStateOneTo(1);
+        if (Math.abs(target.value) < 9) {
+          dice.rollStateOneTo(1);
           if (scrollStore.isScrollType("white")) {
             chatStore.chatStateUpdate();
-            targetValue.value++;
+            target.value++;
           } else {
             chatStore.chatStateUpdate();
-            targetValue.value--;
+            target.value--;
           }
         } else {
           if (scrollStore.isScrollType("white")) {
-            diceChatStateOneTo(3);
-            if (diceState.value === 1) {
+            dice.rollStateOneTo(3);
+            if (dice.state === 1) {
               chatStore.chatStateUpdate();
-              targetValue.value++;
+              target.value++;
             } else {
-              diceState.value = -1;
+              dice.state = -1;
               chatStore.chatStateUpdate();
             }
           } else {
             // cursed scroll
-            diceChatStateOneTo(2);
-            if (diceState.value === 1) {
+            dice.rollStateOneTo(2);
+            if (dice.state === 1) {
               chatStore.chatStateUpdate();
-              targetValue.value--;
+              target.value--;
             } else {
-              diceState.value = -1;
+              dice.state = -1;
               chatStore.chatStateUpdate();
             }
           }
         }
       }
     } else {
-      diceState.value = 0;
+      dice.state = 0;
       chatStore.chatStateUpdate();
-      targetValue.value = 0;
+      target.value = 0;
     }
 
-    diceState.value = null;
+    dice.state = null;
     scrollStore.targetScroll = null;
   };
 
   return {
     dice,
-    diceState,
-    diceSuccess,
-
-    targetName,
-    targetValue,
-    targetCategory,
-    targetSafetyValue,
-
-    typeEquip,
+    target,
     algorithm,
   };
 });

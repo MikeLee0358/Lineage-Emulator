@@ -35,7 +35,9 @@ export const useScrollStore = defineStore("scroll", () => {
     }
   };
   const isScrollType = (text) => {
-    if (typeof text !== "string") return console.log("not a String", text);
+    if (targetScroll.value === null) return;
+    if (typeof text !== "string") return;
+
     return targetScroll.value.toLowerCase().includes(text.toLowerCase().trim());
   };
 

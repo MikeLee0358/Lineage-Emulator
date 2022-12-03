@@ -9,39 +9,40 @@ export const useChatStore = defineStore("chat", () => {
   const algorithmStore = useAlgorithmStore();
 
   const showNumber = computed(() => {
-    if (algorithmStore.targetValue === 0)
-      return `+${algorithmStore.targetValue}`;
-    return algorithmStore.targetValue > 0
-      ? `+${algorithmStore.targetValue}`
-      : algorithmStore.targetValue;
+    if (algorithmStore.target.value === 0)
+      return `+${algorithmStore.target.value}`;
+    return algorithmStore.target.value > 0
+      ? `+${algorithmStore.target.value}`
+      : algorithmStore.target.value;
   });
   const detectColor = computed(() => {
     if (scrollStore.isScrollType("cursed")) return "黑色的";
-    else if (algorithmStore.typeEquip("weapon")) return "藍色的";
+    else if (algorithmStore.target.isEquipType("weapon")) return "藍色的";
     else return "銀色的";
   });
   const shiftAndPushArr = (text) => {
+    if (typeof text !== "string") return;
     chatLines.value.push(text);
     chatLines.value.shift();
   };
   const chatUpdateOne = () => {
     shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.targetName} 一瞬間發出 ${detectColor.value} 光芒。`
+      `${showNumber.value} ${algorithmStore.target.name} 一瞬間發出 ${detectColor.value} 光芒。`
     );
   };
   const chatUpdateMore = () => {
     shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.targetName} 持續發出 ${detectColor.value} 光芒。`
+      `${showNumber.value} ${algorithmStore.target.name} 持續發出 ${detectColor.value} 光芒。`
     );
   };
   const chatUpdateGone = () => {
     shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.targetName} 產生激烈的 ${detectColor.value} 光芒，一會兒後就消失了。`
+      `${showNumber.value} ${algorithmStore.target.name} 產生激烈的 ${detectColor.value} 光芒，一會兒後就消失了。`
     );
   };
   const chatUpdateNope = () => {
     shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.targetName} 持續發出 產生激烈的 ${detectColor.value} 光芒，但是沒有任何事情發生。`
+      `${showNumber.value} ${algorithmStore.target.name} 持續發出 產生激烈的 ${detectColor.value} 光芒，但是沒有任何事情發生。`
     );
   };
   const chatUpdateWeapon = () => shiftAndPushArr("請選擇一種武器。");
@@ -52,10 +53,10 @@ export const useChatStore = defineStore("chat", () => {
     else if (scrollStore.targetScroll.includes("Weapon")) chatUpdateWeapon();
     else if (scrollStore.targetScroll.includes("Armor")) chatUpdateArmor();
 
-    if (algorithmStore.diceState === null) return;
-    else if (algorithmStore.diceState === -1) chatUpdateNope();
-    else if (algorithmStore.diceState === 0) chatUpdateGone();
-    else if (algorithmStore.diceState === 1) chatUpdateOne();
+    if (algorithmStore.dice.state === null) return;
+    else if (algorithmStore.dice.state === -1) chatUpdateNope();
+    else if (algorithmStore.dice.state === 0) chatUpdateGone();
+    else if (algorithmStore.dice.state === 1) chatUpdateOne();
     else chatUpdateMore();
   };
 
