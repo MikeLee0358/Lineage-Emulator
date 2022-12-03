@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useScrollStore } from "./scroll";
 import { useChatStore } from "./chat";
 
@@ -13,6 +13,10 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
   const targetValue = ref(null);
   const targetCategory = ref(null);
   const targetSafetyValue = ref(null);
+  const targetEquipType = computed(() => {
+    if (targetCategory.value === null) return;
+    return targetCategory.value.substring(0, 6);
+  });
 
   const chatStore = useChatStore();
   const scrollStore = useScrollStore();
@@ -63,11 +67,8 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
   const algorithm = () => {
     if (targetCategory.value === null) return;
     if (scrollStore.targetScroll === null) return;
-    const equipReg = /(armor|weapon)/g;
-    const equipStr = equipReg.exec(targetCategory.value)[0];
-    const isScrollMatchEquip = scrollStore.isScrollType(equipStr);
 
-    if (!isScrollMatchEquip) return;
+    if (!scrollStore.isScrollType(targetEquipType.value)) return;
     if (isDiceSuccess()) {
       if (scrollStore.isScrollType("blessed")) {
         if (targetValue.value < 3) {
