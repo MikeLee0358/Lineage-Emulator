@@ -1,12 +1,12 @@
 <template>
   <ul>
-    <li v-for="chatline in chatStore.chatLines">{{ chatline }}</li>
+    <li v-for="chatline in storeChat.chat.lines">{{ chatline }}</li>
   </ul>
 </template>
 
 <script setup>
 import { useChatStore } from "../stores/chat";
-const chatStore = useChatStore();
+const storeChat = useChatStore();
 </script>
 
 <style scoped>

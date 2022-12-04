@@ -4,6 +4,9 @@ import { useScrollStore } from "./scroll";
 import { useChatStore } from "./chat";
 
 export const useAlgorithmStore = defineStore("algorithm", () => {
+  const storeChat = useChatStore();
+  const storeScroll = useScrollStore();
+
   const dice = reactive({
     bonus: 0,
     value: null,
@@ -19,18 +22,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     category: null,
     safetyValue: null,
     isEquipMatchScroll: computed(() => {
-      return scrollStore.isScrollType(target.category.substring(0, 6));
+      return storeScroll.isScrollType(target.category.substring(0, 6));
     }),
     isCategoryType: (text) => {
       if (typeof text !== "string") return "not a string", text;
       return target.category.toLowerCase().includes(text.toLowerCase());
     },
   });
-  const chatStore = useChatStore();
-  const scrollStore = useScrollStore();
-
-  const isSuccess = computed(() => {
-    // HANDLE SUCESS RATE ONLY, DOSEN NOT CARE WHAT SCROLLS ARE.
+  const isInSuccessRate = computed(() => {
+    // HANDLE SUCESS RATE WITH ARMOR/WEAPON/SCROLLS, BUT DOESN'T CONTROLL VAULE(+1/+2/+3/-1).
     // setting range (0.00% ~ 100.00%) because I use toFixed() rounding.
     (function rollDice() {
       dice.value = Number((Math.random() * 100).toFixed(2));
@@ -68,14 +68,14 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       };
       const isPlusScrollUnderZero = computed(() => {
         return (
-          (target.value < 0 && scrollStore.isScrollType("blessed")) ||
-          (target.value < 0 && scrollStore.isScrollType("white"))
+          (target.value < 0 && storeScroll.isScrollType("blessed")) ||
+          (target.value < 0 && storeScroll.isScrollType("white"))
         );
       });
       const isMinusScrollOverSafety = computed(() => {
         return (
           target.safetyValue <= target.value &&
-          scrollStore.isScrollType("cursed")
+          storeScroll.isScrollType("cursed")
         );
       });
 
@@ -88,13 +88,13 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     return dice.value <= dice.success;
   });
 
-  const algorithm = () => {
-    if (scrollStore.targetScroll === null) return;
+  function algorithmSystem() {
+    if (storeScroll.targetScroll === null) return;
     if (!target.isEquipMatchScroll) return;
 
-    if (isSuccess.value) {
+    if (isInSuccessRate.value) {
       const targetReg = /(blessed)|(white)|(cursed)/g;
-      const targetRegStr = targetReg.exec(scrollStore.targetScroll)[0];
+      const targetRegStr = targetReg.exec(storeScroll.targetScroll)[0];
 
       // I choose switch not if else because...
       //   1. too much if else, my eyes want to take a break.
@@ -103,25 +103,25 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
         case "blessed":
           if (target.value < 3) {
             dice.rollStateOneTo(3);
-            chatStore.chatStateUpdate();
+            storeChat.stateUpdateSystem();
             target.value += dice.state;
           } else if (target.value < 6) {
             dice.rollStateOneTo(2);
-            chatStore.chatStateUpdate();
+            storeChat.stateUpdateSystem();
             target.value += dice.state;
           } else if (target.value < 9) {
             dice.rollStateOneTo(1);
-            chatStore.chatStateUpdate();
+            storeChat.stateUpdateSystem();
             target.value++;
           } else {
             //+9up: 66% +1; 33% nothing happened(state: -1)
             dice.rollStateOneTo(3);
             if (dice.state === 1) {
               dice.state = -1;
-              chatStore.chatStateUpdate();
+              storeChat.stateUpdateSystem();
             } else {
               dice.state = 1;
-              chatStore.chatStateUpdate();
+              storeChat.stateUpdateSystem();
               target.value++;
             }
           }
@@ -132,15 +132,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             //+9up: 33% +1; 66% nothing happened(state: -1)
             dice.rollStateOneTo(3);
             if (dice.state === 1) {
-              chatStore.chatStateUpdate();
+              storeChat.stateUpdateSystem();
               target.value++;
             } else {
               dice.state = -1;
-              chatStore.chatStateUpdate();
+              storeChat.stateUpdateSystem();
             }
           } else {
             dice.rollStateOneTo(1);
-            chatStore.chatStateUpdate();
+            storeChat.stateUpdateSystem();
             target.value++;
           }
           break;
@@ -150,93 +150,32 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             //-9up: 50% -1; 50% nothing happened(state: -1)
             dice.rollStateOneTo(2);
             if (dice.state === 1) {
-              chatStore.chatStateUpdate();
+              storeChat.stateUpdateSystem();
               target.value--;
             } else {
               dice.state = -1;
-              chatStore.chatStateUpdate();
+              storeChat.stateUpdateSystem();
             }
           } else {
             dice.rollStateOneTo(1);
-            chatStore.chatStateUpdate();
+            storeChat.stateUpdateSystem();
             target.value--;
           }
           break;
       }
-
-      // if (scrollStore.isScrollType("blessed")) {
-      //   if (target.value < 3) {
-      //     dice.rollStateOneTo(3);
-      //     chatStore.chatStateUpdate();
-      //     target.value += dice.state;
-      //   } else if (target.value < 6) {
-      //     dice.rollStateOneTo(2);
-      //     chatStore.chatStateUpdate();
-      //     target.value += dice.state;
-      //   } else if (target.value < 9) {
-      //     dice.rollStateOneTo(1);
-      //     chatStore.chatStateUpdate();
-      //     target.value++;
-      //   } else {
-      //     //+9up: 66% +1; 33% nothing happened(state: -1)
-      //     dice.rollStateOneTo(3);
-      //     if (dice.state === 1) {
-      //       dice.state = -1;
-      //       chatStore.chatStateUpdate();
-      //     } else {
-      //       dice.state = 1;
-      //       chatStore.chatStateUpdate();
-      //       target.value++;
-      //     }
-      //   }
-      // }
-      // if (scrollStore.isScrollType("white")) {
-      //   if (9 <= target.value) {
-      //     //+9up: 33% +1; 66% nothing happened(state: -1)
-      //     dice.rollStateOneTo(3);
-      //     if (dice.state === 1) {
-      //       chatStore.chatStateUpdate();
-      //       target.value++;
-      //     } else {
-      //       dice.state = -1;
-      //       chatStore.chatStateUpdate();
-      //     }
-      //   } else {
-      //     dice.rollStateOneTo(1);
-      //     chatStore.chatStateUpdate();
-      //     target.value++;
-      //   }
-      // }
-      // if (scrollStore.isScrollType("cursed")) {
-      //   if (target.value <= -9) {
-      //     //-9up: 50% -1; 50% nothing happened(state: -1)
-      //     dice.rollStateOneTo(2);
-      //     if (dice.state === 1) {
-      //       chatStore.chatStateUpdate();
-      //       target.value--;
-      //     } else {
-      //       dice.state = -1;
-      //       chatStore.chatStateUpdate();
-      //     }
-      //   } else {
-      //     dice.rollStateOneTo(1);
-      //     chatStore.chatStateUpdate();
-      //     target.value--;
-      //   }
-      // }
     } else {
       dice.state = 0;
-      chatStore.chatStateUpdate();
+      storeChat.stateUpdateSystem();
       target.value = 0;
     }
 
     dice.state = null;
-    scrollStore.targetScroll = null;
-  };
+    storeScroll.targetScroll = null;
+  }
 
   return {
     dice,
     target,
-    algorithm,
+    algorithmSystem,
   };
 });

@@ -20,9 +20,9 @@ import UIFunction from "./components/UIFunction.vue";
 const roleStore = useRoleStore();
 
 const changeCursor = () => {
-  const scrollStore = useScrollStore();
+  const storeScroll = useScrollStore();
 
-  if (scrollStore.targetScroll === null) {
+  if (storeScroll.targetScroll === null) {
     return 'url("/src/assets/UI/UI_pointer.png")15 8, auto';
   } else return 'url("/src/assets/UI/UI_target.png")11 17, auto';
 };

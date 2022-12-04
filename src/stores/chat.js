@@ -1,67 +1,73 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { reactive, computed } from "vue";
 import { useScrollStore } from "./scroll";
 import { useAlgorithmStore } from "./algorithm";
 
 export const useChatStore = defineStore("chat", () => {
-  const chatLines = ref(Array(7));
-  const scrollStore = useScrollStore();
-  const algorithmStore = useAlgorithmStore();
+  const storeScroll = useScrollStore();
+  const storeAlgorithm = useAlgorithmStore();
 
-  const showNumber = computed(() => {
-    if (algorithmStore.target.value === 0)
-      return `+${algorithmStore.target.value}`;
-    return algorithmStore.target.value > 0
-      ? `+${algorithmStore.target.value}`
-      : algorithmStore.target.value;
+  const chat = reactive({
+    lines: Array(7),
+    showNumber: computed(() => {
+      return storeAlgorithm.target.value < 0
+        ? storeAlgorithm.target.value
+        : `+${storeAlgorithm.target.value}`;
+    }),
+    detectColor: computed(() => {
+      if (storeScroll.isScrollType("cursed")) return "黑色的";
+      else if (storeAlgorithm.target.isCategoryType("weapon")) return "藍色的";
+      else if (storeAlgorithm.target.isCategoryType("armor")) return "銀色的";
+      return console.log("chat.detectColor wrong");
+    }),
+    pushAndShiftArrary: (text) => {
+      if (typeof text !== "string") return;
+
+      chat.lines.push(text);
+      chat.lines.shift();
+    },
+    updateForOne: () => {
+      chat.pushAndShiftArrary(
+        `${chat.showNumber} ${storeAlgorithm.target.name} 一瞬間發出 ${chat.detectColor} 光芒。`
+      );
+    },
+    updateForTwoUp: () => {
+      chat.pushAndShiftArrary(
+        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 ${chat.detectColor} 光芒。`
+      );
+    },
+    updateForGone: () => {
+      chat.pushAndShiftArrary(
+        `${chat.showNumber} ${storeAlgorithm.target.name} 產生激烈的 ${chat.detectColor} 光芒，一會兒後就消失了。`
+      );
+    },
+    updateForNope: () => {
+      chat.pushAndShiftArrary(
+        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 產生激烈的 ${chat.detectColor} 光芒，但是沒有任何事情發生。`
+      );
+    },
+    updateWeapon: () => {
+      chat.pushAndShiftArrary("請選擇一種武器。");
+    },
+    updateArmor: () => {
+      chat.pushAndShiftArrary("請選擇一種防具。");
+    },
   });
-  const detectColor = computed(() => {
-    if (scrollStore.isScrollType("cursed")) return "黑色的";
-    else if (algorithmStore.target.isCategoryType("weapon")) return "藍色的";
-    else return "銀色的";
-  });
-  const shiftAndPushArr = (text) => {
-    if (typeof text !== "string") return;
-    chatLines.value.push(text);
-    chatLines.value.shift();
-  };
-  const chatUpdateOne = () => {
-    shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.target.name} 一瞬間發出 ${detectColor.value} 光芒。`
-    );
-  };
-  const chatUpdateMore = () => {
-    shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.target.name} 持續發出 ${detectColor.value} 光芒。`
-    );
-  };
-  const chatUpdateGone = () => {
-    shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.target.name} 產生激烈的 ${detectColor.value} 光芒，一會兒後就消失了。`
-    );
-  };
-  const chatUpdateNope = () => {
-    shiftAndPushArr(
-      `${showNumber.value} ${algorithmStore.target.name} 持續發出 產生激烈的 ${detectColor.value} 光芒，但是沒有任何事情發生。`
-    );
-  };
-  const chatUpdateWeapon = () => shiftAndPushArr("請選擇一種武器。");
-  const chatUpdateArmor = () => shiftAndPushArr("請選擇一種防具。");
 
-  const chatStateUpdate = () => {
-    if (scrollStore.targetScroll === null) return;
-    else if (scrollStore.targetScroll.includes("Weapon")) chatUpdateWeapon();
-    else if (scrollStore.targetScroll.includes("Armor")) chatUpdateArmor();
+  function stateUpdateSystem() {
+    if (storeScroll.targetScroll === null) return;
+    else if (storeScroll.targetScroll.includes("Armor")) chat.updateArmor();
+    else if (storeScroll.targetScroll.includes("Weapon")) chat.updateWeapon();
 
-    if (algorithmStore.dice.state === null) return;
-    else if (algorithmStore.dice.state === -1) chatUpdateNope();
-    else if (algorithmStore.dice.state === 0) chatUpdateGone();
-    else if (algorithmStore.dice.state === 1) chatUpdateOne();
-    else chatUpdateMore();
-  };
+    if (storeAlgorithm.dice.state === null) return;
+    else if (storeAlgorithm.dice.state === -1) chat.updateForNope();
+    else if (storeAlgorithm.dice.state === 0) chat.updateForGone();
+    else if (storeAlgorithm.dice.state === 1) chat.updateForOne();
+    else chat.updateForTwoUp();
+  }
 
   return {
-    chatLines,
-    chatStateUpdate,
+    chat,
+    stateUpdateSystem,
   };
 });

@@ -21,7 +21,7 @@
       </ul>
       <li class="mr">{{ roleData.basic.mr }}</li>
     </ul>
-    <ul class="panelEquip" @click.stop="algorithmStore.algorithm()">
+    <ul class="panelEquip" @click.stop="storeAlgorithm.algorithmSystem()">
       <li
         v-for="equip in roleData.equips"
         :key="equip.id"
@@ -41,7 +41,7 @@ import { useRoleStore } from "../stores/role";
 import { useAlgorithmStore } from "../stores/algorithm";
 
 const roleStore = useRoleStore();
-const algorithmStore = useAlgorithmStore();
+const storeAlgorithm = useAlgorithmStore();
 const { roleData } = storeToRefs(roleStore);
 
 const closeUI = (e) => e.target.parentElement.classList.remove("show");
@@ -107,14 +107,14 @@ ${occupation}`;
   return equipInfo;
 };
 const dataForAlgorithm = (equip) => {
-  algorithmStore.target.name = equip.name;
-  algorithmStore.target.value = equip.value;
-  algorithmStore.target.category = equip.category;
-  algorithmStore.target.safetyValue = equip.safetyValue;
+  storeAlgorithm.target.name = equip.name;
+  storeAlgorithm.target.value = equip.value;
+  storeAlgorithm.target.category = equip.category;
+  storeAlgorithm.target.safetyValue = equip.safetyValue;
 
   // Updating data to trigger reactivity for rendering getEquipInfo()
   setTimeout(() => {
-    equip.value = algorithmStore.target.value;
+    equip.value = storeAlgorithm.target.value;
   }, 0);
 };
 </script>

@@ -110,8 +110,8 @@ const slotList = ref([
 ]);
 const namedBox = ref("");
 const nodeForArray = ref();
-const scrollStore = useScrollStore();
-const chatStore = useChatStore();
+const storeScroll = useScrollStore();
+const storeChat = useChatStore();
 
 const clickToActive = (name) => {
   let colorCss = ref("");
@@ -177,8 +177,8 @@ onMounted(() => {
         if (!node.matches(`.${e.key}`)) return;
         node.classList.add("active");
 
-        scrollStore.changeScroll(e.key);
-        chatStore.chatStateUpdate();
+        storeScroll.changeScroll(e.key);
+        storeChat.stateUpdateSystem();
       });
     });
   };
