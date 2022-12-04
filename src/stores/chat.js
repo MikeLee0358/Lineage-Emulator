@@ -20,20 +20,15 @@ export const useChatStore = defineStore("chat", () => {
       else if (storeAlgorithm.target.isCategoryType("armor")) return "銀色的";
       return console.log("chat.detectColor wrong");
     }),
-    pushAndShiftArrary: (text) => {
-      if (typeof text !== "string") return;
-
-      chat.lines.push(text);
-      chat.lines.shift();
+    updateArmor: () => {
+      chat.pushAndShiftArrary("請選擇一種防具。");
+    },
+    updateWeapon: () => {
+      chat.pushAndShiftArrary("請選擇一種武器。");
     },
     updateForOne: () => {
       chat.pushAndShiftArrary(
         `${chat.showNumber} ${storeAlgorithm.target.name} 一瞬間發出 ${chat.detectColor} 光芒。`
-      );
-    },
-    updateForTwoUp: () => {
-      chat.pushAndShiftArrary(
-        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 ${chat.detectColor} 光芒。`
       );
     },
     updateForGone: () => {
@@ -46,11 +41,16 @@ export const useChatStore = defineStore("chat", () => {
         `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 產生激烈的 ${chat.detectColor} 光芒，但是沒有任何事情發生。`
       );
     },
-    updateWeapon: () => {
-      chat.pushAndShiftArrary("請選擇一種武器。");
+    updateForTwoUp: () => {
+      chat.pushAndShiftArrary(
+        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 ${chat.detectColor} 光芒。`
+      );
     },
-    updateArmor: () => {
-      chat.pushAndShiftArrary("請選擇一種防具。");
+    pushAndShiftArrary: (text) => {
+      if (typeof text !== "string") return;
+
+      chat.lines.push(text);
+      chat.lines.shift();
     },
   });
 
