@@ -1,7 +1,7 @@
 <template>
   <ul @click="btnToggle">
-    <li class="btnCharacter">
-      <UICharacter />
+    <li class="btnRole">
+      <UIRole />
     </li>
     <li class="btnLogout">
       <UILogout />
@@ -11,12 +11,13 @@
 
 <script setup>
 import UILogout from "./UILogout.vue";
-import UICharacter from "./UICharacter.vue";
+import UIRole from "./UIRole.vue";
 
 const btnToggle = (e) => {
   if (e.target.tagName !== "LI") return;
   const uiTarget = e.target.firstElementChild.classList;
-  const uiRoleList = e.target.firstElementChild.children[1].firstElementChild.classList;
+  const uiRoleList =
+    e.target.firstElementChild.children[1].firstElementChild.classList;
 
   uiTarget.toggle("show");
   uiRoleList.remove("show");
@@ -28,7 +29,7 @@ const btnToggle = (e) => {
   visibility: visible !important;
 }
 
-.btnCharacter {
+.btnRole {
   position: absolute;
   inset: 0 72% 0 15%;
 }

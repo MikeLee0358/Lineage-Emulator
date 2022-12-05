@@ -1,5 +1,5 @@
 <template>
-  <ul @click.stop="storeAlgorithm.algorithmSystem()">
+  <ul @click.stop="useAlgorithmSystem">
     <li
       v-for="equip in role.data.equips"
       :key="equip.id"
@@ -20,6 +20,10 @@ const roleStore = useRoleStore();
 const { role } = storeToRefs(roleStore);
 const storeAlgorithm = useAlgorithmStore();
 
+const useAlgorithmSystem = (e) => {
+  if (e.target.tagName !== "LI") return;
+  storeAlgorithm.algorithmSystem();
+};
 const getEquipInfo = (equip) => {
   let equipInfo = "";
 
@@ -94,7 +98,7 @@ const dataForAlgorithm = (equip) => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @use "../scss/common.scss";
 
 .equip {

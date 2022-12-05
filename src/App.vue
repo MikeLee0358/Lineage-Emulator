@@ -1,6 +1,6 @@
 <template>
   <main>
-    <article class="role-background">
+    <article class="roleBackground">
       <section class="panelView"></section>
       <section class="panelUI">
         <UISlot class="uiSlot" />
@@ -13,10 +13,10 @@
 
 <script setup>
 import UIChat from "./components/UIChat.vue";
-import { useRoleStore } from "./stores/role";
-import { useScrollStore } from "./stores/scroll";
 import UISlot from "./components/UIslot.vue";
 import UIFunction from "./components/UIFunction.vue";
+import { useRoleStore } from "./stores/role";
+import { useScrollStore } from "./stores/scroll";
 const roleStore = useRoleStore();
 
 const changeCursor = () => {
@@ -35,7 +35,7 @@ main {
   width: 100vw;
   align-items: center;
 
-  .role-background {
+  .roleBackground {
     width: 100%;
     height: 80%;
     background-image: v-bind("roleStore.role.background");

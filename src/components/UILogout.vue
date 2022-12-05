@@ -37,13 +37,13 @@ const uiLogoutHandler = (e) => {
     classLogout.toggle("show");
     classRoleList.remove("show");
   };
-  const removeUIChracter = () => {
+  const removeuiRole = () => {
     const uiFunction = Array.from(
       uiLogoutNode.value.parentElement.parentElement.children
     );
 
     uiFunction.forEach((btn) => {
-      if (btn.className === "btnCharacter") {
+      if (btn.className === "btnRole") {
         btn.firstElementChild.classList.remove("show");
       }
     });
@@ -51,7 +51,7 @@ const uiLogoutHandler = (e) => {
 
   if (classTarget === "exit") {
     resetLogoutUI();
-    removeUIChracter();
+    removeuiRole();
   } else if (classTarget === "restart") {
     classRoleList.toggle("show");
   } else if (["close", "cancel"].includes(classTarget)) {
@@ -59,7 +59,7 @@ const uiLogoutHandler = (e) => {
   } else if (["elf", "prince", "knight", "magician"].includes(classTarget)) {
     changeRoleTo(classTarget);
     resetLogoutUI();
-    removeUIChracter();
+    removeuiRole();
   }
 };
 </script>
