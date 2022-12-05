@@ -1,5 +1,5 @@
 <template>
-  <ul ref="nodeForArray">
+  <ul class="uiSlot" ref="nodeForArray">
     <li
       v-for="slot in slotList"
       :key="slot.id"
@@ -189,35 +189,46 @@ onMounted(() => {
 <style lang="scss" scoped>
 @use "../scss/common.scss";
 
-.templateInfo {
-  color: v-bind(clickToActive());
-  &:nth-of-type(0) {
-    position: relative;
-  }
-  &::after {
-    content: attr(data-content);
-    position: absolute;
-    bottom: 105%;
-    left: -3.5%;
-    width: 99%;
-    font-size: 2vw;
-    @extend %templateInfoStyle;
-  }
-}
-.F5,
-.F9 {
-  opacity: 0;
-}
-.F5::after,
-.F9::after {
-  height: 235%;
-  font-size: 1rem;
-  line-height: 100%;
-}
+.uiSlot {
+  grid-area: uiSlot;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 22%);
+  grid-template-rows: repeat(2, 47%);
+  gap: 3%;
+  padding: 5% 3% 3% 3%;
 
-.active {
-  opacity: 1;
-  background-image: url("/src/assets/image_slot/slot_empty.png");
-  @extend %activeStyle;
+  .templateInfo {
+    color: v-bind(clickToActive());
+    &:nth-of-type(0) {
+      position: relative;
+    }
+    &::after {
+      content: attr(data-content);
+      position: absolute;
+      bottom: 105%;
+      left: -3.5%;
+      width: 99%;
+      font-size: 2vw;
+      @extend %templateInfoStyle;
+    }
+  }
+  .F5,
+  .F9 {
+    opacity: 0;
+  }
+  .F5::after,
+  .F9::after {
+    height: 235%;
+    font-size: 1rem;
+    line-height: 100%;
+  }
+
+  .active {
+    opacity: 1;
+    background-image: url("/src/assets/image_slot/slot_empty.png");
+    @extend %activeStyle;
+  }
 }
 </style>
