@@ -3,27 +3,27 @@
     <div class="close" @click.stop="closeUI"></div>
     <ul class="panelNumber">
       <ul class="level">
-        <li class="lv">{{ roleData.basic.lv }}</li>
-        <li class="exp">{{ roleData.basic.exp }}</li>
+        <li class="lv">{{ role.data.basic.lv }}</li>
+        <li class="exp">{{ role.data.basic.exp }}</li>
       </ul>
       <ul class="basic">
-        <li class="hp">{{ roleData.basic.hp }}/{{ roleData.basic.hp }}</li>
-        <li class="mp">{{ roleData.basic.mp }}/{{ roleData.basic.mp }}</li>
-        <li class="ac">{{ roleData.basic.ac }}</li>
+        <li class="hp">{{ role.data.basic.hp }}/{{ role.data.basic.hp }}</li>
+        <li class="mp">{{ role.data.basic.mp }}/{{ role.data.basic.mp }}</li>
+        <li class="ac">{{ role.data.basic.ac }}</li>
       </ul>
       <ul class="attributes">
-        <li class="str">{{ roleData.basic.str }}</li>
-        <li class="dex">{{ roleData.basic.dex }}</li>
-        <li class="con">{{ roleData.basic.con }}</li>
-        <li class="int">{{ roleData.basic.int }}</li>
-        <li class="wis">{{ roleData.basic.wis }}</li>
-        <li class="cha">{{ roleData.basic.cha }}</li>
+        <li class="str">{{ role.data.basic.str }}</li>
+        <li class="dex">{{ role.data.basic.dex }}</li>
+        <li class="con">{{ role.data.basic.con }}</li>
+        <li class="int">{{ role.data.basic.int }}</li>
+        <li class="wis">{{ role.data.basic.wis }}</li>
+        <li class="cha">{{ role.data.basic.cha }}</li>
       </ul>
-      <li class="mr">{{ roleData.basic.mr }}</li>
+      <li class="mr">{{ role.data.basic.mr }}</li>
     </ul>
     <ul class="panelEquip" @click.stop="storeAlgorithm.algorithmSystem()">
       <li
-        v-for="equip in roleData.equips"
+        v-for="equip in role.data.equips"
         :key="equip.id"
         class="equip"
         :class="equip.category"
@@ -42,7 +42,7 @@ import { useAlgorithmStore } from "../stores/algorithm";
 
 const roleStore = useRoleStore();
 const storeAlgorithm = useAlgorithmStore();
-const { roleData } = storeToRefs(roleStore);
+const { role } = storeToRefs(roleStore);
 
 const closeUI = (e) => e.target.parentElement.classList.remove("show");
 const getEquipInfo = (equip) => {

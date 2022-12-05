@@ -56,14 +56,17 @@ export const useChatStore = defineStore("chat", () => {
 
   function stateUpdateSystem() {
     if (storeScroll.targetScroll === null) return;
-    else if (storeScroll.targetScroll.includes("Armor")) chat.updateArmor();
-    else if (storeScroll.targetScroll.includes("Weapon")) chat.updateWeapon();
 
-    if (storeAlgorithm.dice.state === null) return;
-    else if (storeAlgorithm.dice.state === -1) chat.updateForNope();
-    else if (storeAlgorithm.dice.state === 0) chat.updateForGone();
-    else if (storeAlgorithm.dice.state === 1) chat.updateForOne();
-    else chat.updateForTwoUp();
+    // In the algorithmSystem, click equip with different scroll gives different dice state
+    if (storeAlgorithm.dice.state === null) {
+      if (storeScroll.targetScroll.includes("Armor")) chat.updateArmor();
+      if (storeScroll.targetScroll.includes("Weapon")) chat.updateWeapon();
+    } else {
+      if (storeAlgorithm.dice.state === -1) chat.updateForNope();
+      else if (storeAlgorithm.dice.state === 0) chat.updateForGone();
+      else if (storeAlgorithm.dice.state === 1) chat.updateForOne();
+      else chat.updateForTwoUp();
+    }
   }
 
   return {

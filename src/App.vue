@@ -1,6 +1,6 @@
 <template>
   <main>
-    <article class="roleBg">
+    <article class="role-background">
       <section class="panelView"></section>
       <section class="panelUI">
         <UISlot class="uiSlot" />
@@ -35,10 +35,10 @@ main {
   width: 100vw;
   align-items: center;
 
-  .roleBg {
+  .role-background {
     width: 100%;
     height: 80%;
-    background-image: v-bind("roleStore.roleBg");
+    background-image: v-bind("roleStore.role.background");
     background-repeat: round;
     background-size: cover;
     cursor: v-bind(changeCursor());

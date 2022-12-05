@@ -89,7 +89,6 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
   });
 
   function algorithmSystem() {
-    if (storeScroll.targetScroll === null) return;
     if (!target.isEquipMatchScroll) return;
 
     if (isInSuccessRate.value) {
