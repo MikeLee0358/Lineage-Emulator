@@ -22,7 +22,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     category: null,
     safetyValue: null,
     isEquipMatchScroll: computed(() => {
-      return storeScroll.isScrollType(target.category.substring(0, 6));
+      return storeScroll.scroll.isScrollType(target.category.substring(0, 6));
     }),
     isCategoryType: (text) => {
       if (typeof text !== "string") return "not a string", text;
@@ -68,14 +68,14 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       };
       const isPlusScrollUnderZero = computed(() => {
         return (
-          (target.value < 0 && storeScroll.isScrollType("blessed")) ||
-          (target.value < 0 && storeScroll.isScrollType("white"))
+          (target.value < 0 && storeScroll.scroll.isScrollType("blessed")) ||
+          (target.value < 0 && storeScroll.scroll.isScrollType("white"))
         );
       });
       const isMinusScrollOverSafety = computed(() => {
         return (
           target.safetyValue <= target.value &&
-          storeScroll.isScrollType("cursed")
+          storeScroll.scroll.isScrollType("cursed")
         );
       });
 
@@ -93,7 +93,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
 
     if (isInSuccessRate.value) {
       const targetReg = /(blessed)|(white)|(cursed)/g;
-      const targetRegStr = targetReg.exec(storeScroll.targetScroll)[0];
+      const targetRegStr = targetReg.exec(storeScroll.scroll.targetScroll)[0];
 
       // I choose switch not if else because...
       //   1. too much if else, my eyes want to take a break.
@@ -169,7 +169,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     }
 
     dice.state = null;
-    storeScroll.targetScroll = null;
+    storeScroll.scroll.targetScroll = null;
   }
 
   return {

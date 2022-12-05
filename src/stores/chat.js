@@ -15,7 +15,7 @@ export const useChatStore = defineStore("chat", () => {
         : `+${storeAlgorithm.target.value}`;
     }),
     detectColor: computed(() => {
-      if (storeScroll.isScrollType("cursed")) return "黑色的";
+      if (storeScroll.scroll.isScrollType("cursed")) return "黑色的";
       else if (storeAlgorithm.target.isCategoryType("weapon")) return "藍色的";
       else if (storeAlgorithm.target.isCategoryType("armor")) return "銀色的";
       return console.log("chat.detectColor wrong");
@@ -55,12 +55,14 @@ export const useChatStore = defineStore("chat", () => {
   });
 
   function stateUpdateSystem() {
-    if (storeScroll.targetScroll === null) return;
+    // F5, F9
+    if (storeScroll.scroll.targetScroll === null) return;
 
     // In the algorithmSystem, click equip with different scroll gives different dice state
     if (storeAlgorithm.dice.state === null) {
-      if (storeScroll.targetScroll.includes("Armor")) chat.updateArmor();
-      if (storeScroll.targetScroll.includes("Weapon")) chat.updateWeapon();
+      if (storeScroll.scroll.targetScroll.includes("Armor")) chat.updateArmor();
+      if (storeScroll.scroll.targetScroll.includes("Weapon"))
+        chat.updateWeapon();
     } else {
       if (storeAlgorithm.dice.state === -1) chat.updateForNope();
       else if (storeAlgorithm.dice.state === 0) chat.updateForGone();

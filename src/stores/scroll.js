@@ -1,49 +1,50 @@
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
 
 export const useScrollStore = defineStore("scroll", () => {
-  const targetScroll = ref(null); //null: pointer icon ; else: target icon
+  const scroll = reactive({
+    targetScroll: ref(null), //null: pointer icon ; else: target icon
+    changeScroll: (targetEventKey) => {
+      switch (targetEventKey) {
+        case "F6":
+          scroll.targetScroll = "whiteArmor";
+          break;
 
-  const changeScroll = (targetEventKey) => {
-    switch (targetEventKey) {
-      case "F6":
-        targetScroll.value = "whiteArmor";
-        break;
+        case "F7":
+          scroll.targetScroll = "blessedArmor";
+          break;
 
-      case "F7":
-        targetScroll.value = "blessedArmor";
-        break;
+        case "F8":
+          scroll.targetScroll = "cursedArmor";
+          break;
+        case "F10":
+          scroll.targetScroll = "whiteWeapon";
+          break;
 
-      case "F8":
-        targetScroll.value = "cursedArmor";
-        break;
-      case "F10":
-        targetScroll.value = "whiteWeapon";
-        break;
+        case "F11":
+          scroll.targetScroll = "blessedWeapon";
+          break;
 
-      case "F11":
-        targetScroll.value = "blessedWeapon";
-        break;
+        case "F12":
+          scroll.targetScroll = "cursedWeapon";
+          break;
 
-      case "F12":
-        targetScroll.value = "cursedWeapon";
-        break;
+        default:
+          scroll.targetScroll = null;
+          break;
+      }
+    },
+    isScrollType: (text) => {
+      if (scroll.targetScroll === null) return;
+      if (typeof text !== "string") return;
 
-      default:
-        targetScroll.value = null;
-        break;
-    }
-  };
-  const isScrollType = (text) => {
-    if (targetScroll.value === null) return;
-    if (typeof text !== "string") return;
-
-    return targetScroll.value.toLowerCase().includes(text.toLowerCase().trim());
-  };
+      return scroll.targetScroll
+        .toLowerCase()
+        .includes(text.toLowerCase().trim());
+    },
+  });
 
   return {
-    isScrollType,
-    changeScroll,
-    targetScroll,
+    scroll,
   };
 });

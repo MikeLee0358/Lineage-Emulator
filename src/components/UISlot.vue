@@ -177,7 +177,7 @@ onMounted(() => {
         if (!node.matches(`.${e.key}`)) return;
         node.classList.add("active");
 
-        storeScroll.changeScroll(e.key);
+        storeScroll.scroll.changeScroll(e.key);
         storeChat.stateUpdateSystem();
       });
     });
