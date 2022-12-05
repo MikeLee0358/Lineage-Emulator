@@ -89,6 +89,8 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
   });
 
   function algorithmSystem() {
+    // target.category changed when clicked some equip only, before that alawys null.
+    if (target.category === null) return;
     if (!target.isEquipMatchScroll) return;
 
     if (isInSuccessRate.value) {
