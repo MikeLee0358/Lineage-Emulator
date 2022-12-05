@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 
 export const useScrollStore = defineStore("scroll", () => {
   const scroll = reactive({
-    targetScroll: ref(null), //null: pointer icon ; else: target icon
+    targetScroll: null, //null: pointer icon ; else: target icon
     changeScroll: (targetEventKey) => {
       switch (targetEventKey) {
         case "F6":
