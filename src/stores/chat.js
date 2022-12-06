@@ -54,25 +54,21 @@ export const useChatStore = defineStore("chat", () => {
     },
   });
 
-  function stateUpdateSystem() {
-    // F5, F9
+  function updateChatScroll() {
     if (storeScroll.scroll.targetScroll === null) return;
-
-    // In the algorithmSystem, click equip with different scroll gives different dice state
-    if (storeAlgorithm.dice.state === null) {
-      if (storeScroll.scroll.targetScroll.includes("Armor")) chat.updateArmor();
-      if (storeScroll.scroll.targetScroll.includes("Weapon"))
-        chat.updateWeapon();
-    } else {
-      if (storeAlgorithm.dice.state === -1) chat.updateForNope();
-      else if (storeAlgorithm.dice.state === 0) chat.updateForGone();
-      else if (storeAlgorithm.dice.state === 1) chat.updateForOne();
-      else chat.updateForTwoUp();
-    }
+    if (storeScroll.scroll.targetScroll.includes("Armor")) chat.updateArmor();
+    if (storeScroll.scroll.targetScroll.includes("Weapon")) chat.updateWeapon();
+  }
+  function updateChatState() {
+    if (storeAlgorithm.dice.state === -1) chat.updateForNope();
+    else if (storeAlgorithm.dice.state === 0) chat.updateForGone();
+    else if (storeAlgorithm.dice.state === 1) chat.updateForOne();
+    else chat.updateForTwoUp();
   }
 
   return {
     chat,
-    stateUpdateSystem,
+    updateChatState,
+    updateChatScroll,
   };
 });

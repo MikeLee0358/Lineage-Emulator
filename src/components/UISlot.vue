@@ -178,7 +178,7 @@ onMounted(() => {
         node.classList.add("active");
 
         storeScroll.scroll.changeScroll(e.key);
-        storeChat.stateUpdateSystem();
+        storeChat.updateChatScroll();
       });
     });
   };

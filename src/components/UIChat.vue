@@ -1,6 +1,8 @@
 <template>
   <ul class="uiChat">
-    <li v-for="chatline in storeChat.chat.lines">{{ chatline }}</li>
+    <li v-for="(chatline, index) in storeChat.chat.lines" :key="index">
+      {{ chatline }}
+    </li>
   </ul>
 </template>
 

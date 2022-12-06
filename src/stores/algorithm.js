@@ -102,25 +102,25 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
         case "blessed":
           if (target.value < 3) {
             dice.rollStateOneTo(3);
-            storeChat.stateUpdateSystem();
+            storeChat.updateChatState();
             target.value += dice.state;
           } else if (target.value < 6) {
             dice.rollStateOneTo(2);
-            storeChat.stateUpdateSystem();
+            storeChat.updateChatState();
             target.value += dice.state;
           } else if (target.value < 9) {
             dice.rollStateOneTo(1);
-            storeChat.stateUpdateSystem();
+            storeChat.updateChatState();
             target.value++;
           } else {
             //+9up: 66% +1; 33% nothing happened(state: -1)
             dice.rollStateOneTo(3);
             if (dice.state === 1) {
               dice.state = -1;
-              storeChat.stateUpdateSystem();
+              storeChat.updateChatState();
             } else {
               dice.state = 1;
-              storeChat.stateUpdateSystem();
+              storeChat.updateChatState();
               target.value++;
             }
           }
@@ -131,15 +131,15 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             //+9up: 33% +1; 66% nothing happened(state: -1)
             dice.rollStateOneTo(3);
             if (dice.state === 1) {
-              storeChat.stateUpdateSystem();
+              storeChat.updateChatState();
               target.value++;
             } else {
               dice.state = -1;
-              storeChat.stateUpdateSystem();
+              storeChat.updateChatState();
             }
           } else {
             dice.rollStateOneTo(1);
-            storeChat.stateUpdateSystem();
+            storeChat.updateChatState();
             target.value++;
           }
           break;
@@ -149,22 +149,22 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
             //-9up: 50% -1; 50% nothing happened(state: -1)
             dice.rollStateOneTo(2);
             if (dice.state === 1) {
-              storeChat.stateUpdateSystem();
+              storeChat.updateChatState();
               target.value--;
             } else {
               dice.state = -1;
-              storeChat.stateUpdateSystem();
+              storeChat.updateChatState();
             }
           } else {
             dice.rollStateOneTo(1);
-            storeChat.stateUpdateSystem();
+            storeChat.updateChatState();
             target.value--;
           }
           break;
       }
     } else {
       dice.state = 0;
-      storeChat.stateUpdateSystem();
+      storeChat.updateChatState();
       target.value = 0;
     }
 
