@@ -14,19 +14,21 @@ const storeChat = useChatStore();
 <style lang="scss" scoped>
 .uiChat {
   grid-area: uiChat;
+  position: relative;
+  top: 2.1%;
 
   li {
     height: 14.28%;
     line-height: 100%;
-    font-size: clamp(12px, 1.7vw, 26px);
+    font-size: clamp(12px, 1.5vw, 26px);
     transform: scaleY(0.55);
     color: var(--color-yellow);
   }
 }
 
 @media screen and (min-height: 450px) {
-  li {
-    transform: scaleY(0.65);
+  .uiChat li {
+    transform: scaleY(0.6);
   }
 }
 </style>
