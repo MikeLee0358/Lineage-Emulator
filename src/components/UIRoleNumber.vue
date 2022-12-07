@@ -7,7 +7,7 @@
     <ul class="basic">
       <li>{{ role.currentData.basic.hp }}/{{ role.currentData.basic.hp }}</li>
       <li>{{ role.currentData.basic.mp }}/{{ role.currentData.basic.mp }}</li>
-      <li>{{ role.calcAC }}</li>
+      <li>{{ storeRole.calcAC() }}</li>
     </ul>
     <ul class="attributes">
       <li>{{ role.currentData.basic.str }}</li>
@@ -17,7 +17,7 @@
       <li>{{ role.currentData.basic.wis }}</li>
       <li>{{ role.currentData.basic.cha }}</li>
     </ul>
-    <li class="mr">{{ mr }}</li>
+    <li class="mr">{{ role.currentData.basic.mr }}</li>
   </ul>
 </template>
 

@@ -22,7 +22,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     category: null,
     safetyValue: null,
     isEquipMatchScroll: computed(() => {
-      return storeScroll.scroll.isScrollType(target.category.substring(0, 6));
+      return storeScroll.isScrollType(target.category.substring(0, 6));
     }),
     isCategoryType: (text) => {
       if (target.category === null) return;
@@ -30,6 +30,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       return target.category.toLowerCase().includes(text.toLowerCase());
     },
   });
+
   const isInSuccessRate = computed(() => {
     // HANDLE SUCESS RATE WITH ARMOR/WEAPON/SCROLLS, BUT DOESN'T CONTROLL VAULE(+1/+2/+3/-1).
     // setting range (0.00% ~ 100.00%) because I use toFixed() rounding.
@@ -69,14 +70,14 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       };
       const isPlusScrollUnderZero = computed(() => {
         return (
-          (target.value < 0 && storeScroll.scroll.isScrollType("blessed")) ||
-          (target.value < 0 && storeScroll.scroll.isScrollType("white"))
+          (target.value < 0 && storeScroll.isScrollType("blessed")) ||
+          (target.value < 0 && storeScroll.isScrollType("white"))
         );
       });
       const isMinusScrollOverSafety = computed(() => {
         return (
           target.safetyValue <= target.value &&
-          storeScroll.scroll.isScrollType("cursed")
+          storeScroll.isScrollType("cursed")
         );
       });
 

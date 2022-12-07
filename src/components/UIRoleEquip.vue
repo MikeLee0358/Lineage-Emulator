@@ -16,8 +16,8 @@
 import { useAlgorithmStore } from "../stores/algorithm";
 import { storeToRefs } from "pinia";
 import { useRoleStore } from "../stores/role";
-const roleStore = useRoleStore();
-const { role } = storeToRefs(roleStore);
+const storeRole = useRoleStore();
+const { role } = storeToRefs(storeRole);
 const storeAlgorithm = useAlgorithmStore();
 
 const useAlgorithmSystem = (e) => {

@@ -12,7 +12,7 @@ import PanelView from "./PanelView.vue";
 import PanelUI from "./PanelUI.vue";
 import { useRoleStore } from "./stores/role";
 import { useScrollStore } from "./stores/scroll";
-const roleStore = useRoleStore();
+const storeRole = useRoleStore();
 const storeScroll = useScrollStore();
 
 const changeCursor = () => {
@@ -32,7 +32,7 @@ const changeCursor = () => {
   .container {
     width: 100%;
     height: 80%;
-    background-image: v-bind("roleStore.role.currentBg");
+    background-image: v-bind("storeRole.role.currentBg");
     background-repeat: round;
     background-size: cover;
     cursor: v-bind(changeCursor());

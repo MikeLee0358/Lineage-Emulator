@@ -21,8 +21,10 @@
 <script setup>
 import { ref } from "vue";
 import { useRoleStore } from "../stores/role";
+import { useChatStore } from "../stores/chat";
 
-const roleStore = useRoleStore();
+const storeRole = useRoleStore();
+const storeChat = useChatStore();
 const uiLogoutNode = ref();
 
 const uiLogoutHandler = (e) => {
@@ -31,7 +33,7 @@ const uiLogoutHandler = (e) => {
   const classRoleList = uiLogoutNode.value.children[1].firstElementChild.classList;
 
   const changeRoleTo = (role) => {
-    roleStore.role.currentRole = role;
+    storeRole.role.currentRole = role;
   };
   const resetLogoutUI = () => {
     classLogout.toggle("show");
@@ -49,17 +51,19 @@ const uiLogoutHandler = (e) => {
     });
   };
 
-  if (classTarget === "exit") {
-    resetLogoutUI();
+  if (["exit"].includes(classTarget)) {
     removeuiRole();
-  } else if (classTarget === "restart") {
+    resetLogoutUI();
+    storeChat.cleanChatLines();
+  } else if (["restart"].includes(classTarget)) {
     classRoleList.toggle("show");
   } else if (["close", "cancel"].includes(classTarget)) {
     resetLogoutUI();
   } else if (["elf", "prince", "knight", "magician"].includes(classTarget)) {
-    changeRoleTo(classTarget);
-    resetLogoutUI();
     removeuiRole();
+    resetLogoutUI();
+    changeRoleTo(classTarget);
+    storeChat.cleanChatLines();
   }
 };
 </script>

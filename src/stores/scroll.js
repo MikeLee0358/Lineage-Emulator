@@ -34,17 +34,18 @@ export const useScrollStore = defineStore("scroll", () => {
           break;
       }
     },
-    isScrollType: (text) => {
-      if (scroll.targetScroll === null) return;
-      if (typeof text !== "string") return;
-
-      return scroll.targetScroll
-        .toLowerCase()
-        .includes(text.toLowerCase().trim());
-    },
   });
 
+  function isScrollType(text) {
+    if (scroll.targetScroll === null) return;
+    if (typeof text !== "string") return;
+
+    return scroll.targetScroll
+      .toLowerCase()
+      .includes(text.toLowerCase().trim());
+  }
   return {
     scroll,
+    isScrollType,
   };
 });
