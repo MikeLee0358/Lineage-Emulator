@@ -1,8 +1,8 @@
 <template>
   <section class="panelUI">
+    <UIChat />
     <UISlot />
     <UIFunction />
-    <UIChat />
   </section>
 </template>
 

@@ -5,11 +5,25 @@ import dataRole from "../dataRole.js";
 export const useRoleStore = defineStore("role", () => {
   const role = reactive({
     dataRole,
-    now: "knight", // default of role
-    data: computed(() => role.dataRole[role.now]),
-    background: computed(
-      () => `url(src/assets/${role.now}/bg_${role.now}.png)`
+    currentRole: "knight", // default of role
+    currentData: computed(() => role.dataRole[role.currentRole]),
+    currentBg: computed(
+      () => `url(src/assets/${role.currentRole}/bg_${role.currentRole}.png)`
     ),
+    calcAC: computed(() => {
+      const roleEquips = role.currentData.equips;
+      let armorDefault = role.currentData.basic.ac;
+      let armorTotal = 0;
+
+      roleEquips.forEach((roleEquip) => {
+        const isArmor = computed(() => {
+          return /armor/.test(roleEquip.category);
+        });
+
+        if (isArmor.value) armorTotal += roleEquip.armor + roleEquip.value;
+      });
+      return armorDefault - armorTotal;
+    }),
   });
 
   return {

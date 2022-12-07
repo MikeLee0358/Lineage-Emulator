@@ -1,32 +1,31 @@
 <template>
   <ul class="uiRoleNumber">
     <ul class="level">
-      <li class="lv">{{ basic.lv }}</li>
-      <li class="exp">{{ basic.exp }}</li>
+      <li class="lv">{{ role.currentData.basic.lv }}</li>
+      <li class="exp">{{ role.currentData.basic.exp }}</li>
     </ul>
     <ul class="basic">
-      <li>{{ basic.hp }}/{{ basic.hp }}</li>
-      <li>{{ basic.mp }}/{{ basic.mp }}</li>
-      <li>{{ basic.ac }}</li>
+      <li>{{ role.currentData.basic.hp }}/{{ role.currentData.basic.hp }}</li>
+      <li>{{ role.currentData.basic.mp }}/{{ role.currentData.basic.mp }}</li>
+      <li>{{ role.calcAC }}</li>
     </ul>
     <ul class="attributes">
-      <li>{{ basic.str }}</li>
-      <li>{{ basic.dex }}</li>
-      <li>{{ basic.con }}</li>
-      <li>{{ basic.int }}</li>
-      <li>{{ basic.wis }}</li>
-      <li>{{ basic.cha }}</li>
+      <li>{{ role.currentData.basic.str }}</li>
+      <li>{{ role.currentData.basic.dex }}</li>
+      <li>{{ role.currentData.basic.con }}</li>
+      <li>{{ role.currentData.basic.int }}</li>
+      <li>{{ role.currentData.basic.wis }}</li>
+      <li>{{ role.currentData.basic.cha }}</li>
     </ul>
-    <li class="mr">{{ basic.mr }}</li>
+    <li class="mr">{{ mr }}</li>
   </ul>
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
 import { useRoleStore } from "../stores/role";
-const roleStore = useRoleStore();
-const { role } = storeToRefs(roleStore);
-const basic = role.value.data.basic;
+import { storeToRefs } from "pinia";
+const storeRole = useRoleStore();
+const { role } = storeToRefs(storeRole);
 </script>
 
 <style lang="scss">

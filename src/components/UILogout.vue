@@ -31,7 +31,7 @@ const uiLogoutHandler = (e) => {
   const classRoleList = uiLogoutNode.value.children[1].firstElementChild.classList;
 
   const changeRoleTo = (role) => {
-    roleStore.role.now = role;
+    roleStore.role.currentRole = role;
   };
   const resetLogoutUI = () => {
     classLogout.toggle("show");

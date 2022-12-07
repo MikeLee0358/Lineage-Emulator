@@ -1,7 +1,7 @@
 <template>
   <ul class="uiRoleEquip" @click.stop="useAlgorithmSystem">
     <li
-      v-for="equip in role.data.equips"
+      v-for="equip in role.currentData.equips"
       :key="equip.id"
       class="equip"
       :class="equip.category"

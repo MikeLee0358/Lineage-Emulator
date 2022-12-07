@@ -14,11 +14,11 @@ export const useChatStore = defineStore("chat", () => {
         ? storeAlgorithm.target.value
         : `+${storeAlgorithm.target.value}`;
     }),
+
     detectColor: computed(() => {
       if (storeScroll.scroll.isScrollType("cursed")) return "黑色的";
       else if (storeAlgorithm.target.isCategoryType("weapon")) return "藍色的";
-      else if (storeAlgorithm.target.isCategoryType("armor")) return "銀色的";
-      return console.log("chat.detectColor wrong");
+      else return "銀色的";
     }),
     updateArmor: () => {
       chat.pushAndShiftArrary("請選擇一種防具。");

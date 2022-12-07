@@ -32,7 +32,7 @@ const changeCursor = () => {
   .container {
     width: 100%;
     height: 80%;
-    background-image: v-bind("roleStore.role.background");
+    background-image: v-bind("roleStore.role.currentBg");
     background-repeat: round;
     background-size: cover;
     cursor: v-bind(changeCursor());

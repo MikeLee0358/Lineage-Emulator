@@ -1,5 +1,5 @@
-import { defineStore } from "pinia";
 import { reactive, computed } from "vue";
+import { defineStore } from "pinia";
 import { useScrollStore } from "./scroll";
 import { useChatStore } from "./chat";
 
@@ -25,6 +25,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       return storeScroll.scroll.isScrollType(target.category.substring(0, 6));
     }),
     isCategoryType: (text) => {
+      if (target.category === null) return;
       if (typeof text !== "string") return "not a string", text;
       return target.category.toLowerCase().includes(text.toLowerCase());
     },
