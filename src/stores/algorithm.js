@@ -20,7 +20,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     name: null,
     value: null,
     category: null,
-    delayTime: 5000,
+    delayTime: 3000,
     safetyValue: null,
     isEquipMatchScroll: computed(() => {
       return storeScroll.isScrollType(target.category.substring(0, 6));
