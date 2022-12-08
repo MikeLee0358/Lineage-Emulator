@@ -20,10 +20,20 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     name: null,
     value: null,
     category: null,
+    delayTime: 5000,
     safetyValue: null,
     isEquipMatchScroll: computed(() => {
       return storeScroll.isScrollType(target.category.substring(0, 6));
     }),
+    goneEffect: (equip, event) => {
+      let armoreBox = equip.armor;
+      event.target.classList.toggle("hidden");
+      equip.armor = 0;
+      setTimeout(() => {
+        event.target.classList.toggle("hidden");
+        equip.armor = armoreBox;
+      }, target.delayTime);
+    },
     isCategoryType: (text) => {
       if (target.category === null) return;
       if (typeof text !== "string") return "not a string", text;
@@ -90,7 +100,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     return dice.value <= dice.success;
   });
 
-  function algorithmSystem() {
+  function algorithmSystem(equip, event) {
     if (!target.isEquipMatchScroll) return;
 
     if (isInSuccessRate.value) {
@@ -168,6 +178,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       dice.state = 0;
       storeChat.updateChatState();
       target.value = 0;
+      target.goneEffect(equip, event);
     }
 
     dice.state = null;

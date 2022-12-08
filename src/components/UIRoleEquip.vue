@@ -1,12 +1,12 @@
 <template>
-  <ul class="uiRoleEquip" @click.stop="useAlgorithmSystem">
+  <ul class="uiRoleEquip">
     <li
       v-for="equip in role.currentData.equips"
       :key="equip.id"
       class="equip"
       :class="equip.category"
       :style="{ backgroundImage: `url(${equip.src})` }"
-      @click="dataForAlgorithm(equip)"
+      @click.stop="dataForAlgorithm(equip, $event)"
       :data-displayEquipInfo="getEquipInfo(equip)"
     ></li>
   </ul>
@@ -20,10 +20,6 @@ const storeRole = useRoleStore();
 const { role } = storeToRefs(storeRole);
 const storeAlgorithm = useAlgorithmStore();
 
-const useAlgorithmSystem = (e) => {
-  if (e.target.tagName !== "LI") return;
-  storeAlgorithm.algorithmSystem();
-};
 const getEquipInfo = (equip) => {
   let equipInfo = "";
 
@@ -85,11 +81,13 @@ ${occupation}`;
 
   return equipInfo;
 };
-const dataForAlgorithm = (equip) => {
+const dataForAlgorithm = (equip, event) => {
   storeAlgorithm.target.name = equip.name;
   storeAlgorithm.target.value = equip.value;
   storeAlgorithm.target.category = equip.category;
   storeAlgorithm.target.safetyValue = equip.safetyValue;
+
+  storeAlgorithm.algorithmSystem(equip, event);
 
   // Updating data to trigger reactivity for rendering getEquipInfo()
   setTimeout(() => {
@@ -110,6 +108,8 @@ const dataForAlgorithm = (equip) => {
     background-repeat: round;
     background-size: cover;
     color: transparent;
+    opacity: 1;
+    transition: opacity 1s ease-in;
 
     &::after {
       content: attr(data-displayEquipInfo);
@@ -139,21 +139,25 @@ const dataForAlgorithm = (equip) => {
       &.helmet {
         top: 13.5%;
         left: 71.2%;
+        z-index: 2;
       }
 
       &.shirt {
         top: 31%;
         left: 47.7%;
+        z-index: 1;
       }
 
       &.bodyArmor {
         top: 31%;
         left: 60%;
+        z-index: 1;
       }
 
       &.cloak {
         top: 31%;
         left: 72.2%;
+        z-index: 1;
       }
 
       &.shield {
@@ -205,5 +209,10 @@ const dataForAlgorithm = (equip) => {
       }
     }
   }
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0 !important;
 }
 </style>
