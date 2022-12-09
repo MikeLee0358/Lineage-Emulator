@@ -19,35 +19,36 @@ const storeRole = useRoleStore();
 const storeAlgorithm = useAlgorithmStore();
 
 const getEquipInfo = (equip) => {
-  let equipInfo = "";
+  let equipInfo;
   const showPlusOrMinus = (value) => {
-    if (value === 0) return `+0`;
-    return value > 0 ? `+${value}` : value;
+    return value >= 0 ? `+${value}` : value;
   };
-  const getName = () => {
-    const equipName = equip.name;
-    const equipValue = equip.value;
-    const equipArmor = equip.armor;
-    const equipAttack = equip.attack;
 
+  const getName = () => {
+    const nameArmor = () => {
+      return `${showPlusOrMinus(equip.value)} ${equip.name} (使用中)
+防禦 ${equip.armor}${showPlusOrMinus(equip.value)}`;
+    };
+    const nameWeapon = () => {
+      return (
+        `${showPlusOrMinus(equip.value)} ${equip.name} (揮舞)
+攻擊力 ${equip.attack.small}${showPlusOrMinus(equip.value)}/${
+          equip.attack.large
+        }${showPlusOrMinus(equip.value)}` + isTwoHandsWeapon()
+      );
+    };
+    const nameJewelry = () => {
+      return `${equip.name} (使用中)`;
+    };
     const isTwoHandsWeapon = () => {
-      return equip.grip === "雙手武器" ? "\n 雙手武器" : "";
+      return /雙手武器/.test(equip.grip) ? "\n 雙手武器" : "";
     };
 
-    if (equip.category === "weapon") {
-      return (
-        `${showPlusOrMinus(equipValue)} ${equipName} (揮舞)
-攻擊力 ${equipAttack.small}${showPlusOrMinus(equipValue)}/${
-          equipAttack.large
-        }${showPlusOrMinus(equipValue)}` + isTwoHandsWeapon()
-      );
-    } else if (equip.category.includes("armor")) {
-      return `${showPlusOrMinus(equipValue)} ${equipName} (使用中)
-防禦 ${equipArmor}${showPlusOrMinus(equipValue)}`;
-    } else if (equip.category.includes("jewelry")) {
-      return `${equipName} (使用中)`;
-    }
+    if (equip.category === "weapon") return nameWeapon();
+    else if (equip.category.includes("armor")) return nameArmor();
+    else if (equip.category.includes("jewelry")) return nameJewelry();
   };
+
   const getFeature = () => {
     //Jewelry are not opened yet
     if (equip.category.includes("jewelry")) return "";
@@ -71,6 +72,7 @@ ${occupation}
 ${occupation}`;
     }
   };
+
   const getMaterial = () => {
     //Jewelry are not opened yet
     if (equip.category.includes("jewelry")) return "";
