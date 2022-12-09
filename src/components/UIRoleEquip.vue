@@ -50,7 +50,7 @@ const getEquipInfo = (equip) => {
   };
 
   const getFeature = () => {
-    //Jewelry are not opened yet
+    //Jewelries are not opened yet
     const getFeatureText = () => {
       const showMR = () => {
         if (equip.mr === undefined) return "";
@@ -76,12 +76,10 @@ ${equip.occupation}`;
   };
 
   const getMaterial = () => {
-    //Jewelry are not opened yet
+    //Jewelries are not opened yet
     if (equip.category.includes("jewelry")) return "";
-    const toDisplay = equip;
-
-    return `材質:${toDisplay.material}
-  重量 ${toDisplay.weight}`;
+    return `材質:${equip.material}
+  重量 ${equip.weight}`;
   };
 
   equipInfo = `${getName()}
