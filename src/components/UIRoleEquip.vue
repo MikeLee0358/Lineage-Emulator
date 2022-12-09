@@ -51,26 +51,28 @@ const getEquipInfo = (equip) => {
 
   const getFeature = () => {
     //Jewelry are not opened yet
-    if (equip.category.includes("jewelry")) return "";
-    const hasFeature = equip.feature;
-    const occupation = equip.occupation;
-
-    if (hasFeature) {
+    const getFeatureText = () => {
       const showMR = () => {
         if (equip.mr === undefined) return "";
 
-        if (/cloak/.test(equip.category))
+        if (/cloak/.test(equip.category)) {
           return showPlusOrMinus(equip.mr + equip.value * 2);
-        else if (/helmet|bodyArmor/.test(equip.category))
+        } else if (/helmet|bodyArmor/.test(equip.category)) {
           return showPlusOrMinus(equip.mr + equip.value);
+        }
       };
       return `可使用職業:
-${occupation}
-  ${hasFeature} ${showMR()}`;
-    } else {
+${equip.occupation}
+  ${equip.feature} ${showMR()}`;
+    };
+    const getNoFeatureText = () => {
       return `可使用職業:
-${occupation}`;
-    }
+${equip.occupation}`;
+    };
+
+    if (!equip.feature) return getNoFeatureText();
+    if (equip.category.includes("jewelry")) return "";
+    return getFeatureText();
   };
 
   const getMaterial = () => {
