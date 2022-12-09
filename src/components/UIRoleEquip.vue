@@ -6,7 +6,7 @@
       class="equip"
       :class="equip.category"
       :style="{ backgroundImage: `url(${equip.src})` }"
-      @click.stop="dataForAlgorithm(equip, $event)"
+      @click.stop="getDataForAlgorithm(equip, $event)"
       :data-displayEquipInfo="getEquipInfo(equip)"
     ></li>
   </ul>
@@ -88,16 +88,16 @@ ${equip.occupation}`;
 
   return equipInfo;
 };
-const dataForAlgorithm = (equip, event) => {
+
+const getDataForAlgorithm = (equip, event) => {
   storeAlgorithm.target.name = equip.name;
   storeAlgorithm.target.value = equip.value;
   storeAlgorithm.target.category = equip.category;
   storeAlgorithm.target.safetyValue = equip.safetyValue;
 
   storeAlgorithm.algorithmSystem(equip, event);
-
-  // Updating data to trigger reactivity for rendering getEquipInfo()
   setTimeout(() => {
+    // Updating data to trigger reactivity for rendering getEquipInfo()
     equip.value = storeAlgorithm.target.value;
   }, 0);
 };
