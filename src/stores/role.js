@@ -5,6 +5,7 @@ import data from "../dataRole.js";
 export const useRoleStore = defineStore("role", () => {
   const role = reactive({
     data,
+
     currentRole: "knight", // default of role
     currentData: computed(() => role.data[role.currentRole]),
     currentBg: computed(
@@ -12,23 +13,48 @@ export const useRoleStore = defineStore("role", () => {
     ),
   });
 
-  function calcAC() {
+  function getAC() {
     const roleEquips = role.currentData.equips;
-    const armorDefault = role.currentData.basic.ac;
-    let armorTotal = 0;
+    const roleAC = role.currentData.basic.ac;
+    let stackAC = 0;
+    let totalAC;
 
     roleEquips.forEach((roleEquip) => {
       const isArmor = computed(() => {
         return /armor/.test(roleEquip.category);
       });
 
-      if (isArmor.value) armorTotal += roleEquip.armor + roleEquip.value;
+      if (isArmor.value) stackAC += roleEquip.armor + roleEquip.value;
     });
-    return armorDefault - armorTotal;
+
+    totalAC = roleAC - stackAC;
+
+    return totalAC;
   }
 
+  function getMR() {
+    const roleEquips = role.currentData.equips;
+    const roleMR = role.currentData.basic.mr;
+    let stackMR = 0;
+    let totalMR;
+
+    roleEquips.forEach((roleEquip) => {
+      const isEquipMR = computed(() => {
+        return roleEquip.mr !== undefined;
+      });
+      if (!isEquipMR.value) return;
+      else if (/cloak/.test(roleEquip.category))
+        stackMR += roleEquip.mr + roleEquip.value * 2;
+      else stackMR += roleEquip.mr + roleEquip.value;
+    });
+
+    totalMR = roleMR + stackMR;
+
+    return totalMR;
+  }
   return {
     role,
-    calcAC,
+    getAC,
+    getMR,
   };
 });

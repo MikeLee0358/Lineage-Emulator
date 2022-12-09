@@ -39,12 +39,13 @@ export default {
         src: "/src/assets/prince/equips/equip_helmet.png",
         category: "armor helmet",
         armor: 2,
+        mr: 4,
         value: 0,
         safetyValue: 4,
         material: "鐵",
         weight: 35,
         occupation: "[所有職業]",
-        feature: "魔法防禦額外點數 +4",
+        feature: "魔法防禦額外點數",
       },
       {
         id: 2,
@@ -85,7 +86,7 @@ export default {
         material: "鐵",
         weight: 300,
         occupation: "[王族][騎士][妖精]",
-        feature: "魔法防禦額外點數 +4",
+        feature: "魔法防禦額外點數",
       },
       {
         id: 5,
@@ -99,7 +100,7 @@ export default {
         material: "布",
         weight: 10,
         occupation: "[所有職業]",
-        feature: "魔法防禦額外點數 +10",
+        feature: "魔法防禦額外點數",
       },
       {
         id: 6,

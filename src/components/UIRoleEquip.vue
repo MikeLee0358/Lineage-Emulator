@@ -1,7 +1,7 @@
 <template>
   <ul class="uiRoleEquip">
     <li
-      v-for="equip in role.currentData.equips"
+      v-for="equip in storeRole.role.currentData.equips"
       :key="equip.id"
       class="equip"
       :class="equip.category"
@@ -14,25 +14,22 @@
 
 <script setup>
 import { useAlgorithmStore } from "../stores/algorithm";
-import { storeToRefs } from "pinia";
 import { useRoleStore } from "../stores/role";
 const storeRole = useRoleStore();
-const { role } = storeToRefs(storeRole);
 const storeAlgorithm = useAlgorithmStore();
 
 const getEquipInfo = (equip) => {
   let equipInfo = "";
-
+  const showPlusOrMinus = (value) => {
+    if (value === 0) return `+0`;
+    return value > 0 ? `+${value}` : value;
+  };
   const getName = () => {
     const equipName = equip.name;
     const equipValue = equip.value;
     const equipArmor = equip.armor;
     const equipAttack = equip.attack;
 
-    const showPlusOrMinus = (value) => {
-      if (value === 0) return `+0`;
-      return value > 0 ? `+${value}` : value;
-    };
     const isTwoHandsWeapon = () => {
       return equip.grip === "雙手武器" ? "\n 雙手武器" : "";
     };
@@ -53,14 +50,22 @@ const getEquipInfo = (equip) => {
   };
   const getFeature = () => {
     //Jewelry are not opened yet
-    if (equip.category.includes("jewelry")) return ``;
+    if (equip.category.includes("jewelry")) return "";
     const hasFeature = equip.feature;
     const occupation = equip.occupation;
 
     if (hasFeature) {
+      const showMR = () => {
+        if (equip.mr === undefined) return "";
+
+        if (/cloak/.test(equip.category))
+          return showPlusOrMinus(equip.mr + equip.value * 2);
+        else if (/helmet|bodyArmor/.test(equip.category))
+          return showPlusOrMinus(equip.mr + equip.value);
+      };
       return `可使用職業:
 ${occupation}
-  ${hasFeature}`;
+  ${hasFeature} ${showMR()}`;
     } else {
       return `可使用職業:
 ${occupation}`;
@@ -68,7 +73,7 @@ ${occupation}`;
   };
   const getMaterial = () => {
     //Jewelry are not opened yet
-    if (equip.category.includes("jewelry")) return ``;
+    if (equip.category.includes("jewelry")) return "";
     const toDisplay = equip;
 
     return `材質:${toDisplay.material}
@@ -109,7 +114,7 @@ const dataForAlgorithm = (equip, event) => {
     background-size: cover;
     color: transparent;
     opacity: 1;
-    transition: opacity 1s ease-in;
+    transition: opacity 1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 
     &::after {
       content: attr(data-displayEquipInfo);

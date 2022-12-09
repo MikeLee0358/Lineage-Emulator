@@ -26,12 +26,17 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       return storeScroll.isScrollType(target.category.substring(0, 6));
     }),
     goneEffect: (equip, event) => {
-      let armoreBox = equip.armor;
+      let boxAC = equip.armor;
+      let boxMR = equip.mr;
+
       event.target.classList.toggle("hidden");
       equip.armor = 0;
+      // this sentence is for UX, to make display MR value not shaking
+      boxMR === undefined ? boxMR : (equip.mr = 0);
       setTimeout(() => {
         event.target.classList.toggle("hidden");
-        equip.armor = armoreBox;
+        equip.armor = boxAC;
+        equip.mr = boxMR;
       }, target.delayTime);
     },
     isCategoryType: (text) => {
