@@ -18,7 +18,7 @@ const closeUI = (e) => {
 <style lang="scss">
 .uiRole {
   position: absolute;
-  inset: -2215% 1487% 704% -2759%;
+  inset: -2216% 1448.2% 704.8% -2685%;
   background-image: url("/src/assets/UI/UI_role.png");
   background-size: cover;
   background-repeat: round;

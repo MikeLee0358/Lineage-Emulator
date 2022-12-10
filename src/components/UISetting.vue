@@ -9,8 +9,7 @@
 .uiSetting {
   visibility: hidden;
   position: absolute;
-  inset: -2215% 0% 704% -1046%;
-
+  inset: -2216% 1759.3% 704.8% -2901%;
   background-image: url("src/assets/UI/UI_template.png");
   background-size: cover;
   background-repeat: round;

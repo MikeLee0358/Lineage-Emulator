@@ -8,8 +8,7 @@
 .uiRelationship {
   visibility: hidden;
   position: absolute;
-  inset: -2215% 0% 704% -1046%;
-
+  inset: -2215% 1659.3% 703.8% -2800%;
   background-image: url("src/assets/UI/UI_template.png");
   background-size: cover;
   background-repeat: round;

@@ -6,11 +6,7 @@
         <img src="../assets/royal/logo_royal.png" class="royal" alt="royal-logo" />
         <img src="../assets/knight/logo_knight.png" class="knight" alt="knight-logo" />
         <img src="../assets/elf/logo_elf.png" alt="elf-logo" class="elf" />
-        <img
-          src="../assets/mage/logo_mage.png"
-          class="mage"
-          alt="mage-logo"
-        />
+        <img src="../assets/mage/logo_mage.png" class="mage" alt="mage-logo" />
       </figure>
     </li>
     <li class="exit"></li>
@@ -59,7 +55,7 @@ const uiLogoutHandler = (e) => {
     classRoleList.toggle("show");
   } else if (["close", "cancel"].includes(classTarget)) {
     resetLogoutUI();
-  } else if (["elf", "royal", "knight", "mage"].includes(classTarget)) {
+  } else if (["elf", "mage", "royal", "knight"].includes(classTarget)) {
     removeuiRole();
     resetLogoutUI();
     changeRoleTo(classTarget);
@@ -72,7 +68,7 @@ const uiLogoutHandler = (e) => {
 .uiLogout {
   visibility: hidden;
   position: absolute;
-  inset: -2215% 0% 704% -1046%;
+  inset: -2216% 0% 704.8% -1016.55%;
 
   background-image: url("src/assets/UI/UI_logout.png");
   background-size: cover;
