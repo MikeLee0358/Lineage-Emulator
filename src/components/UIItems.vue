@@ -1,7 +1,5 @@
 <template>
-  <ul class="uiItems">
-    <li>Items</li>
-  </ul>
+  <ul class="uiItems"></ul>
 </template>
 
 <style lang="scss">
@@ -9,7 +7,7 @@
   visibility: hidden;
   position: absolute;
   inset: -2216% -324% 704.8% -735.4%;
-  background-image: url("src/assets/UI/UI_template.png");
+  background-image: url("src/assets/UI/UI_items.png");
   background-size: cover;
   background-repeat: round;
 }
