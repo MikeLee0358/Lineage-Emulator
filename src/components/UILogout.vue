@@ -1,5 +1,5 @@
 <template>
-  <ul class="uiLogout" ref="uiLogoutNode" @click.stop="uiLogoutHandler">
+  <ul class="uiLogout" ref="uiLogoutNode" @click.stop="handleUILogout">
     <li class="close"></li>
     <li class="restart">
       <figure class="roleList">
@@ -23,44 +23,45 @@ const storeRole = useRoleStore();
 const storeChat = useChatStore();
 const uiLogoutNode = ref();
 
-const uiLogoutHandler = (e) => {
-  const classTarget = e.target.className;
-  const classLogout = uiLogoutNode.value.classList;
-  const classRoleList = uiLogoutNode.value.children[1].firstElementChild.classList;
-
-  const changeRoleTo = (role) => {
-    storeRole.role.currentRole = role;
-  };
-  const resetLogoutUI = () => {
-    classLogout.toggle("show");
-    classRoleList.remove("show");
-  };
-  const removeuiRole = () => {
-    const uiFunction = Array.from(
+const handleUILogout = (e) => {
+  const sideLeftUI = ["btnHelp", "btnRole", "btnSetting", "btnRelationship"];
+  const targetClass = e.target.className;
+  const removeUI = (uiSide) => {
+    const uiFunctionArrNodes = Array.from(
       uiLogoutNode.value.parentElement.parentElement.children
     );
 
-    uiFunction.forEach((btn) => {
-      if (btn.className === "btnRole") {
-        btn.firstElementChild.classList.remove("show");
+    uiFunctionArrNodes.forEach((node) => {
+      if (uiSide.includes(node.className)) {
+        node.firstElementChild.classList.remove("visible");
       }
     });
   };
+  const changeRoleTo = (role) => {
+    storeRole.role.currentRole = role;
+  };
+  const toggleUILogout = () => {
+    uiLogoutNode.value.classList.toggle("visible");
+  };
+  const toggleRoleList = () => {
+    uiLogoutNode.value.children[1].firstElementChild.classList.toggle("visible");
+  };
+  const removeRoleList = () => {
+    uiLogoutNode.value.children[1].firstElementChild.classList.remove("visible");
+  };
 
-  if (["exit"].includes(classTarget)) {
-    removeuiRole();
-    resetLogoutUI();
-    storeChat.cleanChatLines();
-  } else if (["restart"].includes(classTarget)) {
-    classRoleList.toggle("show");
-  } else if (["close", "cancel"].includes(classTarget)) {
-    resetLogoutUI();
-  } else if (["elf", "mage", "royal", "knight"].includes(classTarget)) {
-    removeuiRole();
-    resetLogoutUI();
-    changeRoleTo(classTarget);
-    storeChat.cleanChatLines();
+  if (["restart"].includes(targetClass)) return toggleRoleList();
+  if (["close", "cancel"].includes(targetClass)) {
+    toggleUILogout();
+    removeRoleList();
+    return;
   }
+  if (["elf", "mage", "royal", "knight"].includes(targetClass)) changeRoleTo(targetClass);
+
+  removeUI(sideLeftUI);
+  toggleRoleList();
+  toggleUILogout();
+  storeChat.cleanChatLines();
 };
 </script>
 
@@ -76,7 +77,7 @@ const uiLogoutHandler = (e) => {
 
   .restart {
     position: absolute;
-    inset: 20% 30% 74% 44%;
+    inset: 20% 31% 73% 43%;
 
     .roleList {
       display: grid;
@@ -116,18 +117,17 @@ const uiLogoutHandler = (e) => {
 
   .exit {
     position: absolute;
-    inset: 29% 34% 65% 49%;
+    inset: 30% 35% 64% 47%;
   }
 
   .cancel {
     position: absolute;
-
-    inset: 37% 34% 56% 49%;
+    inset: 39% 36% 55% 49%;
   }
 
   .close {
     position: absolute;
-    inset: 0% 83% 94% 3%;
+    inset: 0% 85% 94% 2%;
   }
 }
 </style>

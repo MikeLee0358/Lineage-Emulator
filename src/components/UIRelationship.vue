@@ -1,7 +1,7 @@
 <template>
-  <ui class="uiRelationship">
+  <ul class="uiRelationship">
     <li>Relationship</li>
-  </ui>
+  </ul>
 </template>
 
 <style lang="scss">

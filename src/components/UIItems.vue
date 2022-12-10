@@ -1,7 +1,7 @@
 <template>
-  <ui class="uiItems">
+  <ul class="uiItems">
     <li>Items</li>
-  </ui>
+  </ul>
 </template>
 
 <style lang="scss">

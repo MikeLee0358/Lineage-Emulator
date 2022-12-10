@@ -35,27 +35,35 @@ import UILogout from "./UILogout.vue";
 
 const toggleBtn = (e) => {
   if (e.target.tagName !== "LI") return;
-  const uiSideLeft = ["btnHelp", "btnRole", "btnSetting", "btnRelationship"];
-  const uiSideRight = ["btnMagic", "btnItems", "btnLogout"];
+  const sideLeftUI = ["btnHelp", "btnRole", "btnSetting", "btnRelationship"];
+  const sideRightUI = ["btnMagic", "btnItems", "btnLogout"];
   const targetClass = e.target.className;
-  const targetUIClass = e.target.firstElementChild.className;
 
   const clearUI = (uiSide) => {
     const uiFunctionArrNodes = Array.from(e.target.parentElement.children);
     uiFunctionArrNodes.forEach((node) => {
       if (uiSide.includes(node.className)) {
-        node.firstChild.classList.remove("show");
+        node.firstChild.classList.remove("visible");
       }
     });
   };
+  const isSideLeftUI = () => {
+    return sideLeftUI.includes(targetClass);
+  };
   const toggleUITarget = () => {
-    e.target.firstElementChild.classList.toggle("show");
+    return e.target.firstElementChild.classList.toggle("visible");
+  };
+  const isUITargetVisible = () => {
+    return e.target.firstElementChild.className.includes("visible");
   };
 
-  // first if: get toggle btn feature
-  if (targetUIClass.includes("show")) return toggleUITarget();
-  else if (uiSideLeft.includes(targetClass)) clearUI(uiSideLeft);
-  else clearUI(uiSideRight);
+  if (["btnMagic", "btnItems"].includes(targetClass)) {
+    const roleListNode = document.querySelector(".roleList");
+    roleListNode.classList.remove("visible");
+  }
+  if (isUITargetVisible()) return toggleUITarget();
+  else if (isSideLeftUI()) clearUI(sideLeftUI);
+  else clearUI(sideRightUI);
 
   toggleUITarget();
 };
@@ -72,7 +80,7 @@ const toggleBtn = (e) => {
   }
   .btnRole {
     position: absolute;
-    inset: 0 72% 0 15%;
+    inset: 0 71% 0 15%;
   }
   .btnMagic {
     position: absolute;
@@ -96,7 +104,7 @@ const toggleBtn = (e) => {
   }
 }
 
-.show {
+.visible {
   visibility: visible !important;
 }
 </style>

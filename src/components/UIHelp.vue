@@ -1,8 +1,10 @@
 <template>
-  <ui class="uiHelp">
+  <ul class="uiHelp">
     <li>help</li>
-  </ui>
+  </ul>
 </template>
+
+
 
 <style lang="scss">
 .uiHelp {

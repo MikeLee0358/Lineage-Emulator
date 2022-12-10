@@ -1,7 +1,7 @@
 <template>
-  <ui class="uiMagic">
-    <li>Magic</li>
-  </ui>
+  <ul class="uiMagic">
+    <li>Magicsss</li>
+  </ul>
 </template>
 
 <style lang="scss">

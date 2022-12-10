@@ -1,8 +1,8 @@
 <template>
-  <ui class="uiSetting">
+  <ul class="uiSetting">
     <li>音效：開</li>
     <li>全螢幕:開</li>
-  </ui>
+  </ul>
 </template>
 
 <style lang="scss">
