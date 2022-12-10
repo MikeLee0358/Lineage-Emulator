@@ -8,8 +8,8 @@
 </template>
 
 <script setup>
-import PanelView from "./PanelView.vue";
-import PanelUI from "./PanelUI.vue";
+import PanelView from "./components/PanelView.vue";
+import PanelUI from "./components/PanelUI.vue";
 import { useRoleStore } from "./stores/role";
 import { useScrollStore } from "./stores/scroll";
 const storeRole = useRoleStore();

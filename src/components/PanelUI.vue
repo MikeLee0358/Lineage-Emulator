@@ -7,9 +7,9 @@
 </template>
 
 <script setup>
-import UIChat from "./components/UIChat.vue";
-import UISlot from "./components/UIslot.vue";
-import UIFunction from "./components/UIFunction.vue";
+import UIChat from "./UIChat.vue";
+import UISlot from "./UISlot.vue";
+import UIFunction from "./UIFunction.vue";
 </script>
 
 <style lang="scss">

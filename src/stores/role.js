@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { reactive, computed } from "vue";
-import data from "../dataRole.js";
+import data from "../data/dataRole.js";
 
 export const useRoleStore = defineStore("role", () => {
   const role = reactive({
