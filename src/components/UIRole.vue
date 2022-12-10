@@ -19,7 +19,7 @@ const closeUI = (e) => {
 .uiRole {
   position: absolute;
   inset: -2215% 1487% 704% -2759%;
-  background-image: url("/src/assets/UI/UI_character.png");
+  background-image: url("/src/assets/UI/UI_role.png");
   background-size: cover;
   background-repeat: round;
   visibility: hidden;

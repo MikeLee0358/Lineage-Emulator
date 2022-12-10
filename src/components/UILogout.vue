@@ -3,13 +3,13 @@
     <li class="close"></li>
     <li class="restart">
       <figure class="roleList">
-        <img src="../assets/prince/logo_prince.png" class="prince" alt="prince-logo" />
+        <img src="../assets/royal/logo_royal.png" class="royal" alt="royal-logo" />
         <img src="../assets/knight/logo_knight.png" class="knight" alt="knight-logo" />
         <img src="../assets/elf/logo_elf.png" alt="elf-logo" class="elf" />
         <img
-          src="../assets/magician/logo_magician.png"
-          class="magician"
-          alt="magician-logo"
+          src="../assets/mage/logo_mage.png"
+          class="mage"
+          alt="mage-logo"
         />
       </figure>
     </li>
@@ -59,7 +59,7 @@ const uiLogoutHandler = (e) => {
     classRoleList.toggle("show");
   } else if (["close", "cancel"].includes(classTarget)) {
     resetLogoutUI();
-  } else if (["elf", "prince", "knight", "magician"].includes(classTarget)) {
+  } else if (["elf", "royal", "knight", "mage"].includes(classTarget)) {
     removeuiRole();
     resetLogoutUI();
     changeRoleTo(classTarget);
@@ -99,7 +99,7 @@ const uiLogoutHandler = (e) => {
       img:hover {
         opacity: 1;
       }
-      .prince {
+      .royal {
         top: 20%;
         left: -30%;
       }
@@ -111,7 +111,7 @@ const uiLogoutHandler = (e) => {
         top: 140%;
         left: -220%;
       }
-      .magician {
+      .mage {
         top: 140%;
         left: 10%;
       }

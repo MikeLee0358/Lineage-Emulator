@@ -1,5 +1,5 @@
 export default {
-  prince: {
+  royal: {
     basic: {
       lv: 1,
       exp: "0.00%",
@@ -19,7 +19,7 @@ export default {
       {
         id: 0,
         name: "武士刀",
-        src: "/src/assets/prince/equips/equip_weapon.png",
+        src: "/src/assets/royal/equip_weapon.png",
         category: "weapon",
         attack: {
           small: 10,
@@ -36,7 +36,7 @@ export default {
       {
         id: 1,
         name: "抗魔法頭盔",
-        src: "/src/assets/prince/equips/equip_helmet.png",
+        src: "/src/assets/royal/equip_helmet.png",
         category: "armor helmet",
         armor: 2,
         mr: 4,
@@ -50,7 +50,7 @@ export default {
       {
         id: 2,
         name: "妖魔戰士護身符",
-        src: "/src/assets/prince/equips/equip_amulet.png",
+        src: "/src/assets/royal/equip_amulet.png",
         category: "jewelry amulet",
         armor: 0,
         value: 0,
@@ -63,7 +63,7 @@ export default {
       {
         id: 3,
         name: "T恤",
-        src: "/src/assets/prince/equips/equip_shirt.png",
+        src: "/src/assets/royal/equip_shirt.png",
         category: "armor shirt",
 
         armor: 0,
@@ -77,7 +77,7 @@ export default {
       {
         id: 4,
         name: "抗魔法鏈甲",
-        src: "/src/assets/prince/equips/equip_BodyArmor.png",
+        src: "/src/assets/royal/equip_BodyArmor.png",
         category: "armor bodyArmor",
         armor: 5,
         mr: 4,
@@ -91,7 +91,7 @@ export default {
       {
         id: 5,
         name: "抗魔法斗篷",
-        src: "/src/assets/prince/equips/equip_cloak.png",
+        src: "/src/assets/royal/equip_cloak.png",
         category: "armor cloak",
         armor: 1,
         mr: 10,
@@ -105,7 +105,7 @@ export default {
       {
         id: 6,
         name: "瞬間移動控制戒指",
-        src: "/src/assets/prince/equips/equip_left-ring.png",
+        src: "/src/assets/royal/equip_left-ring.png",
         category: "jewelry left-ring",
         armor: 0,
         value: 0,
@@ -118,7 +118,7 @@ export default {
       {
         id: 7,
         name: "歐吉皮帶",
-        src: "/src/assets/prince/equips/equip_belt.png",
+        src: "/src/assets/royal/equip_belt.png",
         category: "jewelry belt",
         armor: 0,
         value: 0,
@@ -131,7 +131,7 @@ export default {
       {
         id: 8,
         name: "反射之盾",
-        src: "/src/assets/prince/equips/equip_shield.png",
+        src: "/src/assets/royal/equip_shield.png",
         category: "armor shield",
         armor: 2,
         value: 0,
@@ -144,7 +144,7 @@ export default {
       {
         id: 9,
         name: "力量手套",
-        src: "/src/assets/prince/equips/equip_gloves.png",
+        src: "/src/assets/royal/equip_gloves.png",
         category: "armor gloves",
         armor: 0,
         value: 0,
@@ -157,7 +157,7 @@ export default {
       {
         id: 10,
         name: "形體控制戒指",
-        src: "/src/assets/prince/equips/equip_right-ring.png",
+        src: "/src/assets/royal/equip_right-ring.png",
         category: "jewelry right-ring",
         armor: 0,
         value: 0,
@@ -170,7 +170,7 @@ export default {
       {
         id: 11,
         name: "鋼鐵長靴",
-        src: "/src/assets/prince/equips/equip_boots.png",
+        src: "/src/assets/royal/equip_boots.png",
         category: "armor boots",
         armor: 3,
         value: 0,
@@ -202,7 +202,7 @@ export default {
       {
         id: 0,
         name: "瑟魯基之劍",
-        src: "/src/assets/knight/equips/equip_weapon.png",
+        src: "/src/assets/knight/equip_weapon.png",
         category: "weapon",
         attack: {
           small: 16,
@@ -219,7 +219,7 @@ export default {
       {
         id: 1,
         name: "騎士面甲",
-        src: "/src/assets/knight/equips/equip_helmet.png",
+        src: "/src/assets/knight/equip_helmet.png",
         category: "armor helmet",
         armor: 3,
         value: 0,
@@ -232,7 +232,7 @@ export default {
       {
         id: 2,
         name: "妖魔戰士護身符",
-        src: "/src/assets/knight/equips/equip_amulet.png",
+        src: "/src/assets/knight/equip_amulet.png",
         category: "jewelry amulet",
         armor: 0,
         value: 0,
@@ -245,7 +245,7 @@ export default {
       {
         id: 3,
         name: "T恤",
-        src: "/src/assets/knight/equips/equip_shirt.png",
+        src: "/src/assets/knight/equip_shirt.png",
         category: "armor shirt",
         armor: 0,
         value: 0,
@@ -258,7 +258,7 @@ export default {
       {
         id: 4,
         name: "精靈金屬盔甲",
-        src: "/src/assets/knight/equips/equip_BodyArmor.png",
+        src: "/src/assets/knight/equip_BodyArmor.png",
         category: "armor bodyArmor",
         armor: 6,
         value: 0,
@@ -271,7 +271,7 @@ export default {
       {
         id: 5,
         name: "保護者斗篷",
-        src: "/src/assets/knight/equips/equip_cloak.png",
+        src: "/src/assets/knight/equip_cloak.png",
         category: "armor cloak",
         armor: 3,
         value: 0,
@@ -284,7 +284,7 @@ export default {
       {
         id: 6,
         name: "瞬間移動控制戒指",
-        src: "/src/assets/knight/equips/equip_left-ring.png",
+        src: "/src/assets/knight/equip_left-ring.png",
         category: "jewelry left-ring",
         armor: 0,
         value: 0,
@@ -297,7 +297,7 @@ export default {
       {
         id: 7,
         name: "身體腰帶",
-        src: "/src/assets/knight/equips/equip_belt.png",
+        src: "/src/assets/knight/equip_belt.png",
         category: "jewelry belt",
         armor: 0,
         value: 0,
@@ -310,7 +310,7 @@ export default {
       {
         id: 8,
         name: "精靈盾牌",
-        src: "/src/assets/knight/equips/equip_shield.png",
+        src: "/src/assets/knight/equip_shield.png",
         category: "armor shield",
         armor: 2,
         value: 0,
@@ -323,7 +323,7 @@ export default {
       {
         id: 9,
         name: "力量手套",
-        src: "/src/assets/knight/equips/equip_gloves.png",
+        src: "/src/assets/knight/equip_gloves.png",
         category: "armor gloves",
         armor: 0,
         value: 0,
@@ -336,7 +336,7 @@ export default {
       {
         id: 10,
         name: "形體控制戒指",
-        src: "/src/assets/knight/equips/equip_right-ring.png",
+        src: "/src/assets/knight/equip_right-ring.png",
         category: "jewelry right-ring",
         armor: 0,
         value: 0,
@@ -349,7 +349,7 @@ export default {
       {
         id: 11,
         name: "鋼鐵長靴",
-        src: "/src/assets/knight/equips/equip_boots.png",
+        src: "/src/assets/knight/equip_boots.png",
         category: "armor boots",
         armor: 3,
         value: 0,
@@ -381,7 +381,7 @@ export default {
       {
         id: 0,
         name: "尢米弓",
-        src: "/src/assets/elf/equips/equip_weapon.png",
+        src: "/src/assets/elf/equip_weapon.png",
         category: "weapon",
 
         attack: {
@@ -399,7 +399,7 @@ export default {
       {
         id: 1,
         name: "艾爾穆的祝福",
-        src: "/src/assets/elf/equips/equip_helmet.png",
+        src: "/src/assets/elf/equip_helmet.png",
         category: "armor helmet",
 
         armor: 2,
@@ -413,7 +413,7 @@ export default {
       {
         id: 2,
         name: "妖魔戰士護身符",
-        src: "/src/assets/elf/equips/equip_amulet.png",
+        src: "/src/assets/elf/equip_amulet.png",
         category: "jewelry amulet",
 
         armor: 0,
@@ -427,7 +427,7 @@ export default {
       {
         id: 3,
         name: "精靈T恤",
-        src: "/src/assets/elf/equips/equip_shirt.png",
+        src: "/src/assets/elf/equip_shirt.png",
         category: "armor shirt",
 
         armor: 0,
@@ -441,7 +441,7 @@ export default {
       {
         id: 4,
         name: "精靈金屬盔甲",
-        src: "/src/assets/elf/equips/equip_BodyArmor.png",
+        src: "/src/assets/elf/equip_BodyArmor.png",
         category: "armor bodyArmor",
 
         armor: 6,
@@ -455,7 +455,7 @@ export default {
       {
         id: 5,
         name: "精靈斗篷",
-        src: "/src/assets/elf/equips/equip_cloak.png",
+        src: "/src/assets/elf/equip_cloak.png",
         category: "armor cloak",
 
         armor: 1,
@@ -469,7 +469,7 @@ export default {
       {
         id: 6,
         name: "瞬間移動控制戒指",
-        src: "/src/assets/elf/equips/equip_left-ring.png",
+        src: "/src/assets/elf/equip_left-ring.png",
         category: "jewelry left-ring",
 
         armor: 0,
@@ -483,7 +483,7 @@ export default {
       {
         id: 7,
         name: "身體腰帶",
-        src: "/src/assets/elf/equips/equip_belt.png",
+        src: "/src/assets/elf/equip_belt.png",
         category: "jewelry belt",
 
         armor: 0,
@@ -497,7 +497,7 @@ export default {
       {
         id: 9,
         name: "腕甲",
-        src: "/src/assets/elf/equips/equip_gloves.png",
+        src: "/src/assets/elf/equip_gloves.png",
         category: "armor gloves",
 
         armor: 0,
@@ -511,7 +511,7 @@ export default {
       {
         id: 10,
         name: "形體控制戒指",
-        src: "/src/assets/elf/equips/equip_right-ring.png",
+        src: "/src/assets/elf/equip_right-ring.png",
         category: "jewelry right-ring",
 
         armor: 0,
@@ -525,7 +525,7 @@ export default {
       {
         id: 11,
         name: "鋼鐵長靴",
-        src: "/src/assets/elf/equips/equip_boots.png",
+        src: "/src/assets/elf/equip_boots.png",
         category: "armor boots",
 
         armor: 3,
@@ -538,7 +538,7 @@ export default {
       },
     ],
   },
-  magician: {
+  mage: {
     basic: {
       lv: 1,
       exp: "0.00%",
@@ -558,7 +558,7 @@ export default {
       {
         id: 0,
         name: "瑪那魔杖",
-        src: "/src/assets/magician/equips/equip_weapon.png",
+        src: "/src/assets/mage/equip_weapon.png",
         category: "weapon",
         attack: {
           small: 7,
@@ -575,7 +575,7 @@ export default {
       {
         id: 1,
         name: "法師之帽",
-        src: "/src/assets/magician/equips/equip_helmet.png",
+        src: "/src/assets/mage/equip_helmet.png",
         category: "armor helmet",
         armor: 2,
         value: 0,
@@ -588,7 +588,7 @@ export default {
       {
         id: 2,
         name: "妖魔戰士護身符",
-        src: "/src/assets/magician/equips/equip_amulet.png",
+        src: "/src/assets/mage/equip_amulet.png",
         category: "jewelry amulet",
         armor: 0,
         value: 0,
@@ -601,7 +601,7 @@ export default {
       {
         id: 3,
         name: "T恤",
-        src: "/src/assets/magician/equips/equip_shirt.png",
+        src: "/src/assets/mage/equip_shirt.png",
         category: "armor shirt",
         armor: 0,
         value: 0,
@@ -614,7 +614,7 @@ export default {
       {
         id: 4,
         name: "法師長袍",
-        src: "/src/assets/magician/equips/equip_BodyArmor.png",
+        src: "/src/assets/mage/equip_BodyArmor.png",
         category: "armor bodyArmor",
         armor: 3,
         value: 0,
@@ -627,7 +627,7 @@ export default {
       {
         id: 5,
         name: "瑪那斗篷",
-        src: "/src/assets/magician/equips/equip_cloak.png",
+        src: "/src/assets/mage/equip_cloak.png",
         category: "armor cloak",
         armor: 2,
         value: 0,
@@ -640,7 +640,7 @@ export default {
       {
         id: 6,
         name: "瞬間移動控制戒指",
-        src: "/src/assets/magician/equips/equip_left-ring.png",
+        src: "/src/assets/mage/equip_left-ring.png",
         category: "jewelry left-ring",
         armor: 0,
         value: 0,
@@ -653,7 +653,7 @@ export default {
       {
         id: 7,
         name: "精神腰帶",
-        src: "/src/assets/magician/equips/equip_belt.png",
+        src: "/src/assets/mage/equip_belt.png",
         category: "jewelry belt",
         armor: 0,
         value: 0,
@@ -666,7 +666,7 @@ export default {
       {
         id: 8,
         name: "魔法能量之書",
-        src: "/src/assets/magician/equips/equip_shield.png",
+        src: "/src/assets/mage/equip_shield.png",
         category: "armor shield",
         armor: 2,
         value: 0,
@@ -679,7 +679,7 @@ export default {
       {
         id: 9,
         name: "鋼鐵手套",
-        src: "/src/assets/magician/equips/equip_gloves.png",
+        src: "/src/assets/mage/equip_gloves.png",
         category: "armor gloves",
         armor: 1,
         value: 0,
@@ -692,7 +692,7 @@ export default {
       {
         id: 10,
         name: "形體控制戒指",
-        src: "/src/assets/magician/equips/equip_right-ring.png",
+        src: "/src/assets/mage/equip_right-ring.png",
         category: "jewelry right-ring",
         armor: 0,
         value: 0,
@@ -705,7 +705,7 @@ export default {
       {
         id: 11,
         name: "鋼鐵長靴",
-        src: "/src/assets/magician/equips/equip_boots.png",
+        src: "/src/assets/mage/equip_boots.png",
         category: "armor boots",
         armor: 3,
         value: 0,

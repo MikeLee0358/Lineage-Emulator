@@ -21,7 +21,7 @@ const slotList = ref([
   {
     id: 0,
     name: "F5",
-    src: "/src/assets/image_slot/slot_empty.png",
+    src: "/src/assets/slot/slot_empty.png",
     toDisplay: {
       myPurpose: `                Side project由來
 
@@ -38,7 +38,7 @@ const slotList = ref([
   {
     id: 1,
     name: "F6",
-    src: "/src/assets/image_slot/slot_white-armor.png",
+    src: "/src/assets/slot/slot_white-armor.png",
     toggle: true,
     toDisplay: {
       item: "對盔甲施法的卷軸",
@@ -49,7 +49,7 @@ const slotList = ref([
   {
     id: 2,
     name: "F7",
-    src: "/src/assets/image_slot/slot_blessed-armor.png",
+    src: "/src/assets/slot/slot_blessed-armor.png",
     toggle: 1,
     toDisplay: {
       item: "對盔甲施法的卷軸",
@@ -60,7 +60,7 @@ const slotList = ref([
   {
     id: 3,
     name: "F8",
-    src: "/src/assets/image_slot/slot_cursed-armor.png",
+    src: "/src/assets/slot/slot_cursed-armor.png",
     toDisplay: {
       item: "對盔甲施法的卷軸",
       material: "紙",
@@ -70,7 +70,7 @@ const slotList = ref([
   {
     id: 4,
     name: "F9",
-    src: "/src/assets/image_slot/slot_empty.png",
+    src: "/src/assets/slot/slot_empty.png",
     toDisplay: {
       msgToAll: `                 還沒想法
       1.機率公告
@@ -80,7 +80,7 @@ const slotList = ref([
   {
     id: 5,
     name: "F10",
-    src: "/src/assets/image_slot/slot_white-weapon.png",
+    src: "/src/assets/slot/slot_blessed-weapon.png",
     toDisplay: {
       item: "對武器施法的卷軸",
       material: "紙",
@@ -90,7 +90,7 @@ const slotList = ref([
   {
     id: 6,
     name: "F11",
-    src: "/src/assets/image_slot/slot_blessed-weapon.png",
+    src: "/src/assets/slot/slot_blessed-weapon.png",
     toDisplay: {
       item: "對武器施法的卷軸",
       material: "紙",
@@ -100,7 +100,7 @@ const slotList = ref([
   {
     id: 7,
     name: "F12",
-    src: "/src/assets/image_slot/slot_cursed-weapon.png",
+    src: "/src/assets/slot/slot_cursed-weapon.png",
     toDisplay: {
       item: "對武器施法的卷軸",
       material: "紙",
@@ -227,7 +227,7 @@ onMounted(() => {
 
   .active {
     opacity: 1;
-    background-image: url("/src/assets/image_slot/slot_empty.png");
+    background-image: url("/src/assets/slot/slot_empty.png");
     @extend %activeStyle;
   }
 }
