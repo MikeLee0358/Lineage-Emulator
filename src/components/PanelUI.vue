@@ -15,7 +15,7 @@ import UIFunction from "./UIFunction.vue";
 <style lang="scss">
 .panelUI {
   display: grid;
-  grid-template-columns: 18% 1fr 22.5%;
+  grid-template-columns: 17.5% 1fr 23%;
   grid-template-rows: 20% 64% 16%;
   grid-template-areas:
     ". uiHp ."

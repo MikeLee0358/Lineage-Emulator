@@ -15,8 +15,7 @@ const storeChat = useChatStore();
 .uiChat {
   grid-area: uiChat;
   position: relative;
-  top: 2.1%;
-
+  inset: 2.1% 0 0 0.5%;
   li {
     height: 14.28%;
     line-height: 100%;
