@@ -20,14 +20,19 @@ const storeChat = useChatStore();
     height: 14.28%;
     line-height: 100%;
     font-size: clamp(12px, 1.5vw, 26px);
-    transform: scaleY(0.55);
+    transform: scaleY(0.6);
     color: var(--color-yellow);
   }
 }
-
+// galaxy fold
+@media screen and (max-height: 300px) {
+  .uiChat li {
+    transform: scaleY(0.5);
+  }
+}
 @media screen and (min-height: 450px) {
   .uiChat li {
-    transform: scaleY(0.6);
+    transform: scaleY(0.85);
   }
 }
 </style>
