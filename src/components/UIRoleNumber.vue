@@ -44,11 +44,12 @@ const { role } = storeToRefs(storeRole);
   }
   .basic {
     position: absolute;
-    inset: 13.2% 46% 73% 30%;
+    inset: 12.2% 46% 73% 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    & > li {
+
+    li {
       flex: 1;
       line-height: 100%;
       display: flex;
@@ -61,7 +62,8 @@ const { role } = storeToRefs(storeRole);
     display: flex;
     flex-direction: column;
     align-items: center;
-    & > li {
+
+    li {
       flex: 1;
       line-height: 100%;
       display: flex;

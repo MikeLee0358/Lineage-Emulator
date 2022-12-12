@@ -190,14 +190,19 @@ onMounted(() => {
 @use "../scss/common.scss";
 
 .uiSlot {
+  // padding: 3.5% 9% 5.5% 4.5%;
+
   grid-area: uiSlot;
-  position: absolute;
-  inset: 0;
+  position: relative;
+  padding: 1.7vh 2.2vw 2.1vh 1.1vw;
   display: grid;
-  grid-template-columns: repeat(4, 22%);
-  grid-template-rows: repeat(2, 47%);
-  gap: 3%;
-  padding: 5% 3% 3% 3%;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: repeat(2, 50%);
+  gap: 6% 1.75%;
+
+  img {
+    padding-bottom: 1%;
+  }
 
   .templateInfo {
     color: v-bind(clickToActive());
@@ -228,6 +233,8 @@ onMounted(() => {
   .active {
     opacity: 1;
     background-image: url("/src/assets/slot/slot_empty.png");
+    background-repeat: round;
+    background-size: cover;
     @extend %activeStyle;
   }
 }
