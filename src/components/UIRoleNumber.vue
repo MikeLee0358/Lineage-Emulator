@@ -31,53 +31,62 @@ const { role } = storeToRefs(storeRole);
 <style lang="scss">
 .uiRoleNumber {
   position: absolute;
-  inset: -32.65%;
-  text-align: center;
-  line-height: 50%;
-  transform: scale(0.6);
+  inset: -50%;
+  transform: scale(0.5);
 
   .level {
     position: absolute;
-    inset: 2.5% 15% 90.5% 30%;
-    display: grid;
-    grid-auto-flow: column;
+    inset: 4.25% 15% 91.5% 30%;
+    display: flex;
+    justify-content: center;
     align-items: center;
     gap: 5%;
-    padding-top: 0.75%;
-
-    .lv {
-      justify-self: right;
-    }
-    .exp {
-      justify-self: left;
-    }
   }
   .basic {
     position: absolute;
-    inset: 12.5% 46% 73% 30%;
-    display: grid;
+    inset: 13.2% 46% 73% 30%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    & > li {
+      flex: 1;
+      line-height: 100%;
+    }
   }
   .attributes {
     position: absolute;
     inset: 41.5% 68% 30% 13%;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+
+    & > li {
+      flex: 1;
+      line-height: 108%;
+    }
   }
   .mr {
     position: absolute;
-    inset: 90.5% 23% 6% 63%;
-    display: grid;
+    inset: 89.8% 23% 5.5% 63%;
+    display: flex;
+    justify-content: center;
     align-items: center;
   }
 }
-
+// galaxy fold
+@media screen and (max-height: 300px) {
+  .uiRoleNumber {
+    font-size: clamp(9.5px, 12px, 2.5rem);
+  }
+}
 @media screen and (min-height: 433px) {
   .uiRoleNumber {
     transform: unset;
     inset: 0%;
-    top: 0.5%;
-    font-size: clamp(9.5px, 2.65vmin, 2.5rem);
+    font-size: clamp(9.5px, 2.5vmin, 2.5rem);
+    .basic {
+      top: 12.7%;
+    }
   }
 }
 </style>
