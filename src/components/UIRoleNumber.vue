@@ -51,6 +51,8 @@ const { role } = storeToRefs(storeRole);
     & > li {
       flex: 1;
       line-height: 100%;
+      display: flex;
+      align-items: center;
     }
   }
   .attributes {
@@ -59,10 +61,11 @@ const { role } = storeToRefs(storeRole);
     display: flex;
     flex-direction: column;
     align-items: center;
-
     & > li {
       flex: 1;
       line-height: 108%;
+      display: flex;
+      align-items: center;
     }
   }
   .mr {
