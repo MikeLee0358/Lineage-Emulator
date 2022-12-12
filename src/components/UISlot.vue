@@ -23,16 +23,17 @@ const slotList = ref([
     name: "F5",
     src: "/src/assets/slot/slot_empty.png",
     toDisplay: {
-      myPurpose: `                Side project由來
+      myPurpose: `                          Side project由來
 
-   一直找不到天堂衝裝模擬器過
-   過乾癮，正好轉職的技能可以
-   練習，藉此機會磨練自己的技
-   能，也是私心想回憶衝裝的天
-   堂，打到人生第一張祝防的喜
-   悅，開心沒過多久，隔天就被
-   盜帳號...  總之
-                                       Enjoy it !`,
+          由於一直找不到以前的天堂衝裝
+        模擬器過過乾癮，正好剛學的轉職
+        技能可以練習，另外歌很好聽，可
+        以勾起很多當時的回憶。
+
+          這也是向當初的天堂衝裝模擬器
+        作者致敬（騎士）。
+        
+                                        希望你會喜歡 !`,
     },
   },
   {
@@ -72,9 +73,7 @@ const slotList = ref([
     name: "F9",
     src: "/src/assets/slot/slot_empty.png",
     toDisplay: {
-      msgToAll: `                 還沒想法
-      1.機率公告
-      2.內容概要？`,
+      msgToAll: `暫時空白`,
     },
   },
   {
@@ -226,7 +225,7 @@ onMounted(() => {
   .F5::after,
   .F9::after {
     height: 235%;
-    font-size: 1rem;
+    font-size: 1.2vw;
     line-height: 100%;
   }
 
