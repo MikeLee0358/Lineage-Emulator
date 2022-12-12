@@ -31,8 +31,8 @@ const { role } = storeToRefs(storeRole);
 <style lang="scss">
 .uiRoleNumber {
   position: absolute;
-  inset: -50%;
-  transform: scale(0.5);
+  inset: -44%;
+  transform: scale(0.53);
 
   .level {
     position: absolute;
@@ -63,7 +63,7 @@ const { role } = storeToRefs(storeRole);
     align-items: center;
     & > li {
       flex: 1;
-      line-height: 108%;
+      line-height: 100%;
       display: flex;
       align-items: center;
     }
@@ -79,14 +79,16 @@ const { role } = storeToRefs(storeRole);
 // galaxy fold
 @media screen and (max-height: 300px) {
   .uiRoleNumber {
-    font-size: clamp(9.5px, 12px, 2.5rem);
+    font-size: clamp(9.5px, 14px, 2.5rem);
   }
 }
+
 @media screen and (min-height: 433px) {
   .uiRoleNumber {
     transform: unset;
     inset: 0%;
-    font-size: clamp(9.5px, 2.5vmin, 2.5rem);
+    font-size: clamp(9.5px, 2.6vmin, 2.5rem);
+
     .basic {
       top: 12.7%;
     }
