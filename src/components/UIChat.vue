@@ -32,7 +32,7 @@ const storeChat = useChatStore();
 }
 @media screen and (min-height: 450px) {
   .uiChat li {
-    transform: scaleY(0.85);
+    transform: scaleY(0.65);
   }
 }
 </style>
