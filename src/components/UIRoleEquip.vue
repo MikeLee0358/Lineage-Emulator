@@ -17,7 +17,14 @@ import { useAlgorithmStore } from "../stores/algorithm";
 import { useRoleStore } from "../stores/role";
 const storeRole = useRoleStore();
 const storeAlgorithm = useAlgorithmStore();
+import { useScrollStore } from "../stores/scroll";
+const storeScroll = useScrollStore();
 
+const changeCursor = () => {
+  if (storeScroll.scroll.targetScroll === null) {
+    return 'url("/src/assets/UI/UI_pointer.png")9 7, auto';
+  } else return 'url("/src/assets/UI/UI_target.png")11 17, auto';
+};
 const getEquipInfo = (equip) => {
   let equipInfo;
   const showPlusOrMinus = (value) => {
@@ -108,6 +115,9 @@ const getDataForAlgorithm = (equip, event) => {
 .uiRoleEquip {
   position: absolute;
   inset: 0;
+  &:hover {
+    cursor: v-bind(changeCursor());
+  }
   .equip {
     position: absolute;
     width: 11%;
