@@ -15,7 +15,8 @@ const closeUI = (e) => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@use '../scss/common.scss';
 .uiRole {
   position: absolute;
   inset: -2216% 1359.3% 704.8% -2500%;
@@ -25,9 +26,8 @@ const closeUI = (e) => {
   visibility: hidden;
 
   .close {
-    position: absolute;
     inset: 0 0 93% 87%;
-    z-index: 1;
+    @extend %close;
   }
 }
 

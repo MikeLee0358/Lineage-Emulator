@@ -30,3 +30,8 @@ body {
   outline: 0.3vw solid rgba(244, 230, 174, 0.83);
   box-shadow: 0 0 1.25vw 0 rgba(244, 230, 174, 0.83);
 }
+
+%close {
+  position: absolute;
+  z-index: 1;
+}

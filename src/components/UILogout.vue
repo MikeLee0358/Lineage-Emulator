@@ -66,6 +66,7 @@ const handleUILogout = (e) => {
 </script>
 
 <style lang="scss" scoped>
+@use "../scss/common.scss";
 .uiLogout {
   visibility: hidden;
   position: absolute;
@@ -126,8 +127,8 @@ const handleUILogout = (e) => {
   }
 
   .close {
-    position: absolute;
     inset: 0% 85% 94% 2%;
+    @extend %close;
   }
 }
 </style>

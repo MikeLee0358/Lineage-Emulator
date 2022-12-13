@@ -15,21 +15,16 @@ const storeChat = useChatStore();
 .uiChat {
   grid-area: uiChat;
   position: relative;
-  inset: 2.1% 0 0 0.5%;
+  inset: 1% 0 0 0.5%;
   li {
     height: 14.28%;
     line-height: 100%;
     font-size: clamp(12px, 1.5vw, 26px);
-    transform: scaleY(0.6);
+    transform: scaleY(0.5);
     color: var(--color-yellow);
   }
 }
-// galaxy fold
-@media screen and (max-height: 300px) {
-  .uiChat li {
-    transform: scaleY(0.5);
-  }
-}
+
 @media screen and (min-height: 450px) {
   .uiChat li {
     transform: scaleY(0.65);
