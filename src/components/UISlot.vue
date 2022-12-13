@@ -197,7 +197,7 @@ onMounted(() => {
   display: grid;
   grid-template-columns: repeat(4, 25%);
   grid-template-rows: repeat(2, 50%);
-  gap: 6% 1.75%;
+  gap: 7% 2%;
 
   img {
     padding-bottom: 1%;
