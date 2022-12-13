@@ -70,6 +70,7 @@ const toggleBtn = (e) => {
 </script>
 
 <style lang="scss" scoped>
+@use '../scss/common.scss';
 .uiFunction {
   grid-area: uiFunction;
   position: relative;
@@ -102,9 +103,5 @@ const toggleBtn = (e) => {
     position: absolute;
     inset: 0% 0% 0% 86.5%;
   }
-}
-
-.visible {
-  visibility: visible !important;
 }
 </style>

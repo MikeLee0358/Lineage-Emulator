@@ -30,8 +30,4 @@ const closeUI = (e) => {
     @extend %close;
   }
 }
-
-.visible {
-  visibility: visible !important;
-}
 </style>
