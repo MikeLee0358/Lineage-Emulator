@@ -25,7 +25,7 @@ const storeChat = useChatStore();
   }
 }
 
-@media screen and (min-height: 450px) {
+@media screen and (min-height: 480px) {
   .uiChat li {
     transform: scaleY(0.65);
   }

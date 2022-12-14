@@ -38,34 +38,71 @@ const handleUiSetting = (e) => {
       getModeMovie();
     };
 
-    const toggleUIChatFont = () => {
+    const toggleFont = () => {
       const isModeFull = () => {
         return getHeightAsPercentage() === 100 ? true : false;
       };
-      const isHeightOver450 = () => {
-        return container.offsetHeight >= 450 ? true : false;
-      };
-      const getUIChatFontArrNodes = () => {
-        return Array.from(document.querySelectorAll(".uiChat li"));
+      const getUIArrNodes = (uiNodes) => {
+        return Array.from(uiNodes);
       };
 
-      getUIChatFontArrNodes().forEach((fontNode) => {
-        const changeScaleY = (value) => {
-          fontNode.style = `transform: scaleY(${value})`;
+      const toggleFontUIChat = () => {
+        const nodesUIChat = document.querySelectorAll(".uiChat li");
+        const isHeightOver480 = (heightRate = 1) => {
+          // movie mode heightRate will be 0.8
+          return container.offsetHeight > 480 * heightRate ? true : false;
+        };
+        getUIArrNodes(nodesUIChat).forEach((fontNode) => {
+          const changeScaleY = (value) => {
+            fontNode.style = `transform: scaleY(${value})`;
+          };
+
+          if (isModeFull()) {
+            if (isHeightOver480()) return changeScaleY(0.8);
+            return changeScaleY(0.65);
+          }
+          // mode: Movie
+          if (isHeightOver480(0.8)) return changeScaleY(0.65);
+          changeScaleY(0.5);
+        });
+      };
+
+      const toggleFontUINumber = () => {
+        const nodesUIRoleNumber = document.querySelector(".uiRoleNumber");
+        const isHeightOver320 = (heightRate = 1) => {
+          //height rate is possible to be 0.8, in movie mode
+          return container.offsetHeight > 320 * heightRate ? true : false;
+        };
+        const isHeightOver480 = (heightRate = 1) => {
+          //height rate is possible to be 0.8, in movie mode
+          return container.offsetHeight > 480 * heightRate ? true : false;
+        };
+        const changeScaleAndInset = (scale, inset) => {
+          nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}`;
+        };
+
+        const changeParams = (scale, inset, fontSize) => {
+          nodesUIRoleNumber.style = ` transform:: scale(${scale}); inset: ${inset}; font-size: ${fontSize}`;
         };
 
         if (isModeFull()) {
-          if (isHeightOver450()) return changeScaleY(0.8);
-          return changeScaleY(0.65);
+          if (isHeightOver480()) return changeParams("unset", "0%", "3.3vmin");
+          if (isHeightOver320()) return changeScaleAndInset(0.75, "-17%");
+          return changeScaleAndInset(0.58, "-36%");
         }
+
         // mode: Movie
-        if (isHeightOver450()) return changeScaleY(0.65);
-        changeScaleY(0.5);
-      });
+        if (isHeightOver480(0.8)) return changeParams("unset", "0%", "2.6vmin");
+        if (isHeightOver320(0.8)) return changeScaleAndInset(0.6, "-34%");
+        return changeScaleAndInset(0.47, "-56%");
+      };
+
+      toggleFontUIChat();
+      toggleFontUINumber();
     };
 
     toggleMode();
-    toggleUIChatFont();
+    toggleFont();
   }
 };
 </script>

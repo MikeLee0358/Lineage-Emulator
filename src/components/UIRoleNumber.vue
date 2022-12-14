@@ -31,12 +31,12 @@ const { role } = storeToRefs(storeRole);
 <style lang="scss">
 .uiRoleNumber {
   position: absolute;
-  inset: -44%;
-  transform: scale(0.53);
+  transform: scale(0.47);
+  inset: -56%;
 
   .level {
     position: absolute;
-    inset: 4.25% 15% 91.5% 30%;
+    inset: 4% 15% 91.5% 30%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,17 +79,18 @@ const { role } = storeToRefs(storeRole);
   }
 }
 // galaxy fold
-@media screen and (max-height: 300px) {
+@media screen and (min-height: 321px) {
   .uiRoleNumber {
-    font-size: clamp(9.5px, 14px, 2.5rem);
+    transform: scale(0.6);
+    inset: -34%;
   }
 }
 
-@media screen and (min-height: 433px) {
+@media screen and (min-height: 480px) {
   .uiRoleNumber {
     transform: unset;
     inset: 0%;
-    font-size: clamp(9.5px, 2.6vmin, 2.5rem);
+    font-size: 2.6vmin;
 
     .basic {
       top: 12.7%;
