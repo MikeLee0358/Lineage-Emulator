@@ -108,86 +108,92 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
   function algorithmSystem(equip, event) {
     if (!target.isEquipMatchScroll) return;
 
-    if (isInSuccessRate.value) {
-      const targetReg = /(blessed)|(white)|(cursed)/g;
-      const targetRegStr = targetReg.exec(storeScroll.scroll.targetScroll)[0];
+    const updataChatAndValue = (value) => {
+      if (isInSuccessRate.value === false) {
+        dice.state = 0;
+        storeChat.updateChatState();
+        target.value = 0;
+        target.goneEffect(equip, event);
+        return;
+      }
 
+      dice.rollStateOneTo(value);
+      storeChat.updateChatState();
+      if (storeScroll.isScrollType("cursed")) target.value--;
+      else target.value += dice.state;
+      dice.state = null;
+      storeScroll.scroll.targetScroll = null;
+    };
+    const updateOver9ForWhite = (value) => {
+      //+9up: 33% +1; 66% nothing happened(state: -1)
+      dice.rollStateOneTo(value);
+      if (dice.state === 1) {
+        storeChat.updateChatState();
+        target.value++;
+      } else {
+        dice.state = -1;
+        storeChat.updateChatState();
+      }
+      dice.state = null;
+      storeScroll.scroll.targetScroll = null;
+    };
+    const updateOver9ForCursed = (value) => {
+      //-9up: 50% -1; 50% nothing happened(state: -1)
+      dice.rollStateOneTo(value);
+      if (dice.state === 1) {
+        storeChat.updateChatState();
+        target.value--;
+      } else {
+        dice.state = -1;
+        storeChat.updateChatState();
+      }
+      dice.state = null;
+      storeScroll.scroll.targetScroll = null;
+    };
+    const updateOver9ForBlessed = (value) => {
+      //+9up: 66% +1; 33% nothing happened(state: -1)
+      dice.rollStateOneTo(value);
+      if (dice.state === 1) {
+        dice.state = -1;
+        storeChat.updateChatState();
+      } else {
+        dice.state = 1;
+        storeChat.updateChatState();
+        target.value++;
+      }
+      dice.state = null;
+      storeScroll.scroll.targetScroll = null;
+    };
+    const getTargetScrollType = () => {
+      const targetReg = /(blessed)|(white)|(cursed)/g;
+      return targetReg.exec(storeScroll.scroll.targetScroll)[0];
+    };
+
+    if (isInSuccessRate.value) {
       // I choose switch not if else because...
-      //   1. too much if else, my eyes want to take a break.
-      //   2. this is a center alogrithm of my app, so if can be faster a liite bit, will be great.
-      switch (targetRegStr) {
+      //   1. too much if else.
+      //   2. this is my app core.
+      switch (getTargetScrollType()) {
         case "blessed":
-          if (target.value < 3) {
-            dice.rollStateOneTo(3);
-            storeChat.updateChatState();
-            target.value += dice.state;
-          } else if (target.value < 6) {
-            dice.rollStateOneTo(2);
-            storeChat.updateChatState();
-            target.value += dice.state;
-          } else if (target.value < 9) {
-            dice.rollStateOneTo(1);
-            storeChat.updateChatState();
-            target.value++;
-          } else {
-            //+9up: 66% +1; 33% nothing happened(state: -1)
-            dice.rollStateOneTo(3);
-            if (dice.state === 1) {
-              dice.state = -1;
-              storeChat.updateChatState();
-            } else {
-              dice.state = 1;
-              storeChat.updateChatState();
-              target.value++;
-            }
-          }
+          if (target.value < 3) return updataChatAndValue(3);
+          else if (target.value < 6) return updataChatAndValue(2);
+          else if (target.value < 9) return updataChatAndValue(1);
+          else updateOver9ForBlessed(3);
           break;
 
         case "white":
-          if (9 <= target.value) {
-            //+9up: 33% +1; 66% nothing happened(state: -1)
-            dice.rollStateOneTo(3);
-            if (dice.state === 1) {
-              storeChat.updateChatState();
-              target.value++;
-            } else {
-              dice.state = -1;
-              storeChat.updateChatState();
-            }
-          } else {
-            dice.rollStateOneTo(1);
-            storeChat.updateChatState();
-            target.value++;
-          }
+          if (target.value >= 9) return updateOver9ForWhite(3);
+          updataChatAndValue(1);
           break;
 
         case "cursed":
-          if (target.value <= -9) {
-            //-9up: 50% -1; 50% nothing happened(state: -1)
-            dice.rollStateOneTo(2);
-            if (dice.state === 1) {
-              storeChat.updateChatState();
-              target.value--;
-            } else {
-              dice.state = -1;
-              storeChat.updateChatState();
-            }
-          } else {
-            dice.rollStateOneTo(1);
-            storeChat.updateChatState();
-            target.value--;
-          }
+          if (target.value <= -9) return updateOver9ForCursed(2);
+          updataChatAndValue(1);
           break;
       }
-    } else {
-      dice.state = 0;
-      storeChat.updateChatState();
-      target.value = 0;
-      target.goneEffect(equip, event);
+      return;
     }
-
-    dice.state = null;
-    storeScroll.scroll.targetScroll = null;
+    updataChatAndValue(0);
   }
 
   return {
