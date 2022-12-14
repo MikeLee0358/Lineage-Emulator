@@ -109,7 +109,7 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
     if (!target.isEquipMatchScroll) return;
 
     const updataChatAndValue = (value) => {
-      if (isInSuccessRate.value === false) {
+      if (!isInSuccessRate.value) {
         dice.state = 0;
         storeChat.updateChatState();
         target.value = 0;
@@ -121,49 +121,31 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       storeChat.updateChatState();
       if (storeScroll.isScrollType("cursed")) target.value--;
       else target.value += dice.state;
+
       dice.state = null;
       storeScroll.scroll.targetScroll = null;
     };
-    const updateOver9ForWhite = (value) => {
-      //+9up: 33% +1; 66% nothing happened(state: -1)
+
+    const updateOver9 = (value) => {
+      let update = 0;
       dice.rollStateOneTo(value);
+      const updateChatState = () => {
+        dice.state = update === 0 ? -1 : 1;
+        storeChat.updateChatState();
+      };
       if (dice.state === 1) {
-        storeChat.updateChatState();
-        target.value++;
+        if (storeScroll.isScrollType("white")) update = 1;
       } else {
-        dice.state = -1;
-        storeChat.updateChatState();
+        if (storeScroll.isScrollType("cursed")) update = -1;
+        if (storeScroll.isScrollType("blessed")) update = 1;
       }
+
+      updateChatState();
+      target.value += update;
       dice.state = null;
       storeScroll.scroll.targetScroll = null;
     };
-    const updateOver9ForCursed = (value) => {
-      //-9up: 50% -1; 50% nothing happened(state: -1)
-      dice.rollStateOneTo(value);
-      if (dice.state === 1) {
-        storeChat.updateChatState();
-        target.value--;
-      } else {
-        dice.state = -1;
-        storeChat.updateChatState();
-      }
-      dice.state = null;
-      storeScroll.scroll.targetScroll = null;
-    };
-    const updateOver9ForBlessed = (value) => {
-      //+9up: 66% +1; 33% nothing happened(state: -1)
-      dice.rollStateOneTo(value);
-      if (dice.state === 1) {
-        dice.state = -1;
-        storeChat.updateChatState();
-      } else {
-        dice.state = 1;
-        storeChat.updateChatState();
-        target.value++;
-      }
-      dice.state = null;
-      storeScroll.scroll.targetScroll = null;
-    };
+
     const getTargetScrollType = () => {
       const targetReg = /(blessed)|(white)|(cursed)/g;
       return targetReg.exec(storeScroll.scroll.targetScroll)[0];
@@ -178,16 +160,16 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
           if (target.value < 3) return updataChatAndValue(3);
           else if (target.value < 6) return updataChatAndValue(2);
           else if (target.value < 9) return updataChatAndValue(1);
-          else updateOver9ForBlessed(3);
+          else updateOver9(3);
           break;
 
         case "white":
-          if (target.value >= 9) return updateOver9ForWhite(3);
+          if (target.value >= 9) return updateOver9(3);
           updataChatAndValue(1);
           break;
 
         case "cursed":
-          if (target.value <= -9) return updateOver9ForCursed(2);
+          if (target.value <= -9) return updateOver9(2);
           updataChatAndValue(1);
           break;
       }
