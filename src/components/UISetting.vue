@@ -48,33 +48,24 @@ const handleUiSetting = (e) => {
 
       const toggleFontUIChat = () => {
         const nodesUIChat = document.querySelectorAll(".uiChat li");
-        const isHeightOver480 = (heightRate = 1) => {
-          // movie mode heightRate will be 0.8
-          return container.offsetHeight > 480 * heightRate ? true : false;
-        };
         getUIArrNodes(nodesUIChat).forEach((fontNode) => {
           const changeScaleY = (value) => {
             fontNode.style = `transform: scaleY(${value})`;
           };
 
-          if (isModeFull()) {
-            if (isHeightOver480()) return changeScaleY(0.8);
-            return changeScaleY(0.65);
-          }
+          if (isModeFull()) return changeScaleY(0.64);
           // mode: Movie
-          if (isHeightOver480(0.8)) return changeScaleY(0.65);
           changeScaleY(0.5);
         });
       };
 
       const toggleFontUINumber = () => {
         const nodesUIRoleNumber = document.querySelector(".uiRoleNumber");
+        //movie mode heigthRate = 0.8
         const isHeightOver320 = (heightRate = 1) => {
-          //height rate is possible to be 0.8, in movie mode
           return container.offsetHeight > 320 * heightRate ? true : false;
         };
         const isHeightOver480 = (heightRate = 1) => {
-          //height rate is possible to be 0.8, in movie mode
           return container.offsetHeight > 480 * heightRate ? true : false;
         };
         const changeScaleAndInset = (scale, inset) => {

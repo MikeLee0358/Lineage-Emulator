@@ -19,15 +19,15 @@ const storeChat = useChatStore();
   li {
     height: 14.28%;
     line-height: 100%;
-    font-size: clamp(12px, 1.5vw, 26px);
     transform: scaleY(0.5);
+    font-size: 1.85vw;
     color: var(--color-yellow);
   }
 }
 
-@media screen and (min-height: 480px) {
-  .uiChat li {
-    transform: scaleY(0.65);
-  }
-}
+// @media screen and (min-height: 480px) {
+//   .uiChat li {
+//         transform: scaleY(0.5);
+//   }
+// }
 </style>

@@ -28,22 +28,22 @@ export const useChatStore = defineStore("chat", () => {
     },
     updateForOne: () => {
       chat.pushAndShiftArrary(
-        `${chat.showNumber} ${storeAlgorithm.target.name} 一瞬間發出 ${chat.detectColor} 光芒。`
+        `${chat.showNumber} ${storeAlgorithm.target.name} 一瞬間發出 ${chat.detectColor} 光亮。`
       );
     },
     updateForGone: () => {
       chat.pushAndShiftArrary(
-        `${chat.showNumber} ${storeAlgorithm.target.name} 產生激烈的 ${chat.detectColor} 光芒，一會兒後就消失了。`
+        `${chat.showNumber} ${storeAlgorithm.target.name} 強烈的發出 紅色的光茫 就消失了。`
       );
     },
     updateForNope: () => {
       chat.pushAndShiftArrary(
-        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 產生激烈的 ${chat.detectColor} 光芒，但是沒有任何事情發生。`
+        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 強烈的 ${chat.detectColor}光亮 但是沒有任何事情發生。`
       );
     },
     updateForTwoUp: () => {
       chat.pushAndShiftArrary(
-        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 ${chat.detectColor} 光芒。`
+        `${chat.showNumber} ${storeAlgorithm.target.name} 持續發出 ${chat.detectColor} 光亮。`
       );
     },
     pushAndShiftArrary: (text) => {
