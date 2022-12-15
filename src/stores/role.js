@@ -5,19 +5,38 @@ import data from "../data/dataRole.js";
 export const useRoleStore = defineStore("role", () => {
   const role = reactive({
     data,
-
     currentRole: "knight", // default of role
     currentData: computed(() => role.data[role.currentRole]),
     currentBg: computed(
       () => `url(src/assets/${role.currentRole}/bg_${role.currentRole}.png)`
     ),
+    updatedAttr: 0,
   });
+
+  const isEquipedAttrArmor = (boolean = true) => {
+    const equips = role.currentData.equips;
+    const equipNameToAttribute = {
+      力量手套: "str",
+      艾爾穆的祝福: "dex",
+      魔法能量之書: "int",
+    };
+    equips.forEach((equip) => {
+      if (equip.isEquipedAttrArmor) {
+        const attribute = equipNameToAttribute[equip.name];
+
+        if (boolean === false) {
+          role.currentData.basic[attribute] -= equip.attribute[attribute];
+          return;
+        }
+        role.currentData.basic[attribute] += equip.attribute[attribute];
+      }
+    });
+  };
 
   function getAC() {
     const roleEquips = role.currentData.equips;
     const roleAC = role.currentData.basic.ac;
     let stackAC = 0;
-    let totalAC;
 
     roleEquips.forEach((roleEquip) => {
       const isArmor = computed(() => {
@@ -27,16 +46,13 @@ export const useRoleStore = defineStore("role", () => {
       if (isArmor.value) stackAC += roleEquip.armor + roleEquip.value;
     });
 
-    totalAC = roleAC - stackAC;
-
-    return totalAC;
+    return roleAC - stackAC;
   }
 
   function getMR() {
     const roleEquips = role.currentData.equips;
     const roleMR = role.currentData.basic.mr;
     let stackMR = 0;
-    let totalMR;
 
     roleEquips.forEach((roleEquip) => {
       const isEquipMR = computed(() => {
@@ -48,13 +64,13 @@ export const useRoleStore = defineStore("role", () => {
       else stackMR += roleEquip.mr + roleEquip.value;
     });
 
-    totalMR = roleMR + stackMR;
-
-    return totalMR;
+    return roleMR + stackMR;
   }
+  isEquipedAttrArmor();
   return {
     role,
     getAC,
     getMR,
+    isEquipedAttrArmor,
   };
 });

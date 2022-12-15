@@ -62,6 +62,7 @@ const handleUILogout = (e) => {
   toggleRoleList();
   toggleUILogout();
   storeChat.cleanChatLines();
+  storeRole.isEquipedAttrArmor();
 };
 </script>
 

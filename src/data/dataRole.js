@@ -7,7 +7,7 @@ export default {
       mp: 2,
       ac: 10,
       mr: 10,
-      str: 18,
+      str: 16,
       dex: 10,
       con: 10,
       int: 11,
@@ -152,6 +152,10 @@ export default {
         material: "皮",
         weight: 18,
         occupation: "[所有職業]",
+        isEquipedAttrArmor: true,
+        attribute: {
+          str: 2,
+        },
         feature: "力量 +2",
       },
       {
@@ -190,7 +194,7 @@ export default {
       mp: 1,
       ac: 10,
       mr: 0,
-      str: 22,
+      str: 20,
       dex: 12,
       con: 14,
       int: 9,
@@ -331,6 +335,10 @@ export default {
         material: "皮",
         weight: 18,
         occupation: "[所有職業]",
+        isEquipedAttrArmor: true,
+        attribute: {
+          str: 2,
+        },
         feature: "力量 +2",
       },
       {
@@ -370,7 +378,7 @@ export default {
       ac: 10,
       mr: 25,
       str: 11,
-      dex: 19,
+      dex: 18,
       con: 13,
       int: 12,
       wis: 12,
@@ -408,6 +416,10 @@ export default {
         material: "皮",
         weight: 13,
         occupation: "[妖精]",
+        isEquipedAttrArmor: true,
+        attribute: {
+          dex: 1,
+        },
         feature: "敏捷+1",
       },
       {
@@ -549,7 +561,7 @@ export default {
       str: 8,
       dex: 7,
       con: 12,
-      int: 19,
+      int: 18,
       wis: 18,
       cha: 12,
     },
@@ -674,6 +686,10 @@ export default {
         material: "紙",
         weight: 20,
         occupation: "[法師]",
+        isEquipedAttrArmor: true,
+        attribute: {
+          int: 1,
+        },
         feature: "智力 +1",
       },
       {

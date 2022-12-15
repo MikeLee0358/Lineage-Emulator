@@ -2,8 +2,11 @@ import { reactive, computed } from "vue";
 import { defineStore } from "pinia";
 import { useScrollStore } from "./scroll";
 import { useChatStore } from "./chat";
+import { useRoleStore } from "./role";
 
 export const useAlgorithmStore = defineStore("algorithm", () => {
+  const storeRole = useRoleStore();
+
   const storeChat = useChatStore();
   const storeScroll = useScrollStore();
 
@@ -33,10 +36,12 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
       equip.armor = 0;
       // this sentence is for UX, to make display MR value not shaking
       boxMR === undefined ? boxMR : (equip.mr = 0);
+
       setTimeout(() => {
         event.target.classList.toggle("hidden");
         equip.armor = boxAC;
         equip.mr = boxMR;
+        storeRole.isEquipedAttrArmor();
       }, target.delayTime);
     },
     isCategoryType: (text) => {
@@ -114,6 +119,8 @@ export const useAlgorithmStore = defineStore("algorithm", () => {
         storeChat.updateChatState();
         target.value = 0;
         target.goneEffect(equip, event);
+        storeRole.isEquipedAttrArmor(false);
+
         return;
       }
 
