@@ -149,69 +149,69 @@ const getDataForAlgorithm = (equip, event) => {
 
     &.weapon {
       top: 52.2%;
-      left: 36.1%;
+      left: 35.4%;
     }
 
     &.armor {
       &.helmet {
         top: 13.5%;
-        left: 71.2%;
+        left: 70.5%;
         z-index: 2;
       }
 
       &.shirt {
         top: 31%;
-        left: 47.7%;
+        left: 47%;
         z-index: 1;
       }
 
       &.bodyArmor {
         top: 31%;
-        left: 60%;
+        left: 59.3%;
         z-index: 1;
       }
 
       &.cloak {
         top: 31%;
-        left: 72.2%;
+        left: 71.5%;
         z-index: 1;
       }
 
       &.shield {
         top: 44.2%;
-        left: 79.2%;
+        left: 78.5%;
       }
 
       &.gloves {
         top: 48.7%;
-        left: 48.5%;
+        left: 47.8%;
       }
 
       &.boots {
         top: 79.6%;
-        left: 77.7%;
+        left: 77%;
       }
     }
 
     &.jewelry {
       &.amulet {
         top: 19.3%;
-        left: 58.7%;
+        left: 58%;
       }
 
       &.left-ring {
         top: 42.2%;
-        left: 34.7%;
+        left: 34%;
       }
 
       &.belt {
         top: 41.2%;
-        left: 64.9%;
+        left: 64.2%;
       }
 
       &.right-ring {
         top: 54.5%;
-        left: 78%;
+        left: 77.3%;
       }
 
       &.amulet::after,

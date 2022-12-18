@@ -13,7 +13,7 @@ export const useRoleStore = defineStore("role", () => {
     updatedAttr: 0,
   });
 
-  const isEquipedAttrArmor = (boolean = true) => {
+  const isEquipedAttrArmor = (boolean) => {
     const equips = role.currentData.equips;
     const equipNameToAttribute = {
       力量手套: "str",
@@ -23,7 +23,6 @@ export const useRoleStore = defineStore("role", () => {
     equips.forEach((equip) => {
       if (equip.isEquipedAttrArmor) {
         const attribute = equipNameToAttribute[equip.name];
-
         if (boolean === false) {
           role.currentData.basic[attribute] -= equip.attribute[attribute];
           return;
