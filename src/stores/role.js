@@ -19,6 +19,7 @@ export const useRoleStore = defineStore("role", () => {
       力量手套: "str",
       艾爾穆的祝福: "dex",
       魔法能量之書: "int",
+      影子手套: "con",
     };
     equips.forEach((equip) => {
       if (equip.isEquipedAttrArmor) {

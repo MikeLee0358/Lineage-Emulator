@@ -7,6 +7,11 @@
         <img src="../assets/knight/logo_knight.png" class="knight" alt="knight-logo" />
         <img src="../assets/elf/logo_elf.png" alt="elf-logo" class="elf" />
         <img src="../assets/mage/logo_mage.png" class="mage" alt="mage-logo" />
+        <img
+          src="../assets/darkElf/logo_darkElf.png"
+          class="darkElf"
+          alt="darkElf-logo"
+        />
       </figure>
     </li>
     <li class="exit"></li>
@@ -56,7 +61,8 @@ const handleUILogout = (e) => {
     removeRoleList();
     return;
   }
-  if (["elf", "mage", "royal", "knight"].includes(targetClass)) changeRoleTo(targetClass);
+  if (["elf", "mage", "royal", "knight", "darkElf"].includes(targetClass))
+    changeRoleTo(targetClass);
 
   removeUI(sideLeftUI);
   toggleRoleList();
@@ -100,19 +106,22 @@ const handleUILogout = (e) => {
       }
       .royal {
         top: 20%;
-        left: -30%;
       }
       .knight {
         top: 25%;
-        left: 210%;
+        left: 300%;
       }
       .elf {
         top: 140%;
-        left: -220%;
+        left: -190%;
       }
       .mage {
         top: 140%;
-        left: 10%;
+        left: 100%;
+      }
+      .darkElf {
+        top: 250%;
+        left: -395%;
       }
     }
   }

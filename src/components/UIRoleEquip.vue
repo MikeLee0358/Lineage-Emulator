@@ -48,7 +48,7 @@ const getEquipInfo = (equip) => {
       return `${equip.name} (使用中)`;
     };
     const isTwoHandsWeapon = () => {
-      return /雙手武器/.test(equip.grip) ? "\n 雙手武器" : "";
+      return /雙手武器/.test(equip.grip) ? "\n  雙手武器" : "";
     };
 
     if (equip.category === "weapon") return nameWeapon();
