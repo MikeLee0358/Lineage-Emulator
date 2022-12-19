@@ -3,10 +3,15 @@
     <li class="close"></li>
     <ul class="numberPanel">
       <li class="magicPower">0</li>
-      <li class="magicResist">10</li>
+      <li class="magicResist">{{ storeRole.getMR() }}</li>
     </ul>
   </ul>
 </template>
+
+<script setup>
+import { useRoleStore } from "../stores/role";
+const storeRole = useRoleStore();
+</script>
 
 <style lang="scss" scope>
 @use "../scss/common.scss";
