@@ -1,8 +1,16 @@
 <template>
-  <ul class="uiMagic"></ul>
+  <ul class="uiMagic">
+    <li class="close"></li>
+    <ul class="numberPanel">
+      <li class="magicPower">0</li>
+      <li class="magicResist">10</li>
+    </ul>
+  </ul>
 </template>
 
-<style lang="scss">
+<style lang="scss" scope>
+@use "../scss/common.scss";
+
 .uiMagic {
   visibility: hidden;
   position: absolute;
@@ -10,5 +18,44 @@
   background-image: url("src/assets/UI/UI_magic.png");
   background-size: cover;
   background-repeat: round;
+
+  .close {
+    inset: 0% 85% 94% 2%;
+    @extend %close;
+  }
+
+  .numberPanel {
+    position: absolute;
+    inset: 89.75% -22% 2% 2%;
+    transform: scale(0.47);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 43%;
+    // background: red;
+    // opacity: 0.3;
+
+    .magicPower {
+      flex-basis: 23%;
+      // background: green;
+    }
+    .magicResist {
+      flex: 1;
+      // background: blue;
+    }
+  }
+}
+
+@media screen and (min-height: 321px) {
+  .uiMagic .numberPanel {
+    transform: scale(0.6);
+    inset: 90% -8% 2.65% 15%;
+  }
+}
+
+@media screen and (min-height: 480px) {
+  .uiMagic .numberPanel {
+    font-size: 3.6vmin;
+  }
 }
 </style>

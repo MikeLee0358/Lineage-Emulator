@@ -90,10 +90,10 @@ const handleUILogout = (e) => {
     .roleList {
       display: grid;
       grid-auto-flow: column;
-      width: 250%;
-      height: 233%;
+      width: 275%;
+      height: 200%;
       position: relative;
-      inset: -235% 0 0 -79%;
+      inset: -220% 0 0 -92%;
       visibility: hidden;
 
       img {
@@ -116,11 +116,11 @@ const handleUILogout = (e) => {
         left: -190%;
       }
       .mage {
-        top: 140%;
+        top: 135%;
         left: 100%;
       }
       .darkElf {
-        top: 250%;
+        top: 240%;
         left: -395%;
       }
     }

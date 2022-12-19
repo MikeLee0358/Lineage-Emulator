@@ -189,15 +189,13 @@ onMounted(() => {
 @use "../scss/common.scss";
 
 .uiSlot {
-  // padding: 3.5% 9% 5.5% 4.5%;
-
   grid-area: uiSlot;
   position: relative;
-  padding: 1.7vh 2.2vw 2.1vh 1.1vw;
+  padding: 1.6vh 2.2vw 2.1vh 1.125vw;
   display: grid;
   grid-template-columns: repeat(4, 25%);
   grid-template-rows: repeat(2, 50%);
-  gap: 7% 2%;
+  gap: 5% 1.8%;
 
   img {
     padding-bottom: 1%;
