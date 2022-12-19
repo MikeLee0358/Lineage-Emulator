@@ -9,12 +9,14 @@
 
 <script setup>
 const handleUISetting = (e) => {
-  if (e.target.tagName !== "LI") return;
   const targetClass = e.target.className;
-
-  if (targetClass === "close") {
+  const closeUI = () => {
     e.target.parentElement.classList.remove("visible");
-  }
+  };
+
+  if (e.target.tagName !== "LI") return;
+
+  if (targetClass === "close") closeUI();
 
   if (targetClass === "mode") {
     const container = document.querySelector(".container");
@@ -39,65 +41,57 @@ const handleUISetting = (e) => {
     };
 
     const toggleFont = () => {
+      const nodesUIChat = document.querySelectorAll(".uiChat li");
+      const nodesMagicNumber = document.querySelector(".magicNumber");
+      const nodesUIRoleNumber = document.querySelector(".uiRoleNumber");
+
       const isModeFull = () => {
         return getHeightAsPercentage() === 100 ? true : false;
       };
       const getUIArrNodes = (uiNodes) => {
         return Array.from(uiNodes);
       };
-
-      const toggleFontUIChat = () => {
-        const nodesUIChat = document.querySelectorAll(".uiChat li");
-        getUIArrNodes(nodesUIChat).forEach((fontNode) => {
-          const changeScaleY = (value) => {
-            fontNode.style = `transform: scaleY(${value})`;
-          };
-
-          if (isModeFull()) return changeScaleY(0.64);
-          // mode: Movie
-          changeScaleY(0.5);
-        });
+      const isHeightOver320 = (heightRate = 1) => {
+        return container.offsetHeight > 320 * heightRate ? true : false;
+      };
+      const isHeightOver480 = (heightRate = 1) => {
+        return container.offsetHeight > 480 * heightRate ? true : false;
       };
 
+      const changeParams = (scale, inset, fontSize) => {
+        nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}; font-size: ${fontSize}`;
+      };
+      const changeScaleY = (node, value) => {
+        node.style = `transform: scaleY(${value})`;
+      };
+      const changeFontSize = (fontSize) => {
+        nodesMagicNumber.style = `font-size: ${fontSize}`;
+      };
+      const changeScaleAndInset = (scale, inset) => {
+        nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}`;
+      };
+
+      const toggleFontUIChat = () => {
+        getUIArrNodes(nodesUIChat).forEach((fontNode) => {
+          if (isModeFull()) return changeScaleY(fontNode, 0.64);
+          // mode: Movie
+          changeScaleY(fontNode, 0.5);
+        });
+      };
       const toggleFontUINumber = () => {
-        const nodesUIRoleNumber = document.querySelector(".uiRoleNumber");
-        //movie mode heigthRate = 0.8
-        const isHeightOver320 = (heightRate = 1) => {
-          return container.offsetHeight > 320 * heightRate ? true : false;
-        };
-        const isHeightOver480 = (heightRate = 1) => {
-          return container.offsetHeight > 480 * heightRate ? true : false;
-        };
-        const changeScaleAndInset = (scale, inset) => {
-          nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}`;
-        };
-
-        const changeParams = (scale, inset, fontSize) => {
-          nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}; font-size: ${fontSize}`;
-        };
-
         if (isModeFull()) {
           if (isHeightOver480()) return changeParams("unset", "0%", "3.3vmin");
           if (isHeightOver320()) return changeScaleAndInset(0.75, "-17%");
           return changeScaleAndInset(0.58, "-36%");
         }
-
         // mode: Movie
         if (isHeightOver480(0.8)) return changeParams("unset", "0%", "2.6vmin");
         if (isHeightOver320(0.8)) return changeScaleAndInset(0.6, "-34%");
         return changeScaleAndInset(0.47, "-56%");
       };
-
       const toggleFontUIMagic = () => {
-        const nodesMagicNumber = document.querySelector(".magicNumber");
-        const isHeightOver480 = (heightRate = 1) => {
-          return container.offsetHeight > 480 * heightRate ? true : false;
-        };
-        const changeFontSize = (fontSize) => {
-          nodesMagicNumber.style = `font-size: ${fontSize}`;
-        };
         if (isModeFull() && isHeightOver480()) return changeFontSize("5vmin");
-
+        // mode: Movie
         changeFontSize("3.6vmin");
       };
 
