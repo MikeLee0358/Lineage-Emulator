@@ -41,9 +41,11 @@ const handleUISetting = (e) => {
     };
 
     const toggleFont = () => {
-      const nodesUIChat = document.querySelectorAll(".uiChat li");
-      const nodesMagicNumber = document.querySelector(".magicNumber");
-      const nodesUIRoleNumber = document.querySelector(".uiRoleNumber");
+      const nodeLine1 = document.querySelector(".line1");
+      const nodeUIChat = document.querySelectorAll(".uiChat li");
+      const nodeUINumber = document.querySelector(".uiNumber");
+      const nodeMagicNumber = document.querySelector(".magicNumber");
+      const nodeUIRoleNumber = document.querySelector(".uiRoleNumber");
 
       const isModeFull = () => {
         return getHeightAsPercentage() === 100 ? true : false;
@@ -59,26 +61,30 @@ const handleUISetting = (e) => {
       };
 
       const changeParams = (scale, inset, fontSize) => {
-        nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}; font-size: ${fontSize}`;
+        nodeUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}; font-size: ${fontSize}`;
       };
       const changeScaleY = (node, value) => {
         node.style = `transform: scaleY(${value})`;
       };
       const changeFontSize = (fontSize) => {
-        nodesMagicNumber.style = `font-size: ${fontSize}`;
+        nodeMagicNumber.style = `font-size: ${fontSize}`;
+      };
+      const changeFontAndGap = (fontSize, gap) => {
+        nodeLine1.style = `gap: ${gap}`;
+        nodeUINumber.style = `font-size: ${fontSize}`;
       };
       const changeScaleAndInset = (scale, inset) => {
-        nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}`;
+        nodeUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}`;
       };
 
       const toggleFontUIChat = () => {
-        getUIArrNodes(nodesUIChat).forEach((fontNode) => {
+        getUIArrNodes(nodeUIChat).forEach((fontNode) => {
           if (isModeFull()) return changeScaleY(fontNode, 0.64);
           // mode: Movie
           changeScaleY(fontNode, 0.5);
         });
       };
-      const toggleFontUINumber = () => {
+      const toggleFontUIRoleNumber = () => {
         if (isModeFull()) {
           if (isHeightOver480()) return changeParams("unset", "0%", "3.3vmin");
           if (isHeightOver320()) return changeScaleAndInset(0.75, "-17%");
@@ -95,9 +101,20 @@ const handleUISetting = (e) => {
         changeFontSize("3.6vmin");
       };
 
+      const toggleFontUINumber = () => {
+        if (isModeFull()) {
+          if (!isHeightOver320()) return changeFontAndGap("3.4vw", "10vw");
+          if (isHeightOver480()) return changeFontAndGap("3.3vw", "10vw");
+        }
+
+        if (!isHeightOver320()) return changeFontAndGap("2.8vw", "11vw");
+        changeFontAndGap("3vw", "11vw");
+      };
+
       toggleFontUIChat();
       toggleFontUIMagic();
       toggleFontUINumber();
+      toggleFontUIRoleNumber();
     };
 
     toggleMode();

@@ -31,14 +31,14 @@
 
     display: flex;
     align-items: center;
-    gap: 48%;
+    gap: 11vw;
     padding-left: 12%;
   }
   .line2 {
     flex: 1;
 
     display: flex;
-    gap: 26%;
+    gap: 6vw;
     align-items: center;
 
     .ac {
