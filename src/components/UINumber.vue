@@ -1,17 +1,20 @@
 <template>
   <ul class="uiNumber">
     <li class="line1">
-      <div class="lv">47</div>
-      <div class="exp">25.80%</div>
+      <div class="lv">1</div>
+      <div class="exp">0.00%</div>
     </li>
     <li class="line2">
-      <div class="ac">-39</div>
-      <div class="state">32762</div>
+      <div class="ac">{{ storeRole.getAC() }}</div>
+      <div class="state">0</div>
     </li>
   </ul>
 </template>
 
-<style setup></style>
+<script setup>
+import { useRoleStore } from "../stores/role";
+const storeRole = useRoleStore();
+</script>
 
 <style lang="scss" scoped>
 .uiNumber {
