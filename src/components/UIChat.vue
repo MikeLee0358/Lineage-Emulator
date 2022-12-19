@@ -24,10 +24,4 @@ const storeChat = useChatStore();
     color: var(--color-yellow);
   }
 }
-
-// @media screen and (min-height: 480px) {
-//   .uiChat li {
-//         transform: scaleY(0.5);
-//   }
-// }
 </style>

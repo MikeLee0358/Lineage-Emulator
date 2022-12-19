@@ -78,7 +78,6 @@ const { role } = storeToRefs(storeRole);
     align-items: center;
   }
 }
-// galaxy fold
 @media screen and (min-height: 321px) {
   .uiRoleNumber {
     transform: scale(0.6);
