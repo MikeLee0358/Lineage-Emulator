@@ -876,7 +876,7 @@ export default {
 
         armor: 0,
         value: 0,
-        safetyValue: 4,
+        safetyValue: 6,
         material: "皮",
         weight: 10,
         occupation: "[黑暗妖精]",

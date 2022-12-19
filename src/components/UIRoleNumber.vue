@@ -17,7 +17,7 @@
       <li>{{ role.currentData.basic.wis }}</li>
       <li>{{ role.currentData.basic.cha }}</li>
     </ul>
-    <li class="mr">{{ storeRole.getMR() }}</li>
+    <li class="mr">{{ storeRole.getER() }}</li>
   </ul>
 </template>
 

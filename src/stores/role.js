@@ -66,11 +66,21 @@ export const useRoleStore = defineStore("role", () => {
 
     return roleMR + stackMR;
   }
+  function getER() {
+    if (role.currentRole === "darkElf") {
+      return (
+        // Math.abs(getAC() - role.currentData.basic.ac) +
+        role.currentData.basic.er
+      );
+    }
+    return role.currentData.basic.er;
+  }
   isEquipedAttrArmor();
   return {
     role,
     getAC,
     getMR,
+    getER,
     isEquipedAttrArmor,
   };
 });
