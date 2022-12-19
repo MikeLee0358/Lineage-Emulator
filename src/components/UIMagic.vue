@@ -1,6 +1,6 @@
 <template>
   <ul class="uiMagic">
-    <li class="close"></li>
+    <li class="close" @click.stop="closeUI"></li>
     <ul class="numberPanel">
       <li class="magicPower">0</li>
       <li class="magicResist">{{ storeRole.getMR() }}</li>
@@ -11,6 +11,9 @@
 <script setup>
 import { useRoleStore } from "../stores/role";
 const storeRole = useRoleStore();
+const closeUI = (e) => {
+  e.target.parentElement.classList.remove("visible");
+};
 </script>
 
 <style lang="scss" scope>

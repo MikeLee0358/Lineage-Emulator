@@ -1,5 +1,5 @@
 <template>
-  <ul class="uiSetting" @click.stop="handleUiSetting">
+  <ul class="uiSetting" @click.stop="handleUISetting">
     <li class="close"></li>
     <li>選項：</li>
     <li>背景音樂：開／關</li>
@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-const handleUiSetting = (e) => {
+const handleUISetting = (e) => {
   if (e.target.tagName !== "LI") return;
   const targetClass = e.target.className;
 
