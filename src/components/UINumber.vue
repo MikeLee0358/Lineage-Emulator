@@ -1,8 +1,8 @@
 <template>
   <ul class="uiNumber">
     <li class="line1">
-      <div class="lv">1</div>
-      <div class="exp">0.00%</div>
+      <div class="lv">10</div>
+      <div class="exp">20.00%</div>
     </li>
     <li class="line2">
       <div class="ac">{{ storeRole.getAC() }}</div>
@@ -34,8 +34,12 @@ const storeRole = useRoleStore();
 
     display: flex;
     align-items: center;
-    gap: 11vw;
+    gap: 10vw;
     padding-left: 12%;
+
+    .exp {
+      flex: 1;
+    }
   }
   .line2 {
     flex: 1;

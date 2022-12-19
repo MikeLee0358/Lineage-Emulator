@@ -107,7 +107,7 @@ const handleUISetting = (e) => {
           if (isHeightOver480()) return changeFontAndGap("3.3vw", "10vw");
         }
 
-        if (!isHeightOver320()) return changeFontAndGap("2.8vw", "11vw");
+        if (!isHeightOver320()) return changeFontAndGap("2.8vw", "10vw");
         changeFontAndGap("3vw", "11vw");
       };
 
