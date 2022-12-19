@@ -740,7 +740,7 @@ export default {
     basic: {
       lv: 1,
       exp: "0.00%",
-      hp: 12,
+      hp: 162,
       mp: 3,
       ac: 9,
       mr: 10,

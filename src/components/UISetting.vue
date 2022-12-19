@@ -73,7 +73,7 @@ const handleUISetting = (e) => {
         };
 
         const changeParams = (scale, inset, fontSize) => {
-          nodesUIRoleNumber.style = ` transform:: scale(${scale}); inset: ${inset}; font-size: ${fontSize}`;
+          nodesUIRoleNumber.style = ` transform: scale(${scale}); inset: ${inset}; font-size: ${fontSize}`;
         };
 
         if (isModeFull()) {
@@ -88,7 +88,21 @@ const handleUISetting = (e) => {
         return changeScaleAndInset(0.47, "-56%");
       };
 
+      const toggleFontUIMagic = () => {
+        const nodesMagicNumber = document.querySelector(".magicNumber");
+        const isHeightOver480 = (heightRate = 1) => {
+          return container.offsetHeight > 480 * heightRate ? true : false;
+        };
+        const changeFontSize = (fontSize) => {
+          nodesMagicNumber.style = `font-size: ${fontSize}`;
+        };
+        if (isModeFull() && isHeightOver480()) return changeFontSize("5vmin");
+
+        changeFontSize("3.6vmin");
+      };
+
       toggleFontUIChat();
+      toggleFontUIMagic();
       toggleFontUINumber();
     };
 

@@ -1,7 +1,7 @@
 <template>
   <ul class="uiMagic">
     <li class="close" @click.stop="closeUI"></li>
-    <ul class="numberPanel">
+    <ul class="magicNumber">
       <li class="magicPower">0</li>
       <li class="magicResist">{{ storeRole.getMR() }}</li>
     </ul>
@@ -32,7 +32,7 @@ const closeUI = (e) => {
     @extend %close;
   }
 
-  .numberPanel {
+  .magicNumber {
     position: absolute;
     inset: 89.75% -22% 2% 2%;
     transform: scale(0.47);
@@ -55,14 +55,14 @@ const closeUI = (e) => {
 }
 
 @media screen and (min-height: 321px) {
-  .uiMagic .numberPanel {
+  .uiMagic .magicNumber {
     transform: scale(0.6);
     inset: 90% -8% 2.65% 15%;
   }
 }
 
 @media screen and (min-height: 480px) {
-  .uiMagic .numberPanel {
+  .uiMagic .magicNumber {
     font-size: 3.6vmin;
   }
 }
